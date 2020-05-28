@@ -76,7 +76,14 @@ public abstract class Persona implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        Persona otraPersona = (Persona) obj;
+      Persona otraPersona;
+      
+      if (obj != null) {
+        otraPersona = (Persona) obj;
+      } else {
+        throw new NullPointerException("equals recibe Null");
+      }
+        
         return this.getNombreCompleto().equals(otraPersona.getNombreCompleto());
     }
 }

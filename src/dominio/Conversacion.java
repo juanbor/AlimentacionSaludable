@@ -3,6 +3,7 @@ package dominio;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public final class Conversacion implements Serializable {
 
@@ -74,7 +75,14 @@ public final class Conversacion implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        final Conversacion conversacionParametro = (Conversacion) obj;
+      Conversacion parcial;
+      
+      if (obj != null) {
+        parcial = (Conversacion) obj;
+      } else {
+        throw new NullPointerException("equals recibe Null");
+      }
+        final Conversacion conversacionParametro = parcial;
         return getProfesional().equals(conversacionParametro.getProfesional())
                 && getUsuario().equals(conversacionParametro.getUsuario());
     }
@@ -88,6 +96,11 @@ public final class Conversacion implements Serializable {
                     + info.getMensaje() + "\n").reduce(retorno, String::concat);
         }
         return retorno;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(listaMensajes, usuario, profesional, fueAtendidaConsulta);
     }
 
 }

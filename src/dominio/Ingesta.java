@@ -50,10 +50,22 @@ public final class Ingesta implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        Ingesta otraIngesta = (Ingesta) obj;
+        Ingesta otraIngesta;
+        
+        if (obj != null) {
+          otraIngesta = (Ingesta) obj;
+        } else {
+          throw new NullPointerException("equals recibe Null");
+        }
+        
         boolean sonIguales = this.getFechaDeIngesta().equals(otraIngesta.getFechaDeIngesta());
         sonIguales = sonIguales && this.getListaAlimentosPorFecha().equals(otraIngesta.getListaAlimentosPorFecha());
         return sonIguales;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(fechaDeIngesta, listaAlimentosPorFecha);
     }
 
 }

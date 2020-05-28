@@ -80,8 +80,20 @@ public final class Alimento implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        Alimento otroAlimento = (Alimento) obj;
+      Alimento otroAlimento;
+      
+      if (obj != null) {
+          otroAlimento = (Alimento) obj;
+        } else {
+          throw new NullPointerException ("equals recibe Null");
+        }
+        
         return (this.getNombre().equals(otroAlimento.getNombre()));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, tipoAlimento, listaNutrientesConProporcion, fotoDelAlimento);
     }
 
 }

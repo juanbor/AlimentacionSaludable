@@ -78,10 +78,21 @@ public final class PlanAlimentacion implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        PlanAlimentacion otroPlanAlimentacion = (PlanAlimentacion) obj;
+        PlanAlimentacion otroPlanAlimentacion;
+        
+        if (obj != null) {
+          otroPlanAlimentacion = (PlanAlimentacion) obj;
+        } else {
+          throw new NullPointerException("equals recibe Null");
+        }
+        
         return (this.getNombreDelPlan().equals(otroPlanAlimentacion.getNombreDelPlan())
                 && this.getUsuario().equals(otroPlanAlimentacion.getUsuario())
                 && this.getProfesional().equals(otroPlanAlimentacion.getProfesional()));
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombreDelPlan, usuario, profesional, fueAtendidoElPlan, planDiaADia);
+    }
 }

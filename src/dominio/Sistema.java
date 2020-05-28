@@ -51,7 +51,7 @@ public final class Sistema implements Serializable {
     }
 
     public void setPersonaLogueada(Persona personaLogueada) {
-        personaLogueada = personaLogueada;
+        this.personaLogueada = personaLogueada;
         
     }
 
@@ -327,7 +327,7 @@ public final class Sistema implements Serializable {
 
     public boolean agregarMensajeConversacion(String remitente, String destinatario, String mensaje, boolean intercambioRemitente, boolean consultaRespondida) {
         boolean pudeAgregarMensaje = false;
-        if (remitente != null && !remitente.isEmpty() && !destinatario.isEmpty() && destinatario != null) {
+        if (remitente != null && !remitente.isEmpty() && destinatario != null && !destinatario.isEmpty()) {
             for (int i = 0; getListaConversaciones() != null && i < getListaConversaciones().size(); i++) {
                 Conversacion conversacionActual = getListaConversaciones().get(i);
                 String nombreApellidoProfesional = conversacionActual.getProfesional().getNombreCompleto();
