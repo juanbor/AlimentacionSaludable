@@ -21,6 +21,8 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
     private String diaDeLaSemanaAnterior;
     private String diaDeLaSemanaActual;
     private final String[][] planAlimentacion;
+    
+    public static String STARTING_DAY = "Lunes";
 
     public VentanaMenuPrincipalProfesional(Sistema unSistema) {
         initComponents();
@@ -29,9 +31,9 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         ocultarPaneles();
         this.panelVacio.setVisible(true);
         this.nutrientesSeleccionados = new boolean[7];
-        this.diaDeLaSemanaAnterior = "Lunes";
+        this.diaDeLaSemanaAnterior = STARTING_DAY;
         this.planAlimentacion = new String[7][3];
-        this.diaDeLaSemanaActual = "Lunes";
+        this.diaDeLaSemanaActual = STARTING_DAY;
         this.fotoDeAlimentoActual = new ImageIcon(getClass().getResource("/Imagenes/fotoDelAlimentoEstandar.png"));
         lblValidarTipoAlimento.setVisible(false);
         lblValidarNombre.setVisible(false);
@@ -2023,7 +2025,7 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         cargarListaDiasDeLaSemana();
         cargarListaIngestasPorDia();
         this.listaAlimentosEnSistema.setListData(sistema.getListaAlimentos().toArray());
-        this.lblNombreDelDia.setText("Lunes");
+        this.lblNombreDelDia.setText(STARTING_DAY);
         this.panelElaborarPlan.setVisible(true);
         this.listaAlimentosEnSistema.setSelectedIndex(0);
     }//GEN-LAST:event_btnElaborarPlanActionPerformed

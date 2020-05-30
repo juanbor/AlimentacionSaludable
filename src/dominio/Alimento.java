@@ -2,20 +2,20 @@ package dominio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.swing.ImageIcon;
-import java.util.Currency;
 
 public final class Alimento implements Serializable {
 
     private String nombre;
     private String tipoAlimento;
-    private ArrayList<ComposicionAlimento> listaNutrientesConProporcion;
+    private List<ComposicionAlimento> listaNutrientesConProporcion;
     public ImageIcon fotoDelAlimento;
 
     public Alimento(String unNombre,
             String unTipoAlimento,
-            ArrayList<ComposicionAlimento> listaNutrientes,
+            List<ComposicionAlimento> listaNutrientes,
             ImageIcon foto) {
 
         this.setNombre(unNombre);
@@ -40,12 +40,12 @@ public final class Alimento implements Serializable {
         return this.tipoAlimento;
     }
 
-    public void setTipoAlimento(String TA) {
-        tipoAlimento = TA;
+    public void setTipoAlimento(String unTipoAlimento) {
+        tipoAlimento = unTipoAlimento;
         
     }
 
-    public ArrayList<ComposicionAlimento> getListaNutrientesConProporcion() {
+    public List<ComposicionAlimento> getListaNutrientesConProporcion() {
         if (this.listaNutrientesConProporcion.isEmpty()) {
             return new ArrayList<>();
         } else {
@@ -53,7 +53,7 @@ public final class Alimento implements Serializable {
         }
     }
 
-    public void setListaNutrientesConProporcion(ArrayList<ComposicionAlimento> listaNutrientes) {
+    public void setListaNutrientesConProporcion(List<ComposicionAlimento> listaNutrientes) {
         if (listaNutrientes == null) {
             this.listaNutrientesConProporcion = new ArrayList<>();
         } else {

@@ -26,3 +26,5 @@ build/classes/.netbeans_automatic_build
 build/classes/.netbeans_update_resources
 nbproject/private/private.properties
 nbproject/private/private.xml
+/dist/
+build/built-jar.properties
