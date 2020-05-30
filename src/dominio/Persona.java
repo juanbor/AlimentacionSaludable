@@ -1,6 +1,5 @@
 package dominio;
 
-import java.util.Objects;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 
@@ -13,8 +12,8 @@ public abstract class Persona implements Serializable {
     private String fechaNacimiento;
     public ImageIcon fotoDePerfil;
     
-    public static String SURNAME_ERROR = "Apellido no ingresado";
-    public static String NAME_ERROR = "Nombre no ingresado";
+    public static String surnameError = "Apellido no ingresado";
+    public static String nameError = "Nombre no ingresado";
 
     public String getNombre() {
         return this.nombre;
@@ -30,7 +29,7 @@ public abstract class Persona implements Serializable {
 
     public void setApellido(String unApellido) {
         if (unApellido == null || unApellido.isEmpty()) {
-            this.apellido = SURNAME_ERROR;
+            this.apellido = surnameError;
         } else {
             this.apellido = unApellido;
         }
@@ -62,14 +61,14 @@ public abstract class Persona implements Serializable {
 
     public String getNombreCompleto() {
         String retorno;
-        if (getNombre().equals(NAME_ERROR) && getApellido().equals(SURNAME_ERROR)) {
-            retorno = NAME_ERROR;
-        } else if (getNombre().equals(NAME_ERROR)) {
-            retorno = getApellido();
-        } else if (getApellido().equals(SURNAME_ERROR)) {
+        if (getNombre().equals(nameError) && getApellido().equals(surnameError)) {
+            retorno = nameError;
+        } else if (!getNombre().equals(nameError)) if (getApellido().equals(surnameError)) {
             retorno = getNombre();
         } else {
             retorno = getNombre() + " " + getApellido();
+        } else {
+            retorno = getApellido();
         }
         return retorno;
     }
