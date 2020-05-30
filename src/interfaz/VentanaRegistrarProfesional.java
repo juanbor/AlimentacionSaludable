@@ -39,10 +39,10 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         this.dateChooserFechaGraduacion.setMaxDate(this.fecha);
         this.fechaHoy = this.dateChooserFechaNacimiento.getText();
         
-        lblFechaNacError = new JLabel("New label");
+        lblFechaNacError = new JLabel("<html><body>Debe elegir<br> una fecha</html></body>");
         lblFechaNacError.setFont(new java.awt.Font("Century Gothic", 0, 19)); // NOI18N
         lblFechaNacError.setForeground(new java.awt.Color(240, 128, 128));
-        lblFechaNacError.setBounds(630, 306, 141, 16);
+        lblFechaNacError.setBounds(630, 283, 141, 60);
         lblFechaNacError.setVisible(false);
         panel2.add(lblFechaNacError);
         
@@ -53,10 +53,10 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         lblFechaNacErrorImg.setVisible(false);
         panel2.add(lblFechaNacErrorImg);
         
-        lblFechaGraduacionError = new JLabel("New label");
+        lblFechaGraduacionError = new JLabel("<html><body>Debe elegir una fecha</html></body>");
         lblFechaGraduacionError.setForeground(new Color(240, 128, 128));
         lblFechaGraduacionError.setFont(new Font("Dialog", Font.PLAIN, 19));
-        lblFechaGraduacionError.setBounds(260, 565, 141, 16);
+        lblFechaGraduacionError.setBounds(266, 555, 262, 30);
         lblFechaGraduacionError.setVisible(false);
         panel2.add(lblFechaGraduacionError);
         
@@ -541,12 +541,10 @@ layout.setHorizontalGroup(
             mostrarErrores(nombre, apellido, tituloProfesional, paisGraduacion);
         } else if (compareDates(fechaNacimiento, this.fechaHoy) == 0) {
           this.lblDatosIncorrectos.setVisible(true);
-          this.lblFechaNacError.setText("Debe elegir una fecha");
           this.lblFechaNacError.setVisible(true);
           this.lblFechaNacErrorImg.setVisible(true);
         } else if (compareDates(fechaGraduacion, this.fechaHoy) == 0) {
           this.lblDatosIncorrectos.setVisible(true);
-          this.lblFechaGraduacionError.setText("Debe elegir una fecha");
           this.lblFechaGraduacionError.setVisible(true);
           this.lblFechaGraduacionErrorImg.setVisible(true);
         } else {
