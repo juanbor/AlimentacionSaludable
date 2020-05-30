@@ -8,12 +8,23 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import datechooser.events.SelectionChangedListener;
+import datechooser.events.SelectionChangedEvent;
 
 public class VentanaRegistrarProfesional extends javax.swing.JDialog {
 
     private Sistema sistema;
     private ImageIcon fotoDePerfilActual;
     private boolean primeraVez;
+    private Calendar fecha;
+    private String fechaHoy;
 
     public VentanaRegistrarProfesional(Sistema unSistema) {
         initComponents();
@@ -23,10 +34,41 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         ocultarEtiquetas();
         this.primeraVez = true;
         cargarListaPaisesGraduacion();
-        Calendar fecha = new GregorianCalendar();
-        this.dateChooserFechaNacimiento.setMaxDate(fecha);
-        this.dateChooserFechaGraduacion.setMaxDate(fecha);
+        this.fecha = new GregorianCalendar();
+        this.dateChooserFechaNacimiento.setMaxDate(this.fecha);
+        this.dateChooserFechaGraduacion.setMaxDate(this.fecha);
+        this.fechaHoy = this.dateChooserFechaNacimiento.getText();
+        
+        lblFechaNacError = new JLabel("New label");
+        lblFechaNacError.setFont(new java.awt.Font("Century Gothic", 0, 19)); // NOI18N
+        lblFechaNacError.setForeground(new java.awt.Color(240, 128, 128));
+        lblFechaNacError.setBounds(630, 306, 141, 16);
+        lblFechaNacError.setVisible(false);
+        panel2.add(lblFechaNacError);
+        
+        lblFechaNacErrorImg = new JLabel("");
+        lblFechaNacErrorImg.setForeground(new java.awt.Color(255, 255, 255));
+        lblFechaNacErrorImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoIncorrecto.png"))); // NOI18N
+        lblFechaNacErrorImg.setBounds(596, 297, 32, 33);
+        lblFechaNacErrorImg.setVisible(false);
+        panel2.add(lblFechaNacErrorImg);
+        
+        lblFechaGraduacionError = new JLabel("New label");
+        lblFechaGraduacionError.setForeground(new Color(240, 128, 128));
+        lblFechaGraduacionError.setFont(new Font("Dialog", Font.PLAIN, 19));
+        lblFechaGraduacionError.setBounds(260, 565, 141, 16);
+        lblFechaGraduacionError.setVisible(false);
+        panel2.add(lblFechaGraduacionError);
+        
+        lblFechaGraduacionErrorImg = new JLabel("");
+        lblFechaGraduacionErrorImg.setIcon(new ImageIcon(VentanaRegistrarProfesional.class.getResource("/Imagenes/iconoCampoIncorrecto.png")));
+        lblFechaGraduacionErrorImg.setForeground(Color.WHITE);
+        lblFechaGraduacionErrorImg.setBounds(226, 556, 32, 33);
+        lblFechaGraduacionErrorImg.setVisible(false);
+        panel2.add(lblFechaGraduacionErrorImg);
         this.primeraVez = false;
+        
+       
     }
 
     @SuppressWarnings("unchecked")
@@ -51,9 +93,25 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         listaTituloProfesional = new javax.swing.JComboBox<>();
         lblFechaNac = new javax.swing.JLabel();
         dateChooserFechaNacimiento = new datechooser.beans.DateChooserCombo();
+        dateChooserFechaNacimiento.addSelectionChangedListener(new SelectionChangedListener() {
+          public void onSelectionChange(SelectionChangedEvent arg0) {
+            lblFechaNacError.setVisible(false);
+            lblFechaNacErrorImg.setVisible(false);
+            lblDatosIncorrectos.setVisible(false);
+            
+          }
+        });
+        
         btnIngresarFotoPerfil = new javax.swing.JButton();
         lblFechaGraduacion = new javax.swing.JLabel();
         dateChooserFechaGraduacion = new datechooser.beans.DateChooserCombo();
+        dateChooserFechaGraduacion.addSelectionChangedListener(new SelectionChangedListener() {
+          public void onSelectionChange(SelectionChangedEvent arg0) {
+            lblFechaGraduacionError.setVisible(false);
+            lblFechaGraduacionErrorImg.setVisible(false);
+            lblDatosIncorrectos.setVisible(false);
+          }
+        });
         lblValidarNombre = new javax.swing.JLabel();
         lblValidarApellido = new javax.swing.JLabel();
         lblValidarTituloProfesional = new javax.swing.JLabel();
@@ -410,6 +468,7 @@ layout.setHorizontalGroup(
         .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
+   
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -437,6 +496,36 @@ layout.setHorizontalGroup(
     public void setPrimeraVezEnSistema(boolean primera) {
         this.primeraVez = primera;
     }
+    
+    private int compareDates(String date1, String date2) {
+      String[] date1Split = date1.split("/");
+      String[] date2Split = date2.split("/");
+      int[] date1Int = {Integer.parseInt(date1Split[0]), Integer.parseInt(date1Split[1]), Integer.parseInt(date1Split[2])};
+      int[] date2Int = {Integer.parseInt(date2Split[0]), Integer.parseInt(date2Split[1]), Integer.parseInt(date2Split[2])};
+      int ret;
+      
+      if (date1Int[2] > date2Int[2]) {
+        ret = 1;
+      } else if (date1Int[2] < date2Int[2]) {
+        ret = -1;
+      } else {
+        if (date1Int[1] > date2Int[1]) {
+          ret = 1;
+        } else if (date1Int[1] < date2Int[1]) {
+          ret = -1;
+        } else {
+          if (date1Int[0] > date2Int[0]) {
+            ret = 1;
+          } else if (date1Int[0] < date2Int[0]) {
+            ret = -1;
+          } else {
+            ret = 0;
+          }
+        }
+      }
+      
+      return ret;
+    }
 
     private void btnIngresarProfesionalASistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarProfesionalASistemaActionPerformed
         String nombre = this.txtNombre.getText();
@@ -445,9 +534,21 @@ layout.setHorizontalGroup(
         String paisGraduacion = (String) this.listaPaisGraduacion.getSelectedItem();
         String fechaNacimiento = this.dateChooserFechaNacimiento.getText();
         String fechaGraduacion = this.dateChooserFechaGraduacion.getText();
+        
+
         if (nombre.equals("") || apellido.equals("") || tituloProfesional.equals("Seleccione...") || paisGraduacion.equals("Seleccione...")) {
             this.lblDatosIncorrectos.setVisible(true);
             mostrarErrores(nombre, apellido, tituloProfesional, paisGraduacion);
+        } else if (compareDates(fechaNacimiento, this.fechaHoy) == 0) {
+          this.lblDatosIncorrectos.setVisible(true);
+          this.lblFechaNacError.setText("Debe elegir una fecha");
+          this.lblFechaNacError.setVisible(true);
+          this.lblFechaNacErrorImg.setVisible(true);
+        } else if (compareDates(fechaGraduacion, this.fechaHoy) == 0) {
+          this.lblDatosIncorrectos.setVisible(true);
+          this.lblFechaGraduacionError.setText("Debe elegir una fecha");
+          this.lblFechaGraduacionError.setVisible(true);
+          this.lblFechaGraduacionErrorImg.setVisible(true);
         } else {
             this.lblDatosIncorrectos.setVisible(false);
             boolean seAgregoProfesional = this.getSistema().crearProfesional(nombre, apellido, fechaNacimiento, this.fotoDePerfilActual, tituloProfesional, fechaGraduacion, paisGraduacion);
@@ -570,6 +671,10 @@ layout.setHorizontalGroup(
     private javax.swing.JPanel panel2;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JLabel lblFechaNacError;
+    private javax.swing.JLabel lblFechaNacErrorImg;
+    private javax.swing.JLabel lblFechaGraduacionError;
+    private javax.swing.JLabel lblFechaGraduacionErrorImg;
     // End of variables declaration//GEN-END:variables
 
     private void ocultarEtiquetas() {
@@ -616,5 +721,4 @@ layout.setHorizontalGroup(
             this.lblPaisVacio.setVisible(true);
         }
     }
-
 }
