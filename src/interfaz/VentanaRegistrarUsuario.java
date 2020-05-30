@@ -9,12 +9,16 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JLabel;
+import datechooser.events.SelectionChangedListener;
+import datechooser.events.SelectionChangedEvent;
 
 public class VentanaRegistrarUsuario extends javax.swing.JDialog {
 
     private Sistema sistema;
     private ImageIcon fotoDePerfilActual;
     private boolean primeraVez;
+    private String fechaHoy;
 
     public VentanaRegistrarUsuario(Sistema unSistema) {
         initComponents();
@@ -28,7 +32,22 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         cargarListaPaises();
         Calendar fecha = new GregorianCalendar();
         this.dateChooserFechaNacimiento.setMaxDate(fecha);
+        this.fechaHoy = this.dateChooserFechaNacimiento.getText();
+        
+        lblFechaNacErrorImg = new JLabel("");
+        lblFechaNacErrorImg.setIcon(new ImageIcon(VentanaRegistrarUsuario.class.getResource("/Imagenes/iconoCampoIncorrecto.png")));
+        lblFechaNacErrorImg.setBounds(532, 340, 32, 30);
+        lblFechaNacErrorImg.setVisible(false);
+        panel2.add(lblFechaNacErrorImg);
+        
+        lblFechaNacError = new JLabel("Debe ingresar una fecha");
+        lblFechaNacError.setBounds(568, 340, 181, 26);
+        lblFechaNacError.setFont(new java.awt.Font("Century Gothic", 0, 19)); // NOI18N
+        lblFechaNacError.setForeground(new java.awt.Color(240, 128, 128));
+        lblFechaNacError.setVisible(false);
+        panel2.add(lblFechaNacError);
         this.primeraVez = false;
+        
     }
 
     public Sistema getSistema() {
@@ -86,6 +105,13 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         lblTxtFechaNac = new javax.swing.JLabel();
         rdBtnIntoleranteLactosa = new javax.swing.JRadioButton();
         dateChooserFechaNacimiento = new datechooser.beans.DateChooserCombo();
+        dateChooserFechaNacimiento.addSelectionChangedListener(new SelectionChangedListener() {
+          public void onSelectionChange(SelectionChangedEvent arg0) {
+            lblFechaNacError.setVisible(false);
+            lblFechaNacErrorImg.setVisible(false);
+            lblDatosIncorrectos.setVisible(false);
+          }
+        });
         btnIngresarFotoPerfil = new javax.swing.JButton();
         lblValidarNombre = new javax.swing.JLabel();
         lblValidarApellido = new javax.swing.JLabel();
@@ -431,6 +457,36 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         this.setVisible(false);
         vPrincipal.setVisible(true);
     }//GEN-LAST:event_btnHomeActionPerformed
+    
+    private int compareDates(String date1, String date2) {
+      String[] date1Split = date1.split("/");
+      String[] date2Split = date2.split("/");
+      int[] date1Int = {Integer.parseInt(date1Split[0]), Integer.parseInt(date1Split[1]), Integer.parseInt(date1Split[2])};
+      int[] date2Int = {Integer.parseInt(date2Split[0]), Integer.parseInt(date2Split[1]), Integer.parseInt(date2Split[2])};
+      int ret;
+      
+      if (date1Int[2] > date2Int[2]) {
+        ret = 1;
+      } else if (date1Int[2] < date2Int[2]) {
+        ret = -1;
+      } else {
+        if (date1Int[1] > date2Int[1]) {
+          ret = 1;
+        } else if (date1Int[1] < date2Int[1]) {
+          ret = -1;
+        } else {
+          if (date1Int[0] > date2Int[0]) {
+            ret = 1;
+          } else if (date1Int[0] < date2Int[0]) {
+            ret = -1;
+          } else {
+            ret = 0;
+          }
+        }
+      }
+      
+      return ret;
+    }
 
     private void btnIngresarUsuarioASistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarUsuarioASistemaActionPerformed
         String nombre = this.txtNombre.getText();
@@ -443,7 +499,11 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         if (nombre.equals("") || apellido.equals("") || nacionalidad.equals("Seleccione...")) {
             this.lblDatosIncorrectos.setVisible(true);
             mostrarErrores(nombre, apellido, nacionalidad);
-        } else {
+        }else if (compareDates(fechaNacimiento, this.fechaHoy) == 0) {
+          this.lblDatosIncorrectos.setVisible(true);
+          this.lblFechaNacError.setVisible(true);
+          this.lblFechaNacErrorImg.setVisible(true);
+        }else {
             this.lblDatosIncorrectos.setVisible(false);
             agregarPreferenciasUsuario(preferencias);
             agregarRestriccionesUsuario(restricciones);
@@ -586,6 +646,8 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
     private javax.swing.JRadioButton rdBtnVerduras;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JLabel lblFechaNacError;
+    private javax.swing.JLabel lblFechaNacErrorImg;
     // End of variables declaration//GEN-END:variables
 
     private void ocultarEtiquetas() {
@@ -673,5 +735,4 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
             this.lblPaisVacio.setVisible(true);
         }
     }
-
 }
