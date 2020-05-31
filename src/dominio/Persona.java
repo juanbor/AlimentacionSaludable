@@ -1,6 +1,5 @@
 package dominio;
 
-import java.util.Objects;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 
@@ -10,6 +9,9 @@ public abstract class Persona implements Serializable {
     private String apellido;
     private String fechaNacimiento;
     public ImageIcon fotoDePerfil;
+
+    public static String surnameError = "Apellido no ingresado";
+    public static String nameError = "Nombre no ingresado";
 
     public String getNombre() {
         return this.nombre;
@@ -25,7 +27,7 @@ public abstract class Persona implements Serializable {
 
     public void setApellido(String unApellido) {
         if (unApellido == null || unApellido.isEmpty()) {
-            this.apellido = "Apellido no ingresado";
+            this.apellido = surnameError;
         } else {
             this.apellido = unApellido;
         }
@@ -57,14 +59,18 @@ public abstract class Persona implements Serializable {
 
     public String getNombreCompleto() {
         String retorno;
-        if (getNombre().equals("Nombre no ingresado") && getApellido().equals("Apellido no ingresado")) {
-            retorno = "Nombre no ingresado";
-        } else if (getNombre().equals("Nombre no ingresado")) {
-            retorno = getApellido();
-        } else if (getApellido().equals("Apellido no ingresado")) {
-            retorno = getNombre();
+        if (getNombre().equals(nameError) && getApellido().equals(surnameError)) {
+            retorno = nameError;
         } else {
-            retorno = getNombre() + " " + getApellido();
+            if (!getNombre().equals(nameError)) {
+                if (getApellido().equals(surnameError)) {
+                    retorno = getNombre();
+                } else {
+                    retorno = getNombre() + " " + getApellido();
+                }
+            } else {
+                retorno = getApellido();
+            }
         }
         return retorno;
     }
@@ -76,14 +82,14 @@ public abstract class Persona implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-      Persona otraPersona;
-      
-      if (obj != null) {
-        otraPersona = (Persona) obj;
-      } else {
-        throw new NullPointerException("equals recibe Null");
-      }
-        
+        Persona otraPersona;
+
+        if (obj != null) {
+            otraPersona = (Persona) obj;
+        } else {
+            throw new NullPointerException("equals recibe Null");
+        }
+
         return this.getNombreCompleto().equals(otraPersona.getNombreCompleto());
     }
 }

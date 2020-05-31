@@ -5,6 +5,7 @@ import dominio.Sistema;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -507,7 +508,8 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
             this.lblDatosIncorrectos.setVisible(false);
             agregarPreferenciasUsuario(preferencias);
             agregarRestriccionesUsuario(restricciones);
-            boolean seAgregoUsuario = this.getSistema().crearUsuario(nombre, apellido, fechaNacimiento, this.fotoDePerfilActual, nacionalidad, preferencias, restricciones, alimentosIngeridosPorFecha);
+            boolean seAgregoUsuario = this.getSistema().crearUsuario(nombre, apellido, fechaNacimiento, nacionalidad, preferencias, restricciones, alimentosIngeridosPorFecha);
+            getSistema().cambiarFotoUsuario(nombre, apellido, fotoDePerfilActual);
             if (seAgregoUsuario) {
                 this.txtNombre.setText("");
                 this.txtApellido.setText("");
@@ -662,11 +664,11 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
 
     private void cargarListaPreferencias() {
         Sistema.Preferencias[] listaPreferencias = new Sistema.Preferencias[5];
-        listaPreferencias[0] = Sistema.Preferencias.CarnesBlancas;
-        listaPreferencias[1] = Sistema.Preferencias.CarnesRojas;
-        listaPreferencias[2] = Sistema.Preferencias.Frutas;
-        listaPreferencias[3] = Sistema.Preferencias.Harinas;
-        listaPreferencias[4] = Sistema.Preferencias.Verduras;
+        listaPreferencias[0] = Sistema.Preferencias.CARNESBLANCAS;
+        listaPreferencias[1] = Sistema.Preferencias.CARNESROJAS;
+        listaPreferencias[2] = Sistema.Preferencias.FRUTAS;
+        listaPreferencias[3] = Sistema.Preferencias.HARINAS;
+        listaPreferencias[4] = Sistema.Preferencias.VERDURAS;
         for (int i = 0; i < listaPreferencias.length; i++) {
             if (i == 0) {
                 this.rdBtnCarnesRojas.setText("Carnes Rojas");
@@ -688,10 +690,10 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
 
     private void cargarListaRestricciones() {
         Sistema.Restricciones[] listaRestricciones = new Sistema.Restricciones[4];
-        listaRestricciones[0] = Sistema.Restricciones.Celiaquia;
-        listaRestricciones[1] = Sistema.Restricciones.Diabetes;
-        listaRestricciones[2] = Sistema.Restricciones.IntoleranciaLactosa;
-        listaRestricciones[3] = Sistema.Restricciones.Veganismo;
+        listaRestricciones[0] = Sistema.Restricciones.CELIAQUIA;
+        listaRestricciones[1] = Sistema.Restricciones.DIABETES;
+        listaRestricciones[2] = Sistema.Restricciones.INTOLERANCIALACTOSA;
+        listaRestricciones[3] = Sistema.Restricciones.VEGANISMO;
         for (int i = 0; i < listaRestricciones.length; i++) {
             if (i == 0) {
                 this.rdBtnCeliaco.setText("Celiaquía");
@@ -710,7 +712,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
 
     private void cargarListaPaises() {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-        ArrayList<String> nacionalidaesEnSistema = sistema.devolverListaPaises();
+        List<String> nacionalidaesEnSistema = sistema.devolverListaPaises();
         this.listaNacionalidad.setModel(modelo);
         this.listaNacionalidad.addItem("Seleccione...");
         for (int i = 0; i < nacionalidaesEnSistema.size(); i++) {

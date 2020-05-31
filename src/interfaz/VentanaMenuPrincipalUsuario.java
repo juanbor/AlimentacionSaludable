@@ -9,6 +9,7 @@ import dominio.Usuario;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 
@@ -1237,7 +1238,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         if (this.sistema.getListaAlimentos().size() > 0) {
             this.btnIngresarAlimentoIngerido.setEnabled(false);
             this.panelAlimentoIngerido.setVisible(true);
-            ArrayList<Alimento> lstAlimentos = this.sistema.getListaAlimentos();
+            List<Alimento> lstAlimentos = this.sistema.getListaAlimentos();
             DefaultComboBoxModel modelo = new DefaultComboBoxModel();
             this.comboAlimentosEnSistema.setModel(modelo);
             this.comboAlimentosEnSistema.addItem("Seleccione...");
@@ -1268,7 +1269,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_listaConversacionesValueChanged
 
     private void btnNuevaConversacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaConversacionActionPerformed
-        ArrayList listaNombresProfesionalesSinConversacion;
+        List listaNombresProfesionalesSinConversacion;
         listaNombresProfesionalesSinConversacion = this.sistema.getNombresProfesionalesSinConversacionConUsuario((sistema.getPersonaLogueada()));
         if (listaNombresProfesionalesSinConversacion != null && listaNombresProfesionalesSinConversacion.size() > 0) {
             ocultarPaneles();
@@ -1289,7 +1290,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
     private void btnNuevaIngestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaIngestaActionPerformed
         String nombreUsuarioLoguedo = this.sistema.getPersonaLogueada().getNombreCompleto();
         Usuario usuarioLogueado = this.sistema.getUsuarioPorNombre(nombreUsuarioLoguedo);
-        ArrayList<Ingesta> listaIngestasDelUsuario = usuarioLogueado.getAlimentosIngeridos();
+        List<Ingesta> listaIngestasDelUsuario = usuarioLogueado.getAlimentosIngeridos();
         String fechaIngesta = this.fechaIngestaUsuario.getText();
         String nuevoAlimento = this.comboAlimentosEnSistema.getSelectedItem().toString();
         if (nuevoAlimento.equals("Seleccione...")) {
@@ -1332,7 +1333,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         this.lblDatosIncorrectos.setVisible(false);
         this.lblDatosIncorrectos1.setVisible(false);
         this.panelSolicitarNuevoPlan.setVisible(true);
-        ArrayList<Profesional> lstProfesionales = this.sistema.getListaProfesionales();
+        List<Profesional> lstProfesionales = this.sistema.getListaProfesionales();
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         this.comboProfesionalesEnSistema.setModel(modelo);
         this.comboProfesionalesEnSistema.addItem("Seleccione...");
@@ -1429,7 +1430,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_comboAlimentosEnSistemaItemStateChanged
 
     private void btnNuevaConversacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaConversacion1ActionPerformed
-        ArrayList listaNombresProfesionalesSinConversacion;
+        List listaNombresProfesionalesSinConversacion;
         listaNombresProfesionalesSinConversacion = this.sistema.getNombresProfesionalesSinConversacionConUsuario((sistema.getPersonaLogueada()));
         if (listaNombresProfesionalesSinConversacion != null && listaNombresProfesionalesSinConversacion.size() > 0) {
             ocultarPaneles();
