@@ -44,9 +44,7 @@ public final class Sistema implements Serializable {
         setListaConversaciones(new ArrayList<>());
         setListaPlanesAlimentacion(new ArrayList<>());
         setPersonaLogueada(new Usuario("Nombre", "Apellido", "",
-                new ImageIcon(getClass()
-                        .getResource("/Imagenes/fotoDeUsuarioStandard.png")),
-                ""));
+                                ""));
 
     }
 
@@ -177,16 +175,21 @@ public final class Sistema implements Serializable {
     }
 
     public boolean crearUsuario(String nombre, String apellido,
-            String fechaNacimiento, ImageIcon fotoDePerfil,
+            String fechaNacimiento, 
             String nacionalidad, List<String> preferencias,
             List<String> restricciones, List<Ingesta> alimentosIngeridos) {
         Usuario usuarioNuevo;
         usuarioNuevo = new Usuario(nombre, apellido, fechaNacimiento,
-                fotoDePerfil, nacionalidad);
+                nacionalidad);
         usuarioNuevo.setPreferencias(preferencias);
         usuarioNuevo.setRestricciones(restricciones);
         usuarioNuevo.setAlimentosIngeridos(alimentosIngeridos);
         return agregarUsuarioALaLista(usuarioNuevo);
+    }
+    
+    public void cambiarFotoUsuario(String nombre, String apellido, ImageIcon foto){
+        Usuario user = listaUsuarios.stream().filter(u -> u.getApellido().equals(apellido) && u.getNombre().equals(nombre)).collect(Collectors.toList()).get(0);
+        user.setFotoDePerfil(foto);
     }
 
     public boolean agregarUsuarioALaLista(Usuario usuarioARegistrar) {
@@ -395,7 +398,7 @@ public final class Sistema implements Serializable {
     }
 
     public Usuario getUsuarioPorNombre(String nombreCompleto) {
-        Usuario usuarioRetorno = new Usuario(null, null, null, null, null);
+        Usuario usuarioRetorno = new Usuario(null, null, null, null);
         for (int i = 0; i < this.listaUsuarios.size(); i++) {
             String nombreActual = this.listaUsuarios.get(i).getNombreCompleto();
             if (nombreActual.equals(nombreCompleto)) {

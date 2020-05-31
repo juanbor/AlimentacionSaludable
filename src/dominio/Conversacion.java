@@ -45,7 +45,7 @@ public final class Conversacion implements Serializable {
 
     public void setUsuario(Persona unUsuario) {
         if (unUsuario == null) {
-            this.usuario = new Usuario(null, null, null, null, null);
+            this.usuario = new Usuario(null, null, null, null);
         } else {
             this.usuario = unUsuario;
         }

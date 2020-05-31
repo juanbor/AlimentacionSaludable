@@ -14,14 +14,14 @@ public final class Usuario extends Persona {
     public Usuario(String unNombre,
             String unApellido,
             String unaFechaNacimiento,
-            ImageIcon unaFotoDePerfil,
             String unaNacionalidad) {
 
         this.setNombre(unNombre);
         this.setApellido(unApellido);
         this.setFechaNacimiento(unaFechaNacimiento);
-        this.setFotoDePerfil(unaFotoDePerfil);
         this.setNacionalidad(unaNacionalidad);
+        this.fotoDePerfil = new ImageIcon(getClass()
+                        .getResource("/Imagenes/fotoDeUsuarioStandard.png"));
         this.setPreferencias(new ArrayList<>());
         this.setRestricciones(new ArrayList<>());
         this.setAlimentosIngeridos(new ArrayList<>());
