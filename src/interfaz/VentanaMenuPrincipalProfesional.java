@@ -7,6 +7,7 @@ import dominio.Profesional;
 import dominio.Sistema;
 import dominio.Usuario;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -1995,11 +1996,11 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         lblFechaNacimiento.setText(usuarioPerfil.getFechaNacimiento());
         lblFotoDeUsuario.setIcon(usuarioPerfil.getFotoDePerfil());
         if (usuarioPerfil.getArrayAlimentosIngeridos().length > 0) {
-            ArrayList<Ingesta> ingeridos = usuarioPerfil.getAlimentosIngeridos();
-            ArrayList<String> listaASetear = new ArrayList<>();
+            List<Ingesta> ingeridos = usuarioPerfil.getAlimentosIngeridos();
+            List<String> listaASetear = new ArrayList<>();
             for (int i = 0; i < ingeridos.size(); i++) {
                 Ingesta ingestaActual = ingeridos.get(i);
-                ArrayList<Alimento> alimentosActuales = ingestaActual.getListaAlimentosPorFecha();
+                List<Alimento> alimentosActuales = ingestaActual.getListaAlimentosPorFecha();
                 for (int j = 0; j < alimentosActuales.size(); j++) {
                     listaASetear.add(alimentosActuales.get(i).toString());
                 }
@@ -2559,7 +2560,7 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
 
     private void cargarListaDiasDeLaSemana() {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-        ArrayList<String> diasEnSistema = sistema.devolverListaDiasDeLaSemana();
+        List<String> diasEnSistema = sistema.devolverListaDiasDeLaSemana();
         this.listaDiasDeLaSemana.setModel(modelo);
         for (int i = 0; i < diasEnSistema.size(); i++) {
             this.listaDiasDeLaSemana.addItem(diasEnSistema.get(i));
@@ -2568,7 +2569,7 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
 
     private void cargarListaIngestasPorDia() {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-        ArrayList<String> ingestasEnSistema = sistema.devolverListaIngestasDeLaSemana();
+        List<String> ingestasEnSistema = sistema.devolverListaIngestasDeLaSemana();
         this.listaComidasPlan.setModel(modelo);
         for (int i = 0; i < ingestasEnSistema.size(); i++) {
             this.listaComidasPlan.addItem(ingestasEnSistema.get(i));
