@@ -12,6 +12,18 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.Color;
+import javax.swing.JPanel;
+import javax.swing.JList;
+import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
 
@@ -21,6 +33,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
     private boolean primeraVez;
     private boolean primeraIngesta;
     private String nombreDelPlan;
+    private boolean listaIngestaEnable;
 
     public VentanaMenuPrincipalUsuario(Sistema unSistema) {
         initComponents();
@@ -40,6 +53,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         Calendar fecha = new GregorianCalendar();
         this.fechaIngestaUsuario.setMaxDate(fecha);
         this.panelVacio.setVisible(true);
+        this.listaIngestaEnable = false;
     }
 
     public Sistema getSistema() {
@@ -80,19 +94,6 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         lblNohayConsultasTexto3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblNohayProfesionales = new javax.swing.JLabel();
-        panelConsultaConProfesional = new javax.swing.JPanel();
-        panelConversacion = new javax.swing.JPanel();
-        lblFotoProfesional = new javax.swing.JLabel();
-        lblNombreProfesional = new javax.swing.JLabel();
-        btnEnviarMensaje = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtMostrarConversacion = new javax.swing.JTextPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtMensajeNuevo = new javax.swing.JTextArea();
-        btnNuevaConversacion = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        listaConversaciones = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
         panelElegirProfesional = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         listaElegirProfesionales = new javax.swing.JList();
@@ -249,63 +250,202 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         lblIngresarAlimentoIngerido.setText("Ingresar alimento ingerido");
 
         javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
-        panelMenu.setLayout(panelMenuLayout);
         panelMenuLayout.setHorizontalGroup(
-            panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelMenuLayout.createParallelGroup(Alignment.TRAILING)
             .addGroup(panelMenuLayout.createSequentialGroup()
-                .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(panelMenuLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(panelMenuLayout.createSequentialGroup()
+                  .addGap(20)
+                  .addComponent(lblConsultaConProfesional, GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+                .addGroup(panelMenuLayout.createSequentialGroup()
+                  .addGroup(panelMenuLayout.createParallelGroup(Alignment.LEADING)
                     .addGroup(panelMenuLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(lblConsultaConProfesional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                      .addContainerGap()
+                      .addComponent(btnHome))
                     .addGroup(panelMenuLayout.createSequentialGroup()
-                        .addGroup(panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelMenuLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnHome))
-                            .addGroup(panelMenuLayout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addComponent(btnIngresarAlimentoIngerido, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelMenuLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(lblIngresarAlimentoIngerido, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelMenuLayout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(btnConsultaConProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelMenuLayout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(btnSolicitarPlanAlimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblSolicitarPlanAlimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                      .addGap(57)
+                      .addComponent(btnIngresarAlimentoIngerido, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelMenuLayout.createSequentialGroup()
+                      .addGap(20)
+                      .addComponent(lblIngresarAlimentoIngerido, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelMenuLayout.createSequentialGroup()
+                      .addGap(42)
+                      .addComponent(btnConsultaConProfesional, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelMenuLayout.createSequentialGroup()
+                      .addGap(56)
+                      .addComponent(btnSolicitarPlanAlimentacion, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)))
+                  .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(panelMenuLayout.createSequentialGroup()
+                  .addGap(0, 56, Short.MAX_VALUE)
+                  .addComponent(lblSolicitarPlanAlimentacion, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))
+              .addGap(0))
         );
         panelMenuLayout.setVerticalGroup(
-            panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelMenuLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(panelMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                .addComponent(btnConsultaConProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblConsultaConProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(btnSolicitarPlanAlimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblSolicitarPlanAlimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(btnIngresarAlimentoIngerido, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblIngresarAlimentoIngerido, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+              .addContainerGap()
+              .addComponent(btnHome)
+              .addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+              .addComponent(btnConsultaConProfesional, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+              .addPreferredGap(ComponentPlacement.UNRELATED)
+              .addComponent(lblConsultaConProfesional, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+              .addGap(33)
+              .addComponent(btnSolicitarPlanAlimentacion, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
+              .addGap(18)
+              .addComponent(lblSolicitarPlanAlimentacion, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+              .addGap(42)
+              .addComponent(btnIngresarAlimentoIngerido, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+              .addPreferredGap(ComponentPlacement.RELATED)
+              .addComponent(lblIngresarAlimentoIngerido, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+              .addContainerGap(79, Short.MAX_VALUE))
         );
+        panelMenu.setLayout(panelMenuLayout);
 
         panelDerecho.setBackground(new java.awt.Color(51, 51, 51));
         panelDerecho.setMaximumSize(new java.awt.Dimension(800, 800));
         panelDerecho.setMinimumSize(new java.awt.Dimension(800, 800));
         panelDerecho.setPreferredSize(new java.awt.Dimension(800, 800));
         panelDerecho.setLayout(new java.awt.CardLayout());
+        panelConsultaConProfesional = new javax.swing.JPanel();
+        panelDerecho.add(panelConsultaConProfesional, "name_170800529246150");
+        panelConversacion = new javax.swing.JPanel();
+        lblFotoProfesional = new javax.swing.JLabel();
+        lblFotoProfesional.setBounds(18, 15, 92, 80);
+        lblNombreProfesional = new javax.swing.JLabel();
+        lblNombreProfesional.setBounds(122, 23, 185, 42);
+        btnEnviarMensaje = new javax.swing.JButton();
+        btnEnviarMensaje.setBounds(385, 593, 68, 57);
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane2.setBounds(44, 107, 397, 326);
+        txtMostrarConversacion = new javax.swing.JTextPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane1.setBounds(63, 511, 304, 139);
+        txtMensajeNuevo = new javax.swing.JTextArea();
+        btnNuevaConversacion = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listaConversaciones = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
+        
+                panelConsultaConProfesional.setBackground(new java.awt.Color(51, 51, 51));
+                panelConsultaConProfesional.setMaximumSize(new java.awt.Dimension(800, 800));
+                panelConsultaConProfesional.setMinimumSize(new java.awt.Dimension(800, 800));
+                panelConsultaConProfesional.setPreferredSize(new java.awt.Dimension(800, 800));
+                panelConsultaConProfesional.setLayout(null);
+                
+                        panelConversacion.setOpaque(false);
+                        
+                                lblFotoProfesional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fotoDeUsuarioStandard.png"))); // NOI18N
+                                lblFotoProfesional.setAlignmentY(0.0F);
+                                
+                                        lblNombreProfesional.setFont(new java.awt.Font("Levenim MT", 0, 30)); // NOI18N
+                                        lblNombreProfesional.setForeground(new java.awt.Color(255, 255, 255));
+                                        lblNombreProfesional.setText("Profesional");
+                                        
+                                                btnEnviarMensaje.setForeground(new java.awt.Color(255, 255, 255));
+                                                btnEnviarMensaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoEnviarMensaje.png"))); // NOI18N
+                                                btnEnviarMensaje.setBorder(null);
+                                                btnEnviarMensaje.setBorderPainted(false);
+                                                btnEnviarMensaje.setContentAreaFilled(false);
+                                                btnEnviarMensaje.setFocusPainted(false);
+                                                btnEnviarMensaje.addActionListener(new java.awt.event.ActionListener() {
+                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                        btnEnviarMensajeActionPerformed(evt);
+                                                    }
+                                                });
+                                                
+                                                        txtMostrarConversacion.setEditable(false);
+                                                        txtMostrarConversacion.setBackground(new java.awt.Color(238, 238, 238));
+                                                        txtMostrarConversacion.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
+                                                        txtMostrarConversacion.setAutoscrolls(false);
+                                                        jScrollPane2.setViewportView(txtMostrarConversacion);
+                                                        
+                                                        
+                                                                txtMensajeNuevo.setBackground(new java.awt.Color(238, 238, 238));
+                                                                txtMensajeNuevo.setColumns(20);
+                                                                txtMensajeNuevo.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
+                                                                txtMensajeNuevo.setRows(5);
+                                                                jScrollPane1.setViewportView(txtMensajeNuevo);
+                                                                
+                                                                        panelConsultaConProfesional.add(panelConversacion);
+                                                                        panelConversacion.setBounds(314, 47, 455, 712);
+                                                                        panelConversacion.setLayout(null);
+                                                                        panelConversacion.add(lblFotoProfesional);
+                                                                        panelConversacion.add(lblNombreProfesional);
+                                                                        panelConversacion.add(jScrollPane1);
+                                                                        panelConversacion.add(btnEnviarMensaje);
+                                                                        panelConversacion.add(jScrollPane2);
+                                                                        
+                                                                                btnNuevaConversacion.setForeground(new java.awt.Color(255, 255, 255));
+                                                                                btnNuevaConversacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoNuevoMensaje.png"))); // NOI18N
+                                                                                btnNuevaConversacion.setBorder(null);
+                                                                                btnNuevaConversacion.setBorderPainted(false);
+                                                                                btnNuevaConversacion.setContentAreaFilled(false);
+                                                                                btnNuevaConversacion.setFocusPainted(false);
+                                                                                btnNuevaConversacion.addActionListener(new java.awt.event.ActionListener() {
+                                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                                        btnNuevaConversacionActionPerformed(evt);
+                                                                                    }
+                                                                                });
+                                                                                
+                                                                                panelIngestasAnteriores = new JPanel();
+                                                                                panelIngestasAnteriores.setBackground(new java.awt.Color(51,51,51));
+                                                                                panelIngestasAnteriores.setBounds(6, 91, 280, 554);
+                                                                                panelConsultaConProfesional.add(panelIngestasAnteriores);
+                                                                                panelIngestasAnteriores.setLayout(null);
+                                                                                panelIngestasAnteriores.setVisible(false);
+                                                                                
+                                                                                lblIngestasAnteriores = new JLabel();
+                                                                                lblIngestasAnteriores.setText("Ingestas anteriores");
+                                                                                lblIngestasAnteriores.setForeground(Color.WHITE);
+                                                                                lblIngestasAnteriores.setFont(new Font("Dialog", Font.PLAIN, 18));
+                                                                                lblIngestasAnteriores.setBounds(52, 6, 173, 45);
+                                                                                panelIngestasAnteriores.add(lblIngestasAnteriores);
+                                                                                
+                                                                                listIngestasAnteriores = new JList<String>();
+                                                                                listIngestasAnteriores.setFont(new Font("Dialog", Font.PLAIN, 19));
+                                                                                listIngestasAnteriores.setBackground(SystemColor.window);
+                                                                                listIngestasAnteriores.setBounds(23, 57, 228, 426);
+                                                                                panelIngestasAnteriores.add(listIngestasAnteriores);
+                                                                                panelConsultaConProfesional.add(btnNuevaConversacion);
+                                                                                btnNuevaConversacion.setBounds(83, 588, 93, 57);
+                                                                                
+                                                                                        listaConversaciones.setBackground(new java.awt.Color(238, 238, 238));
+                                                                                        listaConversaciones.setFont(new java.awt.Font("Century Gothic", 0, 19)); // NOI18N
+                                                                                        listaConversaciones.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+                                                                                            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                                                                                                listaConversacionesValueChanged(evt);
+                                                                                            }
+                                                                                        });
+                                                                                        jScrollPane3.setViewportView(listaConversaciones);
+                                                                                        
+                                                                                                panelConsultaConProfesional.add(jScrollPane3);
+                                                                                                jScrollPane3.setBounds(26, 158, 232, 424);
+                                                                                                
+                                                                                                        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+                                                                                                        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+                                                                                                        jLabel1.setText("Seleccione al profesional");
+                                                                                                        panelConsultaConProfesional.add(jLabel1);
+                                                                                                        jLabel1.setBounds(26, 131, 190, 21);
+                                                                                                        
+                                                                                                        JButton btnVerIngestasAnteriores = new JButton();
+                                                                                                        
+                                                                                                        
+                                                                                                        btnVerIngestasAnteriores.setIcon(new ImageIcon(VentanaMenuPrincipalUsuario.class.getResource("/Imagenes/iconoIngresarAlimento.png")));
+                                                                                                        btnVerIngestasAnteriores.setForeground(Color.WHITE);
+                                                                                                        btnVerIngestasAnteriores.setFocusPainted(false);
+                                                                                                        btnVerIngestasAnteriores.setEnabled(true);
+                                                                                                        btnVerIngestasAnteriores.setContentAreaFilled(false);
+                                                                                                        btnVerIngestasAnteriores.setBorderPainted(false);
+                                                                                                        btnVerIngestasAnteriores.setBorder(null);
+                                                                                                        btnVerIngestasAnteriores.setBounds(107, 654, 86, 82);
+                                                                                                        panelConsultaConProfesional.add(btnVerIngestasAnteriores);
+                                                                                                        
+                                                                                                        JLabel lblVerIngestasAnteriores = new JLabel();
+                                                                                                        lblVerIngestasAnteriores.setForeground(Color.WHITE);
+                                                                                                        lblVerIngestasAnteriores.setText("Ver ingestas anteriores");
+                                                                                                        lblVerIngestasAnteriores.setFont(new Font("Dialog", Font.PLAIN, 18));
+                                                                                                        lblVerIngestasAnteriores.setBounds(47, 737, 253, 45);
+                                                                                                        panelConsultaConProfesional.add(lblVerIngestasAnteriores);
 
         panelNoHayAlimentos.setBackground(new java.awt.Color(51, 51, 51));
         panelNoHayAlimentos.setMaximumSize(new java.awt.Dimension(400, 400));
@@ -387,124 +527,6 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         lblNohayProfesionales.setBounds(120, 300, 650, 240);
 
         panelDerecho.add(panelNoHayConversacionesCreadas, "card9");
-
-        panelConsultaConProfesional.setBackground(new java.awt.Color(51, 51, 51));
-        panelConsultaConProfesional.setMaximumSize(new java.awt.Dimension(800, 800));
-        panelConsultaConProfesional.setMinimumSize(new java.awt.Dimension(800, 800));
-        panelConsultaConProfesional.setPreferredSize(new java.awt.Dimension(800, 800));
-        panelConsultaConProfesional.setLayout(null);
-
-        panelConversacion.setOpaque(false);
-
-        lblFotoProfesional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fotoDeUsuarioStandard.png"))); // NOI18N
-        lblFotoProfesional.setAlignmentY(0.0F);
-
-        lblNombreProfesional.setFont(new java.awt.Font("Levenim MT", 0, 30)); // NOI18N
-        lblNombreProfesional.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombreProfesional.setText("Profesional");
-
-        btnEnviarMensaje.setForeground(new java.awt.Color(255, 255, 255));
-        btnEnviarMensaje.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoEnviarMensaje.png"))); // NOI18N
-        btnEnviarMensaje.setBorder(null);
-        btnEnviarMensaje.setBorderPainted(false);
-        btnEnviarMensaje.setContentAreaFilled(false);
-        btnEnviarMensaje.setFocusPainted(false);
-        btnEnviarMensaje.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnviarMensajeActionPerformed(evt);
-            }
-        });
-
-        txtMostrarConversacion.setEditable(false);
-        txtMostrarConversacion.setBackground(new java.awt.Color(238, 238, 238));
-        txtMostrarConversacion.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
-        txtMostrarConversacion.setAutoscrolls(false);
-        jScrollPane2.setViewportView(txtMostrarConversacion);
-
-        txtMensajeNuevo.setBackground(new java.awt.Color(238, 238, 238));
-        txtMensajeNuevo.setColumns(20);
-        txtMensajeNuevo.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
-        txtMensajeNuevo.setRows(5);
-        jScrollPane1.setViewportView(txtMensajeNuevo);
-
-        javax.swing.GroupLayout panelConversacionLayout = new javax.swing.GroupLayout(panelConversacion);
-        panelConversacion.setLayout(panelConversacionLayout);
-        panelConversacionLayout.setHorizontalGroup(
-            panelConversacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelConversacionLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(lblFotoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblNombreProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConversacionLayout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
-                .addGroup(panelConversacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConversacionLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEnviarMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConversacionLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65))))
-        );
-        panelConversacionLayout.setVerticalGroup(
-            panelConversacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConversacionLayout.createSequentialGroup()
-                .addGroup(panelConversacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelConversacionLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(lblNombreProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConversacionLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblFotoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78)
-                .addGroup(panelConversacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEnviarMensaje, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        panelConsultaConProfesional.add(panelConversacion);
-        panelConversacion.setBounds(264, 48, 526, 656);
-
-        btnNuevaConversacion.setForeground(new java.awt.Color(255, 255, 255));
-        btnNuevaConversacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoNuevoMensaje.png"))); // NOI18N
-        btnNuevaConversacion.setBorder(null);
-        btnNuevaConversacion.setBorderPainted(false);
-        btnNuevaConversacion.setContentAreaFilled(false);
-        btnNuevaConversacion.setFocusPainted(false);
-        btnNuevaConversacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevaConversacionActionPerformed(evt);
-            }
-        });
-        panelConsultaConProfesional.add(btnNuevaConversacion);
-        btnNuevaConversacion.setBounds(83, 588, 93, 57);
-
-        listaConversaciones.setBackground(new java.awt.Color(238, 238, 238));
-        listaConversaciones.setFont(new java.awt.Font("Century Gothic", 0, 19)); // NOI18N
-        listaConversaciones.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listaConversacionesValueChanged(evt);
-            }
-        });
-        jScrollPane3.setViewportView(listaConversaciones);
-
-        panelConsultaConProfesional.add(jScrollPane3);
-        jScrollPane3.setBounds(26, 158, 232, 424);
-
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Seleccione al profesional");
-        panelConsultaConProfesional.add(jLabel1);
-        jLabel1.setBounds(26, 131, 190, 21);
-
-        panelDerecho.add(panelConsultaConProfesional, "card3");
 
         panelElegirProfesional.setBackground(new java.awt.Color(51, 51, 51));
         panelElegirProfesional.setMaximumSize(new java.awt.Dimension(800, 800));
@@ -1180,6 +1202,28 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
             .addComponent(panelDerecho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+        
+        btnVerIngestasAnteriores.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+          
+          if (!listaIngestaEnable) {
+            listaIngestaEnable = true;
+            lblVerIngestasAnteriores.setText("Cerrar ingestas anteriores");
+            List<String> ingestas = sistema.devolverListaIngestasDeLaSemana();
+            String[] ingestasArr = new String[ingestas.size()];
+            for (int i = 0; i<ingestas.size(); i++) {
+              ingestasArr[i] = ingestas.get(i);
+            }
+            listIngestasAnteriores.setListData(ingestasArr);
+            panelIngestasAnteriores.setVisible(true);
+          }else {
+            listaIngestaEnable = false;
+            lblVerIngestasAnteriores.setText("Ver ingestas anteriores");
+            panelIngestasAnteriores.setVisible(false);
+          }
+         
+          }
+        });
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1466,6 +1510,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         this.panelNoHayConversacionesCreadas.setVisible(false);
         this.panelNoHayPlanesDisponibles.setVisible(false);
         this.panelVacio.setVisible(false);
+        this.panelIngestasAnteriores.setVisible(false);
     }
 
     private void actualizarConversaciones(String destinatario) {
@@ -1583,6 +1628,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
     private javax.swing.JPanel panelSolicitarNuevoPlan;
     private javax.swing.JPanel panelVacio;
     private javax.swing.JPanel panelVerPlanAlimentacion;
+    private javax.swing.JPanel panelIngestasAnteriores;
     private javax.swing.JTextArea txtComidasDomingo;
     private javax.swing.JTextArea txtComidasJueves;
     private javax.swing.JTextArea txtComidasLunes;
@@ -1592,6 +1638,8 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
     private javax.swing.JTextArea txtComidasViernes;
     private javax.swing.JTextArea txtMensajeNuevo;
     private javax.swing.JTextPane txtMostrarConversacion;
+    private JLabel lblIngestasAnteriores;
+    private JList<String> listIngestasAnteriores;
     // End of variables declaration//GEN-END:variables
 
     private String cargarDatosDelPlan(String[][] planDiaADia, int indiceDia) {
@@ -1615,5 +1663,4 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         }
         return actual;
     }
-
 }
