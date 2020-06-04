@@ -2,6 +2,7 @@ package interfaz;
 
 import dominio.Alimento;
 import dominio.Ingesta;
+import dominio.Persona;
 import dominio.PlanAlimentacion;
 import dominio.Profesional;
 import dominio.Sistema;
@@ -1209,12 +1210,9 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
           if (!listaIngestaEnable) {
             listaIngestaEnable = true;
             lblVerIngestasAnteriores.setText("Cerrar ingestas anteriores");
-            List<String> ingestas = sistema.devolverListaIngestasDeLaSemana();
-            String[] ingestasArr = new String[ingestas.size()];
-            for (int i = 0; i<ingestas.size(); i++) {
-              ingestasArr[i] = ingestas.get(i);
-            }
-            listIngestasAnteriores.setListData(ingestasArr);
+            Persona actual = sistema.getPersonaLogueada();
+            String[] ingestas = ((Usuario) actual).getArrayAlimentosIngeridos();
+            listIngestasAnteriores.setListData(formatearListaIngestas(ingestas));
             panelIngestasAnteriores.setVisible(true);
           }else {
             listaIngestaEnable = false;
@@ -1228,6 +1226,21 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Lista de alimentos ingeridos[Frutilla]
+    //Lista de alimentos ingeridos[Pera]
+    
+    private String[] formatearListaIngestas(String[] lista) {
+      int i = 0;
+      while (i < lista.length) {
+        String[] parcial = lista[i].split("\\[");
+        parcial = parcial[1].split("\\]");
+        lista[i] = parcial[0];
+        i++;
+      }
+      
+      return lista;
+    }
+    
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         VentanaMenuPrincipal vPrincipal = new VentanaMenuPrincipal(sistema);
         this.setVisible(false);
