@@ -18,7 +18,10 @@ public abstract class Persona implements Serializable {
     }
 
     public void setNombre(String unNombre) {
-        this.nombre = unNombre;
+        if(unNombre != null && !unNombre.isEmpty())
+            this.nombre = unNombre;
+        else 
+            this.nombre = nameError;
     }
 
     public String getApellido() {
