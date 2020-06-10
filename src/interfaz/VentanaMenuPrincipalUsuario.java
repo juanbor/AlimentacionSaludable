@@ -1210,9 +1210,16 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
           if (!listaIngestaEnable) {
             listaIngestaEnable = true;
             lblVerIngestasAnteriores.setText("Cerrar ingestas anteriores");
+            
             Persona actual = sistema.getPersonaLogueada();
-            String[] ingestas = ((Usuario) actual).getArrayAlimentosIngeridos();
-            listIngestasAnteriores.setListData(formatearListaIngestas(ingestas));
+            List<Ingesta> ingestas = ((Usuario)actual).getAlimentosIngeridos();
+            
+            String[] listaIngestas = formatearListaIngestas(ingestas);
+            for (int i = 0; i<ingestas.size(); i++) {
+              System.out.println(listaIngestas[i]);
+            }
+
+            listIngestasAnteriores.setListData(listaIngestas);
             panelIngestasAnteriores.setVisible(true);
           }else {
             listaIngestaEnable = false;
@@ -1229,16 +1236,27 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
     //Lista de alimentos ingeridos[Frutilla]
     //Lista de alimentos ingeridos[Pera]
     
-    private String[] formatearListaIngestas(String[] lista) {
-      int i = 0;
-      while (i < lista.length) {
-        String[] parcial = lista[i].split("\\[");
-        parcial = parcial[1].split("\\]");
-        lista[i] = parcial[0];
-        i++;
+    private String[] formatearListaIngestas(List<Ingesta> lista) {
+      String[] ingestas;
+      ArrayList<String> ingestaLista = new ArrayList<String>();
+      
+      //Muestra las ultimas 7, en caso de existan 7
+      for (int i = 0; i<lista.size(); i++) {
+        ingestaLista.add(lista.get(i).getFechaDeIngesta());
+        
+        List<Alimento> alimentosEnEsaFecha = lista.get(i).getListaAlimentosPorFecha();
+        for (int k = 0; k<alimentosEnEsaFecha.size(); k++) {
+          ingestaLista.add(alimentosEnEsaFecha.get(k).getNombre());
+        }
       }
       
-      return lista;
+      ingestas = new String[ingestaLista.size()];
+      
+      for (int i = 0; (i<lista.size()) && (i<7); i++) {
+        ingestas[i] = ingestaLista.get(i);
+      }
+      
+      return ingestas;
     }
     
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
