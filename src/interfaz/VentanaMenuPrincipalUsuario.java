@@ -23,6 +23,8 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -30,6 +32,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
 
 public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
 
@@ -112,8 +115,6 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         lblNohayProfesionales = new javax.swing.JLabel();
         panelElegirProfesional = new javax.swing.JPanel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        listaElegirProfesionales = new javax.swing.JList();
         panelVerPlanAlimentacion = new javax.swing.JPanel();
         lblPlanPropuesto1 = new javax.swing.JLabel();
         lblPlanPropuesto2 = new javax.swing.JLabel();
@@ -339,9 +340,6 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         jScrollPane1.setBounds(63, 511, 304, 139);
         txtMensajeNuevo = new javax.swing.JTextArea();
         btnNuevaConversacion = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        listaConversaciones = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
         
                 panelConsultaConProfesional.setBackground(new java.awt.Color(51, 51, 51));
                 panelConsultaConProfesional.setMaximumSize(new java.awt.Dimension(800, 800));
@@ -403,6 +401,58 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
                                                                                         btnNuevaConversacionActionPerformed(evt);
                                                                                     }
                                                                                 });
+                                                                                jScrollPane7 = new javax.swing.JScrollPane();
+                                                                                jScrollPane7.setBounds(23, 57, 228, 426);
+                                                                                listaElegirProfesionales = new javax.swing.JList();
+                                                                                
+                                                                                panelElegirProfesionalPrimeraVez = new JPanel();
+                                                                                panelElegirProfesionalPrimeraVez.setBounds(6, 91, 280, 554);
+                                                                                panelElegirProfesionalPrimeraVez.setBackground(new java.awt.Color(51, 51, 51));
+                                                                                panelConsultaConProfesional.add(panelElegirProfesionalPrimeraVez);
+                                                                                
+                                                                                        listaElegirProfesionales.setFont(new java.awt.Font("Century Gothic", 0, 19)); // NOI18N
+                                                                                        listaElegirProfesionales.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+                                                                                            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                                                                                                listaElegirProfesionalesValueChanged(evt);
+                                                                                            }
+                                                                                        });
+                                                                                        jScrollPane7.setViewportView(listaElegirProfesionales);
+                                                                                        panelElegirProfesionalPrimeraVez.setLayout(null);
+                                                                                        panelElegirProfesionalPrimeraVez.add(jScrollPane7);
+                                                                                        
+                                                                                        lblEasd = new JLabel("<html>Seleccione al profesional<br>    para nueva consulta</html>");
+                                                                                        lblEasd.setHorizontalAlignment(SwingConstants.CENTER);
+                                                                                        lblEasd.setForeground(Color.WHITE);
+                                                                                        lblEasd.setFont(new Font("Dialog", Font.PLAIN, 16));
+                                                                                        lblEasd.setBounds(23, 6, 228, 39);
+                                                                                        panelElegirProfesionalPrimeraVez.add(lblEasd);
+                                                                                
+                                                                                panelListaProfesionalesParaMensaje = new JPanel();
+                                                                                panelListaProfesionalesParaMensaje.setBackground(new java.awt.Color(51, 51, 51));
+                                                                                panelListaProfesionalesParaMensaje.setBounds(6, 91, 280, 554);
+                                                                                panelConsultaConProfesional.add(panelListaProfesionalesParaMensaje);
+                                                                                panelListaProfesionalesParaMensaje.setLayout(null);
+                                                                                jLabel1 = new javax.swing.JLabel();
+                                                                                jLabel1.setBounds(40, 6, 198, 45);
+                                                                                panelListaProfesionalesParaMensaje.add(jLabel1);
+                                                                                
+                                                                                        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+                                                                                        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+                                                                                        jLabel1.setText("Seleccione al profesional");
+                                                                                        jScrollPane3 = new javax.swing.JScrollPane();
+                                                                                        jScrollPane3.setBounds(23, 57, 228, 426);
+                                                                                        panelListaProfesionalesParaMensaje.add(jScrollPane3);
+                                                                                        listaConversaciones = new JList<String>();
+                                                                                        
+                                                                                                listaConversaciones.setBackground(new java.awt.Color(238, 238, 238));
+                                                                                                listaConversaciones.setBounds(23, 57, 228, 426);
+                                                                                                listaConversaciones.setFont(new java.awt.Font("Century Gothic", 0, 19)); // NOI18N
+                                                                                                listaConversaciones.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+                                                                                                    public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                                                                                                        listaConversacionesValueChanged(evt);
+                                                                                                    }
+                                                                                                });
+                                                                                                jScrollPane3.setViewportView(listaConversaciones);
                                                                                 
                                                                                 panelIngestasAnteriores = new JPanel();
                                                                                 panelIngestasAnteriores.setBackground(new java.awt.Color(51,51,51));
@@ -415,7 +465,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
                                                                                 lblIngestasAnteriores.setText("Ingestas anteriores");
                                                                                 lblIngestasAnteriores.setForeground(Color.WHITE);
                                                                                 lblIngestasAnteriores.setFont(new Font("Dialog", Font.PLAIN, 18));
-                                                                                lblIngestasAnteriores.setBounds(52, 6, 173, 45);
+                                                                                lblIngestasAnteriores.setBounds(53, 6, 173, 45);
                                                                                 panelIngestasAnteriores.add(lblIngestasAnteriores);
                                                                                 
                                                                                 listIngestasAnteriores = new JList<String>();
@@ -424,25 +474,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
                                                                                 listIngestasAnteriores.setBounds(23, 57, 228, 426);
                                                                                 panelIngestasAnteriores.add(listIngestasAnteriores);
                                                                                 panelConsultaConProfesional.add(btnNuevaConversacion);
-                                                                                btnNuevaConversacion.setBounds(83, 588, 93, 57);
-                                                                                
-                                                                                        listaConversaciones.setBackground(new java.awt.Color(238, 238, 238));
-                                                                                        listaConversaciones.setFont(new java.awt.Font("Century Gothic", 0, 19)); // NOI18N
-                                                                                        listaConversaciones.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-                                                                                            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                                                                                                listaConversacionesValueChanged(evt);
-                                                                                            }
-                                                                                        });
-                                                                                        jScrollPane3.setViewportView(listaConversaciones);
-                                                                                        
-                                                                                                panelConsultaConProfesional.add(jScrollPane3);
-                                                                                                jScrollPane3.setBounds(26, 158, 232, 424);
-                                                                                                
-                                                                                                        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
-                                                                                                        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-                                                                                                        jLabel1.setText("Seleccione al profesional");
-                                                                                                        panelConsultaConProfesional.add(jLabel1);
-                                                                                                        jLabel1.setBounds(26, 131, 190, 21);
+                                                                                btnNuevaConversacion.setBounds(72, 739, 40, 40);
                                                                                                         
                                                                                                         JButton btnVerIngestasAnteriores = new JButton();
                                                                                                         
@@ -458,12 +490,18 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
                                                                                                         btnVerIngestasAnteriores.setBounds(463, 739, 40, 40);
                                                                                                         panelConsultaConProfesional.add(btnVerIngestasAnteriores);
                                                                                                         
-                                                                                                        JLabel lblVerIngestasAnteriores = new JLabel();
+                                                                                                        lblVerIngestasAnteriores = new JLabel();
                                                                                                         lblVerIngestasAnteriores.setForeground(Color.WHITE);
                                                                                                         lblVerIngestasAnteriores.setText("Ver ingestas anteriores");
                                                                                                         lblVerIngestasAnteriores.setFont(new Font("Dialog", Font.PLAIN, 18));
                                                                                                         lblVerIngestasAnteriores.setBounds(515, 744, 254, 35);
                                                                                                         panelConsultaConProfesional.add(lblVerIngestasAnteriores);
+                                                                                                        
+                                                                                                        JLabel lblNuevaConversacion = new JLabel("Nueva conversacion");
+                                                                                                        lblNuevaConversacion.setForeground(Color.WHITE);
+                                                                                                        lblNuevaConversacion.setFont(new Font("Dialog", Font.PLAIN, 18));
+                                                                                                        lblNuevaConversacion.setBounds(124, 753, 171, 16);
+                                                                                                        panelConsultaConProfesional.add(lblNuevaConversacion);
 
         panelNoHayAlimentos.setBackground(new java.awt.Color(51, 51, 51));
         panelNoHayAlimentos.setMaximumSize(new java.awt.Dimension(400, 400));
@@ -551,32 +589,8 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         panelElegirProfesional.setMinimumSize(new java.awt.Dimension(800, 800));
         panelElegirProfesional.setPreferredSize(new java.awt.Dimension(800, 800));
 
-        listaElegirProfesionales.setFont(new java.awt.Font("Century Gothic", 0, 19)); // NOI18N
-        listaElegirProfesionales.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listaElegirProfesionalesValueChanged(evt);
-            }
-        });
-        jScrollPane7.setViewportView(listaElegirProfesionales);
-
-        javax.swing.GroupLayout panelElegirProfesionalLayout = new javax.swing.GroupLayout(panelElegirProfesional);
-        panelElegirProfesional.setLayout(panelElegirProfesionalLayout);
-        panelElegirProfesionalLayout.setHorizontalGroup(
-            panelElegirProfesionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelElegirProfesionalLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(97, 97, 97))
-        );
-        panelElegirProfesionalLayout.setVerticalGroup(
-            panelElegirProfesionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelElegirProfesionalLayout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(121, Short.MAX_VALUE))
-        );
-
         panelDerecho.add(panelElegirProfesional, "card4");
+        panelElegirProfesional.setLayout(null);
 
         panelVerPlanAlimentacion.setBackground(new java.awt.Color(51, 51, 51));
         panelVerPlanAlimentacion.setMaximumSize(new java.awt.Dimension(800, 800));
@@ -1238,9 +1252,11 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
 
             listIngestasAnteriores.setListData(listaIngestas);
             panelIngestasAnteriores.setVisible(true);
+            panelListaProfesionalesParaMensaje.setVisible(false);
           }else {
             listaIngestaEnable = false;
             lblVerIngestasAnteriores.setText("Ver ingestas anteriores");
+            panelListaProfesionalesParaMensaje.setVisible(true);
             panelIngestasAnteriores.setVisible(false);
           }
          
@@ -1250,8 +1266,13 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Lista de alimentos ingeridos[Frutilla]
-    //Lista de alimentos ingeridos[Pera]
+    private void resetearControladorVerIngestasAnteriores() {
+      listaIngestaEnable = false;
+      lblVerIngestasAnteriores.setText("Ver ingestas anteriores");
+      panelListaProfesionalesParaMensaje.setVisible(true);
+      panelIngestasAnteriores.setVisible(false);
+      
+    }
     
     private String[] formatearListaIngestas(List<Ingesta> lista) {
       String[] ingestas;
@@ -1284,7 +1305,9 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
 
     private void btnConsultaConProfesionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaConProfesionalActionPerformed
         ocultarPaneles();
+        resetearControladorVerIngestasAnteriores();
         this.btnConsultaConProfesional.setEnabled(false);
+        panelListaProfesionalesParaMensaje.setVisible(true);
         if (sistema.getListaProfesionales().size() > 0) {
             this.listaConversaciones.setSelectedIndex(0);
             String[] lista = sistema.getListaNombresProfesionalesConversaciones(sistema.getPersonaLogueada().getNombreCompleto());
@@ -1366,7 +1389,9 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         if (listaNombresProfesionalesSinConversacion != null && listaNombresProfesionalesSinConversacion.size() > 0) {
             ocultarPaneles();
             this.listaElegirProfesionales.setListData(listaNombresProfesionalesSinConversacion.toArray());
-            this.panelElegirProfesional.setVisible(true);
+            this.panelElegirProfesionalPrimeraVez.setVisible(true);
+        }else {
+          JOptionPane.showMessageDialog(null, "No hay profesionales libres", "Usuario" ,JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnNuevaConversacionActionPerformed
 
@@ -1527,7 +1552,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         if (listaNombresProfesionalesSinConversacion != null && listaNombresProfesionalesSinConversacion.size() > 0) {
             ocultarPaneles();
             this.listaElegirProfesionales.setListData(listaNombresProfesionalesSinConversacion.toArray());
-            this.panelElegirProfesional.setVisible(true);
+            this.panelElegirProfesionalPrimeraVez.setVisible(true);
         }
     }//GEN-LAST:event_btnNuevaConversacion1ActionPerformed
 
@@ -1544,7 +1569,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         this.btnVerPlanesExistentes.setEnabled(true);
         this.panelConsultaConProfesional.setVisible(false);
         this.txtMostrarConversacion.setText("");
-        this.panelElegirProfesional.setVisible(false);
+        this.panelElegirProfesionalPrimeraVez.setVisible(false);
         this.panelBuscarPlan.setVisible(false);
         this.panelConversacion.setVisible(false);
         this.panelAlimentoIngerido.setVisible(false);
@@ -1677,6 +1702,8 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
     private javax.swing.JPanel panelVacio;
     private javax.swing.JPanel panelVerPlanAlimentacion;
     private javax.swing.JPanel panelIngestasAnteriores;
+    private javax.swing.JPanel panelListaProfesionalesParaMensaje;
+    private javax.swing.JPanel panelElegirProfesionalPrimeraVez;
     private javax.swing.JTextArea txtComidasDomingo;
     private javax.swing.JTextArea txtComidasJueves;
     private javax.swing.JTextArea txtComidasLunes;
@@ -1687,7 +1714,9 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
     private javax.swing.JTextArea txtMensajeNuevo;
     private javax.swing.JTextPane txtMostrarConversacion;
     private JLabel lblIngestasAnteriores;
+    private JLabel lblVerIngestasAnteriores;
     private JList<String> listIngestasAnteriores;
+    private JLabel lblEasd;
     // End of variables declaration//GEN-END:variables
 
     private String cargarDatosDelPlan(String[][] planDiaADia, int indiceDia) {
