@@ -84,6 +84,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         panel2.add(passwordField_1);
         
         lblNewLabel = new JLabel("New label");
+        lblNewLabel.setIcon(new ImageIcon(VentanaRegistrarUsuario.class.getResource("/Imagenes/iconoCampoIncorrecto.png")));
         lblNewLabel.setForeground(new Color(102, 204, 0));
         lblNewLabel.setBounds(541, 331, 32, 44);
         lblNewLabel.setVisible(false);
@@ -636,7 +637,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         ArrayList<Ingesta> alimentosIngeridosPorFecha = new ArrayList<>();
         String nacionalidad = (String) this.listaNacionalidad.getSelectedItem();
         String fechaNacimiento = this.dateChooserFechaNacimiento.getText();
-        if (nombre.equals("") || apellido.equals("") || nacionalidad.equals("Seleccione...") || !emptyPassword() || !validarPassword()) {
+        if (nombre.equals("") || apellido.equals("") || nacionalidad.equals("Seleccione...") || emptyPassword() || !validarPassword()) {
             this.lblDatosIncorrectos.setVisible(true);
             mostrarErrores(nombre, apellido, nacionalidad);
         }else if (compareDates(fechaNacimiento, this.fechaHoy) == 0) {
@@ -663,7 +664,21 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
       char[] pass1 = passwordField.getPassword();
       char[] pass2 = passwordField_1.getPassword();
       
-      return ((pass1.length == 1) || (pass2.length == 0));
+      boolean ret = true;
+      
+      if ((pass1.length == 0) || (pass2.length == 0)) {
+        lblNewLabel.setVisible(true);
+        lblNewLabel_1.setVisible(true);
+        lblNewLabel_1.setText("Campo vacío");
+      } else {
+        lblNewLabel.setVisible(false);
+        lblNewLabel_1.setVisible(false);
+        lblNewLabel_1.setText("No coincide");
+        ret = false;
+      }
+      
+      return ret;
+      
     }
 
     private void btnIngresarFotoPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarFotoPerfilActionPerformed
