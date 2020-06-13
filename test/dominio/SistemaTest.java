@@ -2,6 +2,7 @@ package dominio;
 
 import dominio.Sistema;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -558,5 +559,142 @@ public class SistemaTest {
         listaEsperada.add("DOMINGO");
         assertEquals(sistemaATestear.devolverListaDiasDeLaSemana(), listaEsperada);
     }
-
+    
+    @Test
+    public void testEnumDevolverListaDePaises(){
+        Sistema sistemaATestear = new Sistema();
+        assertEquals(sistemaATestear.devolverListaPaises().size(), 26);
+    }
+    
+    @Test
+    public void testCambiarFotoDeUsuario(){
+        Sistema sistemaATestear = new Sistema();
+        sistemaATestear.crearUsuario("Santiago", "Perez", "", "", null, null, null);
+        Usuario user = sistemaATestear.getUsuarioPorNombre("Santiago Perez");
+        sistemaATestear.cambiarFotoUsuario("Santiago", "Perez", new ImageIcon(getClass()
+                        .getResource("/Imagenes/fotoDeUsuarioStandard.png")));
+        assertEquals(new ImageIcon(getClass()
+                        .getResource("/Imagenes/fotoDeUsuarioStandard.png")).getImage(), user.getFotoDePerfil().getImage());
+    }
+    
+    @Test
+    public void testAgregarProfesionalNull(){
+        Sistema sistemaATestear = new Sistema();
+        Profesional prof = null;
+        assertFalse(sistemaATestear.agregarProfesionalALaLista(prof));
+    }
+    
+    @Test
+    public void testCrearProfesional(){
+        Sistema sistemaATestear = new Sistema();
+        assert(sistemaATestear.crearProfesional("Santiago", "Perez", "", null, "", "", ""));
+    }
+    
+    @Test
+    public void testCrearAlimento(){
+        Sistema sistemaATestear = new Sistema();
+        assert(sistemaATestear.crearAlimento("Carne", "", new ArrayList<>(), null));
+    }
+    
+    @Test
+    public void testAgregarAlimentoNull(){
+        Sistema sistemaATestear = new Sistema();
+        assertFalse(sistemaATestear.agregarAlimentoALaLista(null));
+    }
+    
+    @Test
+    public void testCrearConversacionConCambio(){
+        Sistema sistemaATestear = new Sistema();
+        Usuario user = new Usuario("Santiago", "Perez", "", "");
+        Profesional prof = new Profesional("Juan", "Bordagorry", "", null, "", "", "");
+        sistemaATestear.agregarUsuarioALaLista(user);
+        sistemaATestear.agregarProfesionalALaLista(prof);
+        assert(sistemaATestear.crearConversacion(user, prof, "Test", true));
+    }
+    
+    
+    @Test
+    public void testCrearConversacionSinCambio(){
+        Sistema sistemaATestear = new Sistema();
+        Usuario user = new Usuario("Santiago", "Perez", "", "");
+        Profesional prof = new Profesional("Juan", "Bordagorry", "", null, "", "", "");
+        sistemaATestear.agregarUsuarioALaLista(user);
+        sistemaATestear.agregarProfesionalALaLista(prof);
+        assert(sistemaATestear.crearConversacion(user, prof, "Test", false));
+    }
+    
+    @Test
+    public void testGetProfesionalesConversacion(){
+        Sistema sistemaATestear = new Sistema();
+        Usuario user = new Usuario("Santiago", "Perez", "", "");
+        Profesional prof = new Profesional("Juan", "Bordagorry", "", null, "", "", "");
+        sistemaATestear.agregarUsuarioALaLista(user);
+        sistemaATestear.agregarProfesionalALaLista(prof);
+        sistemaATestear.crearConversacion(user, prof, "Test", true);
+        
+        assertEquals(sistemaATestear.getListaNombresProfesionalesConversaciones("Juan Bordagorry").length, 1);
+    }
+    
+    @Test
+    public void testGetUsuariosConversacion(){
+        Sistema sistemaATestear = new Sistema();
+        Usuario user = new Usuario("Santiago", "Perez", "", "");
+        Profesional prof = new Profesional("Juan", "Bordagorry", "", null, "", "", "");
+        sistemaATestear.agregarUsuarioALaLista(user);
+        sistemaATestear.agregarProfesionalALaLista(prof);
+        sistemaATestear.crearConversacion(user, prof, "Test", true);
+        
+        assertEquals(sistemaATestear.getListaNombresUsuariosConversacionesPendientes("Santiago Perez").length,1);
+    }
+    
+    @Test
+    public void testGetConversacion(){
+        Sistema sistemaATestear = new Sistema();
+        Usuario user = new Usuario("Santiago", "Perez", "", "");
+        Profesional prof = new Profesional("Juan", "Bordagorry", "", null, "", "", "");
+        sistemaATestear.agregarUsuarioALaLista(user);
+        sistemaATestear.agregarProfesionalALaLista(prof);
+        sistemaATestear.crearConversacion(user, prof, "Test", true);
+        
+        assertEquals(sistemaATestear.getConversacion("Juan Bordagorry", "Santiago Perez"), "\nSantiago Perez\nTest\n");
+    }
+    
+    @Test
+    public void testAgregarMensajeUserAProf(){
+        Sistema sistemaATestear = new Sistema();
+        Usuario user = new Usuario("Santiago", "Perez", "", "");
+        Profesional prof = new Profesional("Juan", "Bordagorry", "", null, "", "", "");
+        sistemaATestear.agregarUsuarioALaLista(user);
+        sistemaATestear.agregarProfesionalALaLista(prof);
+        sistemaATestear.crearConversacion(user, prof, "Test", true);
+        assert(sistemaATestear.agregarMensajeConversacion("Santiago Perez", "Juan Bordagorry", "Testcito", true, true));
+    }
+    
+        
+    @Test
+    public void testAgregarMensajeProfAUser(){
+        Sistema sistemaATestear = new Sistema();
+        Usuario user = new Usuario("Santiago", "Perez", "", "");
+        Profesional prof = new Profesional("Juan", "Bordagorry", "", null, "", "", "");
+        sistemaATestear.agregarUsuarioALaLista(user);
+        sistemaATestear.agregarProfesionalALaLista(prof);
+        sistemaATestear.crearConversacion(user, prof, "Test", true);
+        assert(sistemaATestear.agregarMensajeConversacion( "Juan Bordagorry","Santiago Perez", "Testcito", true, true));
+    }
+    
+    @Test
+    public void testNombresProfesionalesSinConsulta(){
+        Sistema sistemaATestear = new Sistema();    
+        Profesional prof1 = new Profesional("Juan", "Bordagorry", "", null, "", "", "");
+        Profesional prof2 = new Profesional("Santiago", "Perez", "", null, "", "", "");
+        sistemaATestear.agregarProfesionalALaLista(prof1);
+        sistemaATestear.agregarProfesionalALaLista(prof2);
+        Usuario user = new Usuario("Juan", "Perez", "", "");
+        sistemaATestear.agregarUsuarioALaLista(user);
+        
+        sistemaATestear.crearConversacion(user, prof1, "Test", true);
+        
+        assertEquals(prof2, sistemaATestear.getNombresProfesionalesSinConversacionConUsuario(user).get(0));
+        
+    }
 }

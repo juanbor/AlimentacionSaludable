@@ -72,5 +72,46 @@ public class InformacionMensajeTest {
         String esperadoToString = "Remitente no ingresado" + ": \n" + mensaje;
         assertEquals(info.toString(), esperadoToString);
     }
+    
+    @Test
+    public void testGetRemitenteWithData(){
+        String remitente = "Santi";
+        String destinatario = "Juan";
+        String mensaje = "mensaje";
+        InformacionMensaje info = new InformacionMensaje(remitente, destinatario, mensaje);
+        String esperado = "Santi";
+        assertEquals(esperado, info.getRemitente());
+    }
+    
+    @Test
+    public void testGetDestinatarioWithData(){
+        String remitente = "Santi";
+        String destinatario = "Juan";
+        String mensaje = "mensaje";
+        InformacionMensaje info = new InformacionMensaje(remitente, destinatario, mensaje);
+        String esperado = "Juan";
+        assertEquals(esperado, info.getDestinatario());
+    }
+    
+    @Test
+    public void testIntercambiarDestinatarioRemitenteCheckRemitente(){
+        String remitente = "Santi";
+        String destinatario = "Juan";
+        String mensaje = "mensaje";
+        InformacionMensaje info = new InformacionMensaje(remitente, destinatario, mensaje);
+        info.intercambiarRemitente();
+        String esperado = "Juan";
+        assertEquals(esperado, info.getRemitente());
+    }
 
+    @Test
+    public void testIntercambiarDestinatarioRemitenteCheckDestinatario(){
+        String remitente = "Santi";
+        String destinatario = "Juan";
+        String mensaje = "mensaje";
+        InformacionMensaje info = new InformacionMensaje(remitente, destinatario, mensaje);
+        info.intercambiarRemitente();
+        String esperado = "Santi";
+        assertEquals(esperado, info.getDestinatario());
+    }    
 }

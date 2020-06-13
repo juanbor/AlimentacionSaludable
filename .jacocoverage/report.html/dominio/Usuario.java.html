@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Usuario.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;AlimentacionSaludable&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">dominio</a> &gt; <span class="el_source">Usuario.java</span></div><h1>Usuario.java</h1><pre class="source lang-java linenums">package dominio;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ImageIcon;
+
+public final class Usuario extends Persona {
+
+    private String nacionalidad;
+    private List&lt;String&gt; preferencias;
+    private List&lt;String&gt; restricciones;
+    public List&lt;Ingesta&gt; alimentosIngeridos;
+
+    public Usuario(String unNombre,
+            String unApellido,
+            String unaFechaNacimiento,
+<span class="fc" id="L17">            String unaNacionalidad) {</span>
+
+<span class="fc" id="L19">        this.setNombre(unNombre);</span>
+<span class="fc" id="L20">        this.setApellido(unApellido);</span>
+<span class="fc" id="L21">        this.setFechaNacimiento(unaFechaNacimiento);</span>
+<span class="fc" id="L22">        this.setNacionalidad(unaNacionalidad);</span>
+<span class="fc" id="L23">        this.fotoDePerfil = new ImageIcon(getClass()</span>
+<span class="fc" id="L24">                        .getResource(&quot;/Imagenes/fotoDeUsuarioStandard.png&quot;));</span>
+<span class="fc" id="L25">        this.setPreferencias(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L26">        this.setRestricciones(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L27">        this.setAlimentosIngeridos(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L28">    }</span>
+
+    public String getNacionalidad() {
+<span class="pc bpc" id="L31" title="1 of 4 branches missed.">        if(nacionalidad != null &amp;&amp; !nacionalidad.isEmpty())</span>
+<span class="fc" id="L32">            return nacionalidad;</span>
+<span class="fc" id="L33">        return &quot;Nacionalidad no ingresada&quot;;</span>
+    }
+
+    public void setNacionalidad(String unaNacionalidad) {
+       
+<span class="fc" id="L38">        nacionalidad = unaNacionalidad;</span>
+       
+<span class="fc" id="L40">    }</span>
+
+    public List&lt;String&gt; getPreferencias() {
+<span class="fc" id="L43">        return this.preferencias;</span>
+    }
+
+    public void setPreferencias(List&lt;String&gt; listaPreferencias) {
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (listaPreferencias == null) {</span>
+<span class="fc" id="L48">            this.preferencias = new ArrayList&lt;&gt;();</span>
+        } else {
+<span class="fc" id="L50">            this.preferencias = listaPreferencias;</span>
+        }
+<span class="fc" id="L52">    }</span>
+
+    public List&lt;String&gt; getRestricciones() {
+<span class="fc" id="L55">        return this.restricciones;</span>
+    }
+
+    public void setRestricciones(List&lt;String&gt; listaRestricciones) {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (listaRestricciones == null) {</span>
+<span class="fc" id="L60">            this.restricciones = new ArrayList&lt;&gt;();</span>
+        } else {
+<span class="fc" id="L62">            this.restricciones = listaRestricciones;</span>
+        }
+<span class="fc" id="L64">    }</span>
+
+    public List&lt;Ingesta&gt; getAlimentosIngeridos() {
+<span class="fc" id="L67">        return this.alimentosIngeridos;</span>
+    }
+
+    public void setAlimentosIngeridos(List&lt;Ingesta&gt; listaAlimentos) {
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (listaAlimentos == null) {</span>
+<span class="fc" id="L72">            this.alimentosIngeridos = new ArrayList&lt;&gt;();</span>
+        } else {
+<span class="fc" id="L74">            this.alimentosIngeridos = listaAlimentos;</span>
+        }
+
+<span class="fc" id="L77">    }</span>
+
+    public String[] getArrayAlimentosIngeridos() {
+<span class="fc" id="L80">        String[] retorno = new String[getAlimentosIngeridos().size()];</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        for (int i = 0; i &lt; getAlimentosIngeridos().size(); i++) {</span>
+<span class="fc" id="L82">            retorno[i] = getAlimentosIngeridos().get(i).toString();</span>
+        }
+<span class="fc" id="L84">        return retorno;</span>
+    }
+
+    public String[] getArrayRestricciones() {
+<span class="fc" id="L88">        String[] retorno = new String[getRestricciones().size()];</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        for (int i = 0; i &lt; getRestricciones().size(); i++) {</span>
+<span class="fc" id="L90">            retorno[i] = getRestricciones().get(i);</span>
+        }
+<span class="fc" id="L92">        return retorno;</span>
+    }
+
+    public String[] getArrayPreferencias() {
+<span class="fc" id="L96">        String[] retorno = new String[getPreferencias().size()];</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        for (int i = 0; i &lt; getPreferencias().size(); i++) {</span>
+<span class="fc" id="L98">            retorno[i] = getPreferencias().get(i);</span>
+        }
+<span class="fc" id="L100">        return retorno;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L105">        return super.toString();</span>
+    }
+
+    public void actualizarPreferenciasUsuario(Usuario usuario, List&lt;String&gt; preferencias) {
+<span class="nc" id="L109">        usuario.setPreferencias(preferencias);</span>
+<span class="nc" id="L110">    }</span>
+
+    public void actualizarRestriccionesUsuario(Usuario usuario, List&lt;String&gt; restricciones) {
+<span class="nc" id="L113">        usuario.setRestricciones(restricciones);</span>
+<span class="nc" id="L114">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

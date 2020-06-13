@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Conversacion.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;AlimentacionSaludable&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">dominio</a> &gt; <span class="el_source">Conversacion.java</span></div><h1>Conversacion.java</h1><pre class="source lang-java linenums">package dominio;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+public final class Conversacion implements Serializable {
+
+    private List&lt;InformacionMensaje&gt; listaMensajes;
+    public Persona usuario;
+    public Persona profesional;
+    private boolean fueAtendidaConsulta;
+
+<span class="fc" id="L15">    public Conversacion(Persona user, Persona pr, List&lt;InformacionMensaje&gt; lista) {</span>
+<span class="fc" id="L16">        setUsuario(user);</span>
+<span class="fc" id="L17">        setProfesional(pr);</span>
+<span class="fc" id="L18">        setListaMensajes(lista);</span>
+<span class="fc" id="L19">        setFueAtendidaConsulta(false);</span>
+<span class="fc" id="L20">    }</span>
+
+    public boolean getFueAtendidaConsulta() {
+<span class="fc" id="L23">        return fueAtendidaConsulta;</span>
+    }
+
+    public void setFueAtendidaConsulta(boolean fueAtendida) {
+<span class="fc" id="L27">        this.fueAtendidaConsulta = fueAtendida;</span>
+<span class="fc" id="L28">    }</span>
+
+    public List&lt;InformacionMensaje&gt; getListaMensajes() {
+<span class="fc" id="L31">        return this.listaMensajes;</span>
+    }
+
+    public void setListaMensajes(List&lt;InformacionMensaje&gt; lista) {
+<span class="fc bfc" id="L35" title="All 4 branches covered.">        if (lista == null || lista.isEmpty()) {</span>
+<span class="fc" id="L36">            this.listaMensajes = new ArrayList&lt;&gt;();</span>
+        } else {
+<span class="fc" id="L38">            this.listaMensajes = lista;</span>
+        }
+<span class="fc" id="L40">    }</span>
+
+    public Persona getUsuario() {
+<span class="fc" id="L43">        return usuario;</span>
+    }
+
+    public void setUsuario(Persona unUsuario) {
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (unUsuario == null) {</span>
+<span class="fc" id="L48">            this.usuario = new Usuario(null, null, null, null);</span>
+        } else {
+<span class="fc" id="L50">            this.usuario = unUsuario;</span>
+        }
+<span class="fc" id="L52">    }</span>
+
+    public Persona getProfesional() {
+<span class="fc" id="L55">        return this.profesional;</span>
+    }
+
+    public void setProfesional(Persona unProfesional) {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (unProfesional == null) {</span>
+<span class="fc" id="L60">            this.profesional = new Profesional(null, null, null, null, null, null, null);</span>
+        } else {
+<span class="fc" id="L62">            this.profesional = unProfesional;</span>
+        }
+<span class="fc" id="L64">    }</span>
+
+    public boolean agregarMensaje(String mensaje, boolean intercambioRemitente) {
+<span class="fc" id="L67">        InformacionMensaje informacion = new InformacionMensaje(getUsuario().getNombreCompleto(), getProfesional().getNombreCompleto(), mensaje);</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (intercambioRemitente) {</span>
+<span class="fc" id="L69">            informacion.intercambiarRemitente();</span>
+        }
+<span class="fc" id="L71">        listaMensajes.add(informacion);</span>
+<span class="fc" id="L72">        return true;</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      Conversacion parcial;
+      
+<span class="fc bfc" id="L79" title="All 2 branches covered.">      if (obj != null) {</span>
+<span class="fc" id="L80">        parcial = (Conversacion) obj;</span>
+      } else {
+<span class="fc" id="L82">        throw new NullPointerException(&quot;equals recibe Null&quot;);</span>
+      }
+<span class="fc" id="L84">        final Conversacion conversacionParametro = parcial;</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        return getProfesional().equals(conversacionParametro.getProfesional())</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">                &amp;&amp; getUsuario().equals(conversacionParametro.getUsuario());</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L91">        String retorno = &quot;No hay mensajes para mostrar&quot;;</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (!getListaMensajes().isEmpty()) {</span>
+<span class="fc" id="L93">            retorno = &quot;&quot;;</span>
+<span class="fc" id="L94">            retorno = listaMensajes.stream().map((InformacionMensaje info) -&gt; &quot;\n&quot; + info.getRemitente() + &quot;\n&quot;</span>
+<span class="fc" id="L95">                    + info.getMensaje() + &quot;\n&quot;).reduce(retorno, String::concat);</span>
+        }
+<span class="fc" id="L97">        return retorno;</span>
+    }
+    
+    @Override
+    public int hashCode() {
+<span class="nc" id="L102">        return Objects.hash(listaMensajes, usuario, profesional, fueAtendidaConsulta);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PlanAlimentacion.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;AlimentacionSaludable&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">dominio</a> &gt; <span class="el_source">PlanAlimentacion.java</span></div><h1>PlanAlimentacion.java</h1><pre class="source lang-java linenums">package dominio;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+public final class PlanAlimentacion implements Serializable {
+
+    private String nombreDelPlan;
+    private Usuario usuario;
+    public Profesional profesional;
+    public boolean fueAtendidoElPlan;
+    private String[][] planDiaADia;
+
+    public PlanAlimentacion(String np,
+            Usuario usu,
+            Profesional pro,
+            boolean fueAtendido,
+<span class="fc" id="L18">            String[][] unPlan) {</span>
+
+<span class="fc" id="L20">        setNombreDelPlan(np);</span>
+<span class="fc" id="L21">        setUsuario(usu);</span>
+<span class="fc" id="L22">        setProfesional(pro);</span>
+<span class="fc" id="L23">        setFueAtendidoElPlan(fueAtendido);</span>
+<span class="fc" id="L24">        setPlanDiaADia(unPlan);</span>
+<span class="fc" id="L25">    }</span>
+
+    public Persona getUsuario() {
+<span class="fc" id="L28">        return usuario;</span>
+    }
+
+    public void setUsuario(Usuario unUsuario) {
+<span class="fc" id="L32">        usuario = unUsuario;</span>
+        
+<span class="fc" id="L34">    }</span>
+
+    public Profesional getProfesional() {
+<span class="fc" id="L37">        return this.profesional;</span>
+    }
+
+    public void setProfesional(Profesional unProfesional) {
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (unProfesional == null) {</span>
+<span class="fc" id="L42">            this.profesional = new Profesional(null, null, null, null, null, null, null);</span>
+        } else {
+<span class="fc" id="L44">            this.profesional = unProfesional;</span>
+        }
+<span class="fc" id="L46">    }</span>
+
+    public boolean getFueAtendidoElPlan() {
+<span class="fc" id="L49">        return fueAtendidoElPlan;</span>
+    }
+
+    public void setFueAtendidoElPlan(boolean fueAtendido) {
+<span class="fc" id="L53">        this.fueAtendidoElPlan = fueAtendido;</span>
+<span class="fc" id="L54">    }</span>
+
+    public String[][] getPlanDiaADia() {
+<span class="fc" id="L57">        return this.planDiaADia;</span>
+    }
+
+    public void setPlanDiaADia(String[][] unPlan) {
+<span class="fc" id="L61">        this.planDiaADia = unPlan;</span>
+<span class="fc" id="L62">    }</span>
+
+    public String getNombreDelPlan() {
+<span class="fc" id="L65">        return this.nombreDelPlan;</span>
+    }
+
+    public void setNombreDelPlan(String unNombreDelPlan) {
+<span class="fc" id="L69">        nombreDelPlan = unNombreDelPlan;</span>
+       
+<span class="fc" id="L71">    }</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L75">        return this.getNombreDelPlan();</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        PlanAlimentacion otroPlanAlimentacion;
+        
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        if (obj != null) {</span>
+<span class="fc" id="L83">          otroPlanAlimentacion = (PlanAlimentacion) obj;</span>
+        } else {
+<span class="nc" id="L85">          throw new NullPointerException(&quot;equals recibe Null&quot;);</span>
+        }
+        
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        return (this.getNombreDelPlan().equals(otroPlanAlimentacion.getNombreDelPlan())</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">                &amp;&amp; this.getUsuario().equals(otroPlanAlimentacion.getUsuario())</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">                &amp;&amp; this.getProfesional().equals(otroPlanAlimentacion.getProfesional()));</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L95">        return Objects.hash(nombreDelPlan, usuario, profesional, fueAtendidoElPlan, planDiaADia);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
