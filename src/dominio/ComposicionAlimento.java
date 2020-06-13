@@ -13,12 +13,15 @@ public final class ComposicionAlimento implements Serializable {
     }
 
     public String getNutriente() {
-        return this.nutriente;
+        if (nutriente != null && !nutriente.isEmpty()) {
+            return this.nutriente;
+        }
+        
+        return "No definido";
     }
 
     public void setNutriente(String unNutriente) {
         this.nutriente = unNutriente;
-
 
     }
 

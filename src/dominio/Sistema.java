@@ -424,7 +424,7 @@ public final class Sistema implements Serializable {
         if (usuario != null && profesional != null) {
             PlanAlimentacion planNuevo = new PlanAlimentacion("", usuario, profesional, false, null);
             if (!getListaPlanesAlimentacion().contains(planNuevo)) {
-                this.getListaPlanesAlimentacion().add(planNuevo);
+                listaPlanesAlimentacion.add(planNuevo);
                 agreguePlan = true;
             }
         }

@@ -37,7 +37,11 @@ public final class Alimento implements Serializable {
     }
 
     public String getTipoAlimento() {
-        return this.tipoAlimento;
+        if (tipoAlimento != null && !tipoAlimento.isEmpty()){
+            return this.tipoAlimento;
+        }
+        
+        return "No definido";
     }
 
     public void setTipoAlimento(String unTipoAlimento) {

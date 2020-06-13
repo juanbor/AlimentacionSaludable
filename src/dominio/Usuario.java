@@ -28,7 +28,9 @@ public final class Usuario extends Persona {
     }
 
     public String getNacionalidad() {
-        return nacionalidad;
+        if(nacionalidad != null && !nacionalidad.isEmpty())
+            return nacionalidad;
+        return "Nacionalidad no ingresada";
     }
 
     public void setNacionalidad(String unaNacionalidad) {
