@@ -15,12 +15,17 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
@@ -72,6 +77,17 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
     public void setYaExisteConversacion(boolean existe) {
         this.existeConversacion = existe;
     }
+    
+    private Image getScaledImage(Image srcImg, int w, int h){
+      BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+      Graphics2D g2 = resizedImg.createGraphics();
+
+      g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+      g2.drawImage(srcImg, 0, 0, w, h, null);
+      g2.dispose();
+
+      return resizedImg;
+  }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -368,7 +384,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
                                                                 jScrollPane1.setViewportView(txtMensajeNuevo);
                                                                 
                                                                         panelConsultaConProfesional.add(panelConversacion);
-                                                                        panelConversacion.setBounds(314, 47, 455, 712);
+                                                                        panelConversacion.setBounds(314, 47, 455, 664);
                                                                         panelConversacion.setLayout(null);
                                                                         panelConversacion.add(lblFotoProfesional);
                                                                         panelConversacion.add(lblNombreProfesional);
@@ -430,22 +446,23 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
                                                                                                         
                                                                                                         JButton btnVerIngestasAnteriores = new JButton();
                                                                                                         
-                                                                                                        
-                                                                                                        btnVerIngestasAnteriores.setIcon(new ImageIcon(VentanaMenuPrincipalUsuario.class.getResource("/Imagenes/iconoIngresarAlimento.png")));
+                                                                                                        ImageIcon ingestasAnterioresImageIcon = new ImageIcon(VentanaMenuPrincipalUsuario.class.getResource("/Imagenes/iconoIngresarAlimento.png"));
+                                                                                                        Image resizedImage = getScaledImage(ingestasAnterioresImageIcon.getImage() , 40,40);
+                                                                                                        btnVerIngestasAnteriores.setIcon(new ImageIcon(resizedImage));
                                                                                                         btnVerIngestasAnteriores.setForeground(Color.WHITE);
                                                                                                         btnVerIngestasAnteriores.setFocusPainted(false);
                                                                                                         btnVerIngestasAnteriores.setEnabled(true);
                                                                                                         btnVerIngestasAnteriores.setContentAreaFilled(false);
                                                                                                         btnVerIngestasAnteriores.setBorderPainted(false);
                                                                                                         btnVerIngestasAnteriores.setBorder(null);
-                                                                                                        btnVerIngestasAnteriores.setBounds(107, 654, 86, 82);
+                                                                                                        btnVerIngestasAnteriores.setBounds(463, 739, 40, 40);
                                                                                                         panelConsultaConProfesional.add(btnVerIngestasAnteriores);
                                                                                                         
                                                                                                         JLabel lblVerIngestasAnteriores = new JLabel();
                                                                                                         lblVerIngestasAnteriores.setForeground(Color.WHITE);
                                                                                                         lblVerIngestasAnteriores.setText("Ver ingestas anteriores");
                                                                                                         lblVerIngestasAnteriores.setFont(new Font("Dialog", Font.PLAIN, 18));
-                                                                                                        lblVerIngestasAnteriores.setBounds(47, 737, 253, 45);
+                                                                                                        lblVerIngestasAnteriores.setBounds(515, 744, 254, 35);
                                                                                                         panelConsultaConProfesional.add(lblVerIngestasAnteriores);
 
         panelNoHayAlimentos.setBackground(new java.awt.Color(51, 51, 51));
