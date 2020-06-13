@@ -18,6 +18,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import datechooser.events.SelectionChangedListener;
 import datechooser.events.SelectionChangedEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VentanaRegistrarProfesional extends javax.swing.JDialog {
 
@@ -68,6 +70,16 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         lblFechaGraduacionErrorImg.setVisible(false);
         panel2.add(lblFechaGraduacionErrorImg);
         this.primeraVez = false;
+        
+        addWindowListener(new WindowAdapter() {
+
+            @Override
+
+            public void windowClosing(WindowEvent e) {
+                sistema.guardarDatosSistema();
+                System.exit(0);
+
+            }});
         
        
     }
@@ -128,7 +140,7 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         setMaximumSize(new java.awt.Dimension(1060, 800));
         setMinimumSize(new java.awt.Dimension(1060, 800));
         setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-        setUndecorated(true);
+        setUndecorated(false);
         setPreferredSize(new java.awt.Dimension(1060, 800));
         setResizable(false);
         setSize(new java.awt.Dimension(1060, 800));
