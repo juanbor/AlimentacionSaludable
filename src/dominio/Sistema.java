@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -177,13 +178,14 @@ public final class Sistema implements Serializable {
     public boolean crearUsuario(String nombre, String apellido,
             String fechaNacimiento, 
             String nacionalidad, List<String> preferencias,
-            List<String> restricciones, List<Ingesta> alimentosIngeridos) {
+            List<String> restricciones, List<Ingesta> alimentosIngeridos, Optional<String> key) {
         Usuario usuarioNuevo;
         usuarioNuevo = new Usuario(nombre, apellido, fechaNacimiento,
                 nacionalidad);
         usuarioNuevo.setPreferencias(preferencias);
         usuarioNuevo.setRestricciones(restricciones);
         usuarioNuevo.setAlimentosIngeridos(alimentosIngeridos);
+        usuarioNuevo.setPasswordKey(key);
         return agregarUsuarioALaLista(usuarioNuevo);
     }
     
@@ -205,10 +207,11 @@ public final class Sistema implements Serializable {
     public boolean crearProfesional(String nombre, String apellido,
             String fechaNacimiento, ImageIcon fotoPerfil,
             String tituloProfesional, String fechaGraduacion,
-            String paisGraduacion) {
+            String paisGraduacion, Optional<String> key) {
         Profesional profesionalNuevo = new Profesional(nombre, apellido,
                 fechaNacimiento, fotoPerfil, tituloProfesional,
                 fechaGraduacion, paisGraduacion);
+        profesionalNuevo.setPasswordKey(key);
         return agregarProfesionalALaLista(profesionalNuevo);
     }
 

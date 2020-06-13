@@ -1,10 +1,13 @@
 package interfaz;
 
+import dominio.ContraseniaUtils;
 import dominio.Sistema;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -32,6 +35,7 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
     private boolean primeraVez;
     private Calendar fecha;
     private String fechaHoy;
+    private static String salt = ContraseniaUtils.generateSalt(512).get();
 
     public VentanaRegistrarProfesional(Sistema unSistema) {
         initComponents();
@@ -96,6 +100,12 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         panel2.add(lblMail);
         
         txtMail = new JTextField();
+        txtMail.addFocusListener(new FocusAdapter() {
+          @Override
+          public void focusLost(FocusEvent e) {
+            validoMail();
+          }
+        });
         txtMail.setFont(new Font("Dialog", Font.PLAIN, 15));
         txtMail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtMail.setBackground(new Color(227, 227, 227));
@@ -121,20 +131,21 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         passwordField_1.setBounds(317, 329, 181, 34);
         panel2.add(passwordField_1);
         
-        JLabel lblDatoVaco = new JLabel();
+        lblDatoVaco = new JLabel();
         lblDatoVaco.setText("Dato vacío");
         lblDatoVaco.setForeground(new java.awt.Color(240, 128, 128));
         lblDatoVaco.setFont(new Font("Dialog", Font.PLAIN, 19));
-        lblDatoVaco.setBounds(461, 229, 115, 38);
+        lblDatoVaco.setBounds(461, 229, 134, 38);
         lblDatoVaco.setVisible(false);
         panel2.add(lblDatoVaco);
         
-        JLabel label_1 = new JLabel();
+        label_1 = new JLabel();
         label_1.setIcon(new ImageIcon(VentanaRegistrarProfesional.class.getResource("/Imagenes/iconoCampoIncorrecto.png")));
         label_1.setText("Mail");
         label_1.setForeground(Color.WHITE);
         label_1.setFont(new Font("Dialog", Font.PLAIN, 25));
         label_1.setBounds(427, 227, 32, 38);
+        label_1.setVisible(false);
         panel2.add(label_1);
         
         label = new JLabel();
@@ -142,6 +153,7 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         label.setText("Mail");
         label.setForeground(Color.WHITE);
         label.setFont(new Font("Dialog", Font.PLAIN, 25));
+        label.setVisible(false);
         label.setBounds(510, 325, 32, 38);
         panel2.add(label);
         
@@ -149,7 +161,7 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         lblNoCoincide.setText("No coincide");
         lblNoCoincide.setForeground(new java.awt.Color(240, 128, 128));
         lblNoCoincide.setFont(new Font("Dialog", Font.PLAIN, 19));
-        lblNoCoincide.setBounds(554, 325, 115, 38);
+        lblNoCoincide.setBounds(554, 325, 158, 38);
         lblNoCoincide.setVisible(false);
         panel2.add(lblNoCoincide);
         this.primeraVez = false;
@@ -560,8 +572,6 @@ layout.setHorizontalGroup(
     }// </editor-fold>//GEN-END:initComponents
 
     private void setCamposPasswordCorrectoIncorrecto() {
-      
-      
       boolean esValido = validarPassword();
       
       if (!esValido) {
@@ -655,9 +665,12 @@ layout.setHorizontalGroup(
         String paisGraduacion = (String) this.listaPaisGraduacion.getSelectedItem();
         String fechaNacimiento = this.dateChooserFechaNacimiento.getText();
         String fechaGraduacion = this.dateChooserFechaGraduacion.getText();
+        char[] passwordChar = this.passwordField_1.getPassword();
+        String passwordString = String.valueOf(passwordChar);
+        Optional<String> key = ContraseniaUtils.hashPassword(passwordString, salt);
         
 
-        if (nombre.equals("") || apellido.equals("") || tituloProfesional.equals("Seleccione...") || paisGraduacion.equals("Seleccione...") || emptyPassword() || !validarPassword() || txtMail.getText() != "") {
+        if (nombre.equals("") || apellido.equals("") || tituloProfesional.equals("Seleccione...") || paisGraduacion.equals("Seleccione...") || emptyPassword() || !validarPassword() || !validoMail()) {
             this.lblDatosIncorrectos.setVisible(true);
             mostrarErrores(nombre, apellido, tituloProfesional, paisGraduacion);
         } else if (compareDates(fechaNacimiento, this.fechaHoy) == 0) {
@@ -670,7 +683,7 @@ layout.setHorizontalGroup(
           this.lblFechaGraduacionErrorImg.setVisible(true);
         } else {
             this.lblDatosIncorrectos.setVisible(false);
-            boolean seAgregoProfesional = this.getSistema().crearProfesional(nombre, apellido, fechaNacimiento, this.fotoDePerfilActual, tituloProfesional, fechaGraduacion, paisGraduacion);
+            boolean seAgregoProfesional = this.getSistema().crearProfesional(nombre, apellido, fechaNacimiento, this.fotoDePerfilActual, tituloProfesional, fechaGraduacion, paisGraduacion, key);
             if (seAgregoProfesional) {
                 this.txtNombre.setText("");
                 this.txtApellido.setText("");
@@ -680,6 +693,20 @@ layout.setHorizontalGroup(
             }
         }
     }//GEN-LAST:event_btnIngresarProfesionalASistemaActionPerformed
+    
+    private boolean validoMail() {
+      if (txtMail.getText().equals("")) {
+        lblDatoVaco.setVisible(true);
+        label_1.setVisible(true);
+        label_1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoIncorrecto.png"))); // NOI18N
+        return false;
+      } else {
+        lblDatoVaco.setVisible(false);
+        label_1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoCorrecto.png"))); // NOI18N
+        label_1.setVisible(true);
+        return true;
+      }
+    }
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         VentanaMenuPrincipal vPrincipal = new VentanaMenuPrincipal(sistema);
@@ -768,10 +795,12 @@ layout.setHorizontalGroup(
         label.setVisible(true);
         lblNoCoincide.setVisible(true);
         lblNoCoincide.setText("Campo vacío");
+        label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoCorrecto.png"))); // NOI18N
       } else {
         label.setVisible(false);
         lblNoCoincide.setVisible(false);
         lblNoCoincide.setText("No coincide");
+        label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoCorrecto.png"))); // NOI18N
         ret = false;
       }
       
@@ -817,6 +846,8 @@ layout.setHorizontalGroup(
     private javax.swing.JLabel lblFechaGraduacionErrorImg;
     private javax.swing.JLabel label;
     private javax.swing.JLabel lblNoCoincide;
+    private javax.swing.JLabel label_1;
+    private javax.swing.JLabel lblDatoVaco;
     private JTextField txtMail;
     private JPasswordField passwordField;
     private JPasswordField passwordField_1;
@@ -864,6 +895,13 @@ layout.setHorizontalGroup(
             this.lblValidarPaisGraduacion.setIcon(new ImageIcon(getClass().getResource("/Imagenes/iconoCampoIncorrecto.png")));
             this.lblValidarPaisGraduacion.setVisible(true);
             this.lblPaisVacio.setVisible(true);
+        }
+        validoMail();
+        emptyPassword();
+        if (!validarPassword()) {
+          label.setVisible(true);
+          lblNoCoincide.setVisible(true);
+          lblNoCoincide.setText("No coincide");
         }
     }
 }

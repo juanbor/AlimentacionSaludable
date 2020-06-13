@@ -1,11 +1,14 @@
 package interfaz;
 
+import dominio.ContraseniaUtils;
 import dominio.Ingesta;
 import dominio.Sistema;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -30,6 +33,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
     private ImageIcon fotoDePerfilActual;
     private boolean primeraVez;
     private String fechaHoy;
+    private static String salt = ContraseniaUtils.generateSalt(512).get();
 
     public VentanaRegistrarUsuario(Sistema unSistema) {
         initComponents();
@@ -93,7 +97,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         lblNewLabel_1 = new JLabel("No coincide");
         lblNewLabel_1.setFont(new Font("Dialog", Font.PLAIN, 19));
         lblNewLabel_1.setForeground(new java.awt.Color(240, 128, 128));
-        lblNewLabel_1.setBounds(581, 338, 136, 30);
+        lblNewLabel_1.setBounds(581, 338, 169, 30);
         lblNewLabel_1.setVisible(false);
         panel2.add(lblNewLabel_1);
         
@@ -108,13 +112,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         txtMail.addFocusListener(new FocusAdapter() {
           @Override
           public void focusLost(FocusEvent e) {
-            if (txtMail.getText().equals("")) {
-              lblNewLabel_3.setVisible(true);
-              lblNewLabel_2.setVisible(true);
-            } else {
-              lblNewLabel_3.setVisible(false);
-              lblNewLabel_2.setVisible(false);
-            }
+            validoMail();
           }
         });
         
@@ -135,7 +133,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         lblNewLabel_3 = new JLabel("Dato vacío");
         lblNewLabel_3.setForeground(new java.awt.Color(240, 128, 128));
         lblNewLabel_3.setFont(new Font("Dialog", Font.PLAIN, 19));
-        lblNewLabel_3.setBounds(500, 251, 105, 30);
+        lblNewLabel_3.setBounds(500, 251, 158, 30);
         lblNewLabel_3.setVisible(false);
         panel2.add(lblNewLabel_3);
         this.primeraVez = false;
@@ -156,8 +154,6 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
     }
     
     private void setCamposPasswordCorrectoIncorrecto() {
-      
-      
       boolean esValido = validarPassword();
       
       if (!esValido) {
@@ -637,7 +633,11 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         ArrayList<Ingesta> alimentosIngeridosPorFecha = new ArrayList<>();
         String nacionalidad = (String) this.listaNacionalidad.getSelectedItem();
         String fechaNacimiento = this.dateChooserFechaNacimiento.getText();
-        if (nombre.equals("") || apellido.equals("") || nacionalidad.equals("Seleccione...") || emptyPassword() || !validarPassword()) {
+        char[] passwordChar = this.passwordField_1.getPassword();
+        String passwordString = String.valueOf(passwordChar);
+        Optional<String> key = ContraseniaUtils.hashPassword(passwordString, salt);
+        
+        if (nombre.equals("") || apellido.equals("") || nacionalidad.equals("Seleccione...") || emptyPassword() || !validarPassword() || !validoMail()) {
             this.lblDatosIncorrectos.setVisible(true);
             mostrarErrores(nombre, apellido, nacionalidad);
         }else if (compareDates(fechaNacimiento, this.fechaHoy) == 0) {
@@ -648,7 +648,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
             this.lblDatosIncorrectos.setVisible(false);
             agregarPreferenciasUsuario(preferencias);
             agregarRestriccionesUsuario(restricciones);
-            boolean seAgregoUsuario = this.getSistema().crearUsuario(nombre, apellido, fechaNacimiento, nacionalidad, preferencias, restricciones, alimentosIngeridosPorFecha);
+            boolean seAgregoUsuario = this.getSistema().crearUsuario(nombre, apellido, fechaNacimiento, nacionalidad, preferencias, restricciones, alimentosIngeridosPorFecha, key);
             getSistema().cambiarFotoUsuario(nombre, apellido, fotoDePerfilActual);
             if (seAgregoUsuario) {
                 this.txtNombre.setText("");
@@ -660,6 +660,20 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnIngresarUsuarioASistemaActionPerformed
     
+    private boolean validoMail() {
+      if (txtMail.getText().equals("")) {
+        lblNewLabel_3.setVisible(true);
+        lblNewLabel_2.setVisible(true);
+        lblNewLabel_2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoIncorrecto.png"))); // NOI18N
+        return false;
+      } else {
+        lblNewLabel_3.setVisible(false);
+        lblNewLabel_2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoCorrecto.png"))); // NOI18N
+        lblNewLabel_2.setVisible(true);
+        return true;
+      }
+    }
+    
     public boolean emptyPassword() {
       char[] pass1 = passwordField.getPassword();
       char[] pass2 = passwordField_1.getPassword();
@@ -670,10 +684,12 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         lblNewLabel.setVisible(true);
         lblNewLabel_1.setVisible(true);
         lblNewLabel_1.setText("Campo vacío");
+        lblNewLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoIncorrecto.png"))); // NOI18N
       } else {
         lblNewLabel.setVisible(false);
         lblNewLabel_1.setVisible(false);
         lblNewLabel_1.setText("No coincide");
+        lblNewLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoIncorrecto.png"))); // NOI18N
         ret = false;
       }
       
@@ -905,6 +921,13 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
             this.lblValidarNacionalidad.setIcon(new ImageIcon(getClass().getResource("/Imagenes/iconoCampoIncorrecto.png")));
             this.lblValidarNacionalidad.setVisible(true);
             this.lblPaisVacio.setVisible(true);
+        }
+        validoMail();
+        emptyPassword();
+        if (!validarPassword()) {
+          lblNewLabel.setVisible(true);
+          lblNewLabel_1.setVisible(true);
+          lblNewLabel_1.setText("No coincide");
         }
     }
 }
