@@ -644,7 +644,7 @@ public class SistemaTest {
         sistemaATestear.agregarProfesionalALaLista(prof);
         sistemaATestear.crearConversacion(user, prof, "Test", true);
         
-        assertEquals(sistemaATestear.getListaNombresUsuariosConversacionesPendientes("Santiago Perez").length,1);
+        assertEquals(sistemaATestear.getListaNombresUsuariosConversacionesPendientes("Juan Bordagorry").length,1);
     }
     
     @Test

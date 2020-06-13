@@ -13,6 +13,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JLabel;
 import datechooser.events.SelectionChangedListener;
 import datechooser.events.SelectionChangedEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VentanaRegistrarUsuario extends javax.swing.JDialog {
 
@@ -48,6 +50,16 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         lblFechaNacError.setVisible(false);
         panel2.add(lblFechaNacError);
         this.primeraVez = false;
+        
+        addWindowListener(new WindowAdapter() {
+
+            @Override
+
+            public void windowClosing(WindowEvent e) {
+                sistema.guardarDatosSistema();
+                System.exit(0);
+
+            }});
         
     }
 
@@ -124,7 +136,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1060, 800));
-        setUndecorated(true);
+        setUndecorated(false);
         setResizable(false);
         setSize(new java.awt.Dimension(1060, 800));
         addWindowListener(new java.awt.event.WindowAdapter() {
