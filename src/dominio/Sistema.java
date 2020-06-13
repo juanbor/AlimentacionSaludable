@@ -178,7 +178,7 @@ public final class Sistema implements Serializable {
     public boolean crearUsuario(String nombre, String apellido,
             String fechaNacimiento, 
             String nacionalidad, List<String> preferencias,
-            List<String> restricciones, List<Ingesta> alimentosIngeridos, Optional<String> key) {
+            List<String> restricciones, List<Ingesta> alimentosIngeridos, String mail, Optional<String> key) {
         Usuario usuarioNuevo;
         usuarioNuevo = new Usuario(nombre, apellido, fechaNacimiento,
                 nacionalidad);
@@ -186,6 +186,7 @@ public final class Sistema implements Serializable {
         usuarioNuevo.setRestricciones(restricciones);
         usuarioNuevo.setAlimentosIngeridos(alimentosIngeridos);
         usuarioNuevo.setPasswordKey(key);
+        usuarioNuevo.setMail(mail);
         return agregarUsuarioALaLista(usuarioNuevo);
     }
     
@@ -207,11 +208,12 @@ public final class Sistema implements Serializable {
     public boolean crearProfesional(String nombre, String apellido,
             String fechaNacimiento, ImageIcon fotoPerfil,
             String tituloProfesional, String fechaGraduacion,
-            String paisGraduacion, Optional<String> key) {
+            String paisGraduacion, String mail, Optional<String> key) {
         Profesional profesionalNuevo = new Profesional(nombre, apellido,
                 fechaNacimiento, fotoPerfil, tituloProfesional,
                 fechaGraduacion, paisGraduacion);
         profesionalNuevo.setPasswordKey(key);
+        profesionalNuevo.setMail(mail);
         return agregarProfesionalALaLista(profesionalNuevo);
     }
 

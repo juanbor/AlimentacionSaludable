@@ -665,6 +665,7 @@ layout.setHorizontalGroup(
         String paisGraduacion = (String) this.listaPaisGraduacion.getSelectedItem();
         String fechaNacimiento = this.dateChooserFechaNacimiento.getText();
         String fechaGraduacion = this.dateChooserFechaGraduacion.getText();
+        String mail = this.txtMail.getText();
         char[] passwordChar = this.passwordField_1.getPassword();
         String passwordString = String.valueOf(passwordChar);
         Optional<String> key = ContraseniaUtils.hashPassword(passwordString, salt);
@@ -683,7 +684,7 @@ layout.setHorizontalGroup(
           this.lblFechaGraduacionErrorImg.setVisible(true);
         } else {
             this.lblDatosIncorrectos.setVisible(false);
-            boolean seAgregoProfesional = this.getSistema().crearProfesional(nombre, apellido, fechaNacimiento, this.fotoDePerfilActual, tituloProfesional, fechaGraduacion, paisGraduacion, key);
+            boolean seAgregoProfesional = this.getSistema().crearProfesional(nombre, apellido, fechaNacimiento, this.fotoDePerfilActual, tituloProfesional, fechaGraduacion, paisGraduacion, mail, key);
             if (seAgregoProfesional) {
                 this.txtNombre.setText("");
                 this.txtApellido.setText("");

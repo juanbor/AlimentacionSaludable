@@ -633,6 +633,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         ArrayList<Ingesta> alimentosIngeridosPorFecha = new ArrayList<>();
         String nacionalidad = (String) this.listaNacionalidad.getSelectedItem();
         String fechaNacimiento = this.dateChooserFechaNacimiento.getText();
+        String mail = this.txtMail.getText();
         char[] passwordChar = this.passwordField_1.getPassword();
         String passwordString = String.valueOf(passwordChar);
         Optional<String> key = ContraseniaUtils.hashPassword(passwordString, salt);
@@ -648,7 +649,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
             this.lblDatosIncorrectos.setVisible(false);
             agregarPreferenciasUsuario(preferencias);
             agregarRestriccionesUsuario(restricciones);
-            boolean seAgregoUsuario = this.getSistema().crearUsuario(nombre, apellido, fechaNacimiento, nacionalidad, preferencias, restricciones, alimentosIngeridosPorFecha, key);
+            boolean seAgregoUsuario = this.getSistema().crearUsuario(nombre, apellido, fechaNacimiento, nacionalidad, preferencias, restricciones, alimentosIngeridosPorFecha, mail, key);
             getSistema().cambiarFotoUsuario(nombre, apellido, fotoDePerfilActual);
             if (seAgregoUsuario) {
                 this.txtNombre.setText("");
