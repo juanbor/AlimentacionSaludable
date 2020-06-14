@@ -649,7 +649,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
             this.lblDatosIncorrectos.setVisible(false);
             agregarPreferenciasUsuario(preferencias);
             agregarRestriccionesUsuario(restricciones);
-            boolean seAgregoUsuario = this.getSistema().crearUsuario(nombre, apellido, fechaNacimiento, nacionalidad, preferencias, restricciones, alimentosIngeridosPorFecha, mail, key);
+            boolean seAgregoUsuario = this.getSistema().crearUsuario(nombre, apellido, fechaNacimiento, nacionalidad, preferencias, restricciones, alimentosIngeridosPorFecha, mail, key.get());
             getSistema().cambiarFotoUsuario(nombre, apellido, fotoDePerfilActual);
             if (seAgregoUsuario) {
                 this.txtNombre.setText("");

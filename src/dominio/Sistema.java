@@ -57,6 +57,33 @@ public final class Sistema implements Serializable {
         this.personaLogueada = personaLogueada;
 
     }
+    
+    public int setPersonaLogueadaConPassword(String mail, String password, String salt) {
+      boolean found = false;
+      int i = 0;
+      
+      while ((i < this.listaProfesionales.size()) && (!found)) {
+        if (this.listaProfesionales.get(i).getMail().equals(mail)) {
+          if (ContraseniaUtils.verifyPassword(password, this.listaProfesionales.get(i).getPasswordKey(), salt)) {
+            this.personaLogueada = (Persona)this.listaProfesionales.get(i);
+            return 1;
+          }
+        }
+        i++;
+      }
+      
+      while ((i < this.listaUsuarios.size()) && (!found)) {
+        if (this.listaUsuarios.get(i).getMail().equals(mail)) {
+          if (ContraseniaUtils.verifyPassword(password, this.listaUsuarios.get(i).getPasswordKey(), salt)) {
+            this.personaLogueada = (Persona)this.listaUsuarios.get(i);
+            return 2;
+          }
+        }
+        i++;
+      }
+      
+      return 3;
+    }
 
     public List<Conversacion> getListaConversaciones() {
         return this.listaConversaciones;
@@ -172,13 +199,14 @@ public final class Sistema implements Serializable {
             }
         } catch (IOException e) {
             Logger.getGlobal().log(Level.SEVERE,"Error guardando datos del sistema");
+            e.printStackTrace();
         }
     }
 
     public boolean crearUsuario(String nombre, String apellido,
             String fechaNacimiento, 
             String nacionalidad, List<String> preferencias,
-            List<String> restricciones, List<Ingesta> alimentosIngeridos, String mail, Optional<String> key) {
+            List<String> restricciones, List<Ingesta> alimentosIngeridos, String mail, String key) {
         Usuario usuarioNuevo;
         usuarioNuevo = new Usuario(nombre, apellido, fechaNacimiento,
                 nacionalidad);
@@ -208,7 +236,7 @@ public final class Sistema implements Serializable {
     public boolean crearProfesional(String nombre, String apellido,
             String fechaNacimiento, ImageIcon fotoPerfil,
             String tituloProfesional, String fechaGraduacion,
-            String paisGraduacion, String mail, Optional<String> key) {
+            String paisGraduacion, String mail, String key) {
         Profesional profesionalNuevo = new Profesional(nombre, apellido,
                 fechaNacimiento, fotoPerfil, tituloProfesional,
                 fechaGraduacion, paisGraduacion);

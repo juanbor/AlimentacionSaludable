@@ -684,7 +684,7 @@ layout.setHorizontalGroup(
           this.lblFechaGraduacionErrorImg.setVisible(true);
         } else {
             this.lblDatosIncorrectos.setVisible(false);
-            boolean seAgregoProfesional = this.getSistema().crearProfesional(nombre, apellido, fechaNacimiento, this.fotoDePerfilActual, tituloProfesional, fechaGraduacion, paisGraduacion, mail, key);
+            boolean seAgregoProfesional = this.getSistema().crearProfesional(nombre, apellido, fechaNacimiento, this.fotoDePerfilActual, tituloProfesional, fechaGraduacion, paisGraduacion, mail, key.get());
             if (seAgregoProfesional) {
                 this.txtNombre.setText("");
                 this.txtApellido.setText("");

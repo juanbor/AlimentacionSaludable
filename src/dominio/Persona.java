@@ -11,7 +11,7 @@ public abstract class Persona implements Serializable {
     private String apellido;
     private String fechaNacimiento;
     public ImageIcon fotoDePerfil;
-    private Optional<String> passwordKey;
+    private String passwordKey;
     private String mail;
 
     public static String surnameError = "Apellido no ingresado";
@@ -79,11 +79,11 @@ public abstract class Persona implements Serializable {
         return retorno;
     }
 
-    public Optional<String> getPasswordKey() {
+    public String getPasswordKey() {
       return passwordKey;
     }
 
-    public void setPasswordKey(Optional<String> passwordKey) {
+    public void setPasswordKey(String passwordKey) {
       this.passwordKey = passwordKey;
     }
     

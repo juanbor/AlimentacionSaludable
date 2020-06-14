@@ -23,7 +23,7 @@ public class ContraseniaUtils {
     }
 
     byte[] salt = new byte[length];
-    RAND.nextBytes(salt);
+    //RAND.nextBytes(salt);
 
     return Optional.of(Base64.getEncoder().encodeToString(salt));
   }
