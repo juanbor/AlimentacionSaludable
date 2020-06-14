@@ -246,7 +246,7 @@ public class SistemaTest {
         Ingesta ingesta1 = new Ingesta("11/02/17", null);
         listaIngestas.add(ingesta1);
         Sistema sistemaATestear = new Sistema();
-        sistemaATestear.crearUsuario("Martin", null, null, null, null, null, null);
+        sistemaATestear.crearUsuario("Martin", null, null, null, null, null, null, null, null);
         boolean retorno = sistemaATestear.agregarIngestaAUsuario(listaIngestas, "11/02/16", "Papa");
         assertTrue(retorno);
     }
@@ -259,7 +259,7 @@ public class SistemaTest {
         Ingesta ingesta1 = new Ingesta("11/02/17", listaAlimentos);
         listaIngestas.add(ingesta1);
         Sistema sistemaATestear = new Sistema();
-        sistemaATestear.crearUsuario("Martin", null, null, null, null, null, null);
+        sistemaATestear.crearUsuario("Martin", null, null, null, null, null, null, null, null);
         sistemaATestear.agregarIngestaAUsuario(listaIngestas, "11/02/17", "Papa");
         Usuario user = (Usuario) sistemaATestear.getUsuarioPorNombre("Martin");
         boolean retorno = sistemaATestear.agregarIngestaAUsuario(user.getAlimentosIngeridos(), "11/02/16", "Papa");
@@ -274,7 +274,7 @@ public class SistemaTest {
         Ingesta ingesta1 = new Ingesta("11/02/17", listaAlimentos);
         listaIngestas.add(ingesta1);
         Sistema sistemaATestear = new Sistema();
-        sistemaATestear.crearUsuario("Martin", null, null, null, null, null, null);
+        sistemaATestear.crearUsuario("Martin", null, null, null, null, null, null, null, null);
         sistemaATestear.agregarIngestaAUsuario(listaIngestas, "11/02/17", "Papa");
         Usuario user = (Usuario) sistemaATestear.getUsuarioPorNombre("Martin");
         boolean retorno = sistemaATestear.agregarIngestaAUsuario(user.getAlimentosIngeridos(), "11/02/17", "Papa");
@@ -289,7 +289,7 @@ public class SistemaTest {
         Ingesta ingesta1 = new Ingesta(null, listaAlimentos);
         listaIngestas.add(ingesta1);
         Sistema sistemaATestear = new Sistema();
-        sistemaATestear.crearUsuario("Martin", null, null, null, null, null, null);
+        sistemaATestear.crearUsuario("Martin", null, null, null, null, null, null, null, null);
         sistemaATestear.agregarIngestaAUsuario(listaIngestas, null, "Papa");
         Usuario user = (Usuario) sistemaATestear.getUsuarioPorNombre("Martin");
         boolean retorno = sistemaATestear.agregarIngestaAUsuario(user.getAlimentosIngeridos(), null, "Papa");
@@ -299,7 +299,7 @@ public class SistemaTest {
     @Test
     public void testAgregarIngestaAlimentoRepetidoFechaDistinta() {
         Sistema sistemaATestear = new Sistema();
-        sistemaATestear.crearUsuario("Martin", null, null, null, null, null, null);
+        sistemaATestear.crearUsuario("Martin", null, null, null, null, null, null, null, null);
         Usuario user = (Usuario) sistemaATestear.getUsuarioPorNombre("Martin");
         boolean retorno = sistemaATestear.agregarIngestaAUsuario(user.getAlimentosIngeridos(), "11/02/16", "Papa");
         assertTrue(retorno);
@@ -569,7 +569,7 @@ public class SistemaTest {
     @Test
     public void testCambiarFotoDeUsuario(){
         Sistema sistemaATestear = new Sistema();
-        sistemaATestear.crearUsuario("Santiago", "Perez", "", "", null, null, null);
+        sistemaATestear.crearUsuario("Santiago", "Perez", "", "", null, null, null, null, null);
         Usuario user = sistemaATestear.getUsuarioPorNombre("Santiago Perez");
         sistemaATestear.cambiarFotoUsuario("Santiago", "Perez", new ImageIcon(getClass()
                         .getResource("/Imagenes/fotoDeUsuarioStandard.png")));
@@ -587,7 +587,7 @@ public class SistemaTest {
     @Test
     public void testCrearProfesional(){
         Sistema sistemaATestear = new Sistema();
-        assert(sistemaATestear.crearProfesional("Santiago", "Perez", "", null, "", "", ""));
+        assert(sistemaATestear.crearProfesional("Santiago", "Perez", "", null, "", "", "", null, null));
     }
     
     @Test
@@ -696,5 +696,90 @@ public class SistemaTest {
         
         assertEquals(prof2, sistemaATestear.getNombresProfesionalesSinConversacionConUsuario(user).get(0));
         
+    }
+    
+    @Test
+    public void testMailUsuario() {
+      Sistema sistemaATestear = new Sistema();    
+      sistemaATestear.crearUsuario("Juan", "Bordagorry", null, null, null, null, null, "a@a.com", null);
+      
+      String mail = sistemaATestear.getUsuarioPorNombre("Juan Bordagorry").getMail();
+      
+      assertEquals("a@a.com", mail);
+    }
+    
+    @Test
+    public void testMailProfesional() {
+      Sistema sistemaATestear = new Sistema();    
+      sistemaATestear.crearProfesional("Juan", "Bordagorry", null, null, null, null, null, "a@a.com", null);
+      
+      String mail = sistemaATestear.getProfesionalPorNombre("Juan Bordagorry").getMail();
+      
+      assertEquals("a@a.com", mail);
+    }
+    
+    @Test
+    public void testKeyProfesional() {
+      String salt = ContraseniaUtils.generateSalt(512).get();
+      Sistema sistemaATestear = new Sistema();   
+      
+      sistemaATestear.crearProfesional("Juan", "Bordagorry", null, null, null, null, null, "a@a.com", ContraseniaUtils.hashPassword("hola", salt).get());
+      
+      String key = sistemaATestear.getProfesionalPorNombre("Juan Bordagorry").getPasswordKey();
+      
+      assertTrue(ContraseniaUtils.verifyPassword("hola", key, salt));
+    }
+    
+    @Test
+    public void testKeyUsuario() {
+      String salt = ContraseniaUtils.generateSalt(512).get();
+      Sistema sistemaATestear = new Sistema();   
+      
+      sistemaATestear.crearUsuario("Juan", "Bordagorry", null, null, null, null, null, "a@a.com", ContraseniaUtils.hashPassword("hola", salt).get());
+      
+      String key = sistemaATestear.getUsuarioPorNombre("Juan Bordagorry").getPasswordKey();
+      
+      assertTrue(ContraseniaUtils.verifyPassword("hola", key, salt));
+    }
+    
+    @Test
+    public void setUsuarioLogueadaPorPass() {
+      String salt = ContraseniaUtils.generateSalt(512).get();
+      Sistema sistemaATestear = new Sistema();   
+      
+      sistemaATestear.crearUsuario("Juan", "Bordagorry", null, null, null, null, null, "a@a.com", ContraseniaUtils.hashPassword("hola", salt).get());
+
+      
+      int success = sistemaATestear.setPersonaLogueadaConPassword("a@a.com", "hola", salt);
+      
+      assertEquals(2,success);
+    }
+    
+    @Test
+    public void setProfesionalLogueadaPorPass() {
+      String salt = ContraseniaUtils.generateSalt(512).get();
+      Sistema sistemaATestear = new Sistema();   
+      
+      sistemaATestear.crearProfesional("Juan", "Bordagorry", null, null, null, null, null, "a@a.com", ContraseniaUtils.hashPassword("hola", salt).get());
+
+      
+      int success = sistemaATestear.setPersonaLogueadaConPassword("a@a.com", "hola", salt);
+      
+      assertEquals(1,success);
+    }
+    
+    @Test
+    public void setProfesionalLogueadaPorPassFail() {
+      String salt = ContraseniaUtils.generateSalt(512).get();
+      Sistema sistemaATestear = new Sistema();   
+      
+      sistemaATestear.crearProfesional("Juan", "Bordagorry", null, null, null, null, null, "a@a.com", ContraseniaUtils.hashPassword("hola", salt).get());
+
+      
+      int success1 = sistemaATestear.setPersonaLogueadaConPassword("a@aa.com", "hola", salt);
+      int success2 = sistemaATestear.setPersonaLogueadaConPassword("a@a.com", "holaa", salt);
+      
+      assertEquals(3,success1);
+      assertEquals(3,success2);
     }
 }
