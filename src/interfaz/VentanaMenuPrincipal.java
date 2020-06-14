@@ -63,6 +63,13 @@ public class VentanaMenuPrincipal extends javax.swing.JDialog {
         panelLogin.add(lblContrasea);
         
         lblNewLabel = new JLabel(""); 
+        lblNewLabel.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseClicked(MouseEvent e) {
+            iniciarSesion();
+          }
+        });
+        
         ImageIcon loginImage = new ImageIcon(VentanaMenuPrincipal.class.getResource("/Imagenes/fotoDeUsuarioStandard.png"));
         Image resizedImage = getScaledImage(loginImage.getImage() , 40,40);
         lblNewLabel.setIcon(new ImageIcon(resizedImage));

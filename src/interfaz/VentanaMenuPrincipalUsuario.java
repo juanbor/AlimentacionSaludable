@@ -33,6 +33,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
 
@@ -491,6 +493,12 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
                                                                                                         panelConsultaConProfesional.add(btnVerIngestasAnteriores);
                                                                                                         
                                                                                                         lblVerIngestasAnteriores = new JLabel();
+                                                                                                        lblVerIngestasAnteriores.addMouseListener(new MouseAdapter() {
+                                                                                                          @Override
+                                                                                                          public void mouseClicked(MouseEvent e) {
+                                                                                                            btnVerIngestasAnterioresPerformance();
+                                                                                                          }
+                                                                                                        });
                                                                                                         lblVerIngestasAnteriores.setForeground(Color.WHITE);
                                                                                                         lblVerIngestasAnteriores.setText("Ver ingestas anteriores");
                                                                                                         lblVerIngestasAnteriores.setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -1238,33 +1246,36 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         btnVerIngestasAnteriores.addActionListener(new ActionListener() {
           public void actionPerformed(ActionEvent e) {
           
-          if (!listaIngestaEnable) {
-            listaIngestaEnable = true;
-            lblVerIngestasAnteriores.setText("Cerrar ingestas anteriores");
-            
-            Persona actual = sistema.getPersonaLogueada();
-            List<Ingesta> ingestas = ((Usuario)actual).getAlimentosIngeridos();
-            
-            String[] listaIngestas = formatearListaIngestas(ingestas);
-            for (int i = 0; i<ingestas.size(); i++) {
-              System.out.println(listaIngestas[i]);
-            }
-
-            listIngestasAnteriores.setListData(listaIngestas);
-            panelIngestasAnteriores.setVisible(true);
-            panelListaProfesionalesParaMensaje.setVisible(false);
-          }else {
-            listaIngestaEnable = false;
-            lblVerIngestasAnteriores.setText("Ver ingestas anteriores");
-            panelListaProfesionalesParaMensaje.setVisible(true);
-            panelIngestasAnteriores.setVisible(false);
-          }
-         
+            btnVerIngestasAnterioresPerformance();
           }
         });
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void btnVerIngestasAnterioresPerformance() {
+      if (!listaIngestaEnable) {
+        listaIngestaEnable = true;
+        lblVerIngestasAnteriores.setText("Cerrar ingestas anteriores");
+        
+        Persona actual = sistema.getPersonaLogueada();
+        List<Ingesta> ingestas = ((Usuario)actual).getAlimentosIngeridos();
+        
+        String[] listaIngestas = formatearListaIngestas(ingestas);
+//        for (int i = 0; i<ingestas.size(); i++) {
+//          System.out.println(listaIngestas[i]);
+//        }
+
+        listIngestasAnteriores.setListData(listaIngestas);
+        panelIngestasAnteriores.setVisible(true);
+        panelListaProfesionalesParaMensaje.setVisible(false);
+      }else {
+        listaIngestaEnable = false;
+        lblVerIngestasAnteriores.setText("Ver ingestas anteriores");
+        panelListaProfesionalesParaMensaje.setVisible(true);
+        panelIngestasAnteriores.setVisible(false);
+      }
+    }
 
     private void resetearControladorVerIngestasAnteriores() {
       listaIngestaEnable = false;
@@ -1290,7 +1301,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
       
       ingestas = new String[ingestaLista.size()];
       
-      for (int i = 0; (i<lista.size()) && (i<7); i++) {
+      for (int i = 0; i<ingestaLista.size(); i++) {
         ingestas[i] = ingestaLista.get(i);
       }
       
