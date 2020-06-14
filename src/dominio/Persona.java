@@ -1,6 +1,8 @@
 package dominio;
 
 import java.io.Serializable;
+import java.util.Optional;
+
 import javax.swing.ImageIcon;
 
 public abstract class Persona implements Serializable {
@@ -9,6 +11,8 @@ public abstract class Persona implements Serializable {
     private String apellido;
     private String fechaNacimiento;
     public ImageIcon fotoDePerfil;
+    private String passwordKey;
+    private String mail;
 
     public static String surnameError = "Apellido no ingresado";
     public static String nameError = "Nombre no ingresado";
@@ -76,6 +80,23 @@ public abstract class Persona implements Serializable {
             }
         }
         return retorno;
+    }
+
+    public String getPasswordKey() {
+      return passwordKey;
+    }
+
+    public void setPasswordKey(String passwordKey) {
+      this.passwordKey = passwordKey;
+    }
+    
+
+    public String getMail() {
+      return mail;
+    }
+
+    public void setMail(String mail) {
+      this.mail = mail;
     }
 
     @Override
