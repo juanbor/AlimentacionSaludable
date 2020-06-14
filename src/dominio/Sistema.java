@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -22,6 +23,9 @@ public final class Sistema implements Serializable {
     private List<PlanAlimentacion> listaPlanesAlimentacion;
     private List<Conversacion> listaConversaciones;
     private Persona personaLogueada;
+    private Date lastPickedDateBirth = new Date();
+    private Date lastPickedDateGrad = new Date();
+    private Date lastPickedDateMeal = new Date();
 
     public Sistema(List<Usuario> unaListaUsuarios,
             List<Profesional> unaListaProfesionales,
@@ -531,5 +535,29 @@ public final class Sistema implements Serializable {
         } else {
             return new String[0];
         }
+    }
+    
+    public Date getLastPickedDateBirth(){
+        return lastPickedDateBirth;
+    }
+    
+    public void setLastPickedDateBirth(Date pickedDate){
+        lastPickedDateBirth = pickedDate;
+    }
+    
+    public Date getLastPickedDateGrad(){
+        return lastPickedDateGrad;
+    }
+    
+    public void setLastPickedDateGrad(Date pickedDate){
+        lastPickedDateGrad = pickedDate;
+    }
+    
+    public Date getLastPickedDateMeal(){
+        return lastPickedDateMeal;
+    }
+    
+    public void setLastPickedDateMeal(Date pickedDate){
+        lastPickedDateMeal = pickedDate;
     }
 }

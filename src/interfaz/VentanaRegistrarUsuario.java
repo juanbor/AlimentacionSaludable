@@ -21,7 +21,6 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import java.awt.Dimension;
 import javax.swing.JPasswordField;
-import javax.swing.UIManager;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.FocusAdapter;
@@ -36,6 +35,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
     private boolean primeraVez;
     private String fechaHoy;
     private static String salt = ContraseniaUtils.generateSalt(512).get();
+    private Calendar fechaNac = new GregorianCalendar();
 
     public VentanaRegistrarUsuario(Sistema unSistema) {
         initComponents();
@@ -50,6 +50,9 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         Calendar fecha = new GregorianCalendar();
         this.dateChooserFechaNacimiento.setMaxDate(fecha);
         this.fechaHoy = this.dateChooserFechaNacimiento.getText();
+        
+        fechaNac.setTime(sistema.getLastPickedDateBirth());
+        dateChooserFechaNacimiento.setCurrent(fechaNac);
         
         lblFechaNacErrorImg = new JLabel("");
         lblFechaNacErrorImg.setIcon(new ImageIcon(VentanaRegistrarUsuario.class.getResource("/Imagenes/iconoCampoIncorrecto.png")));
@@ -647,6 +650,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         ArrayList<Ingesta> alimentosIngeridosPorFecha = new ArrayList<>();
         String nacionalidad = (String) this.listaNacionalidad.getSelectedItem();
         String fechaNacimiento = this.dateChooserFechaNacimiento.getText();
+        sistema.setLastPickedDateBirth(dateChooserFechaNacimiento.getCurrent().getTime());
         String mail = this.txtMail.getText();
         char[] passwordChar = this.passwordField_1.getPassword();
         String passwordString = String.valueOf(passwordChar);

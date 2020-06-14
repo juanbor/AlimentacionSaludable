@@ -3,7 +3,6 @@ package interfaz;
 import dominio.ContraseniaUtils;
 import dominio.Persona;
 import dominio.Sistema;
-import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -11,14 +10,10 @@ import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.image.BufferedImage;
 import java.awt.Image;
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.io.File;
-import javax.imageio.ImageIO;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -347,7 +342,7 @@ public class VentanaMenuPrincipal extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAgregarProfesional1MouseClicked
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JLabel btnAgregarProfesional;
     private javax.swing.JLabel btnAgregarProfesional1;
     private javax.swing.JLabel btnAgregarUsuario;
