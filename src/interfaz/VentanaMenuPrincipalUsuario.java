@@ -29,6 +29,8 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -65,6 +67,18 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         this.fechaIngestaUsuario.setMaxDate(fecha);
         this.panelVacio.setVisible(true);
         this.listaIngestaEnable = false;
+        
+        
+        
+        addWindowListener(new WindowAdapter() {
+
+            @Override
+
+            public void windowClosing(WindowEvent e) {
+                sistema.guardarDatosSistema();
+                System.exit(0);
+
+            }});
     }
 
     public Sistema getSistema() {
@@ -198,7 +212,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1060, 800));
         setModal(true);
-        setUndecorated(true);
+        setUndecorated(false);
         setResizable(false);
         setSize(new java.awt.Dimension(1060, 800));
         addWindowListener(new java.awt.event.WindowAdapter() {

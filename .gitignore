@@ -31,3 +31,15 @@ build/built-jar.properties
 sonar-project.properties
 .scannerwork/.sonar_lock
 .scannerwork/report-task.txt
+.jacocoverage/
+build/test/results/TEST-dominio.UsuarioTest.xml
+build/test/results/TEST-dominio.PlanAlimentacionTest.xml
+build/test/results/TEST-dominio.InformacionMensajeTest.xml
+build/test/results/TEST-dominio.ComposicionAlimentoTest.xml
+build/test/classes/dominio/desktop.ini
+build/test/results/TEST-dominio.ProfesionalTest.xml
+build/test/results/TEST-dominio.IngestaTest.xml
+build/test/results/TEST-dominio.ConversacionTest.xml
+build/test/classes/desktop.ini
+build/test/results/TEST-dominio.SistemaTest.xml
+build/test/results/TEST-dominio.AlimentoTest.xml

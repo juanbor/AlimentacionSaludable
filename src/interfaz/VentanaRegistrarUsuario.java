@@ -26,6 +26,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VentanaRegistrarUsuario extends javax.swing.JDialog {
 
@@ -138,6 +140,16 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         panel2.add(lblNewLabel_3);
         this.primeraVez = false;
         
+        addWindowListener(new WindowAdapter() {
+
+          @Override
+          public void windowClosing(WindowEvent e) {
+              sistema.guardarDatosSistema();
+              System.exit(0);
+
+          }});
+        
+
         passwordField_1.addKeyListener(new KeyAdapter() {
           @Override
           public void keyPressed(KeyEvent e) {
@@ -151,7 +163,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
           }
         });
         
-    }
+      }
     
     private void setCamposPasswordCorrectoIncorrecto() {
       boolean esValido = validarPassword();
@@ -167,9 +179,11 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
           lblNewLabel.setVisible(true);
           lblNewLabel_1.setVisible(false);
       }
+
+        
+        
     }
 
-    
     private boolean validarPassword() {
       
       char[] pass1 = passwordField.getPassword();
@@ -260,7 +274,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1060, 800));
-        setUndecorated(true);
+        setUndecorated(false);
         setResizable(false);
         setSize(new java.awt.Dimension(1060, 800));
         addWindowListener(new java.awt.event.WindowAdapter() {
