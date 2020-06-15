@@ -129,7 +129,7 @@ public class ConversacionTest {
         ArrayList<InformacionMensaje> listaMensajes = new ArrayList<>();
         Conversacion conversacion1 = null;       
         Conversacion conversacion2 =  new Conversacion(usuario1, profesional, listaMensajes);
-        conversacion1.equals(conversacion2);
+        boolean eq = conversacion1.equals(conversacion2);
     }
     
     @Test (expected = NullPointerException.class)
@@ -139,7 +139,7 @@ public class ConversacionTest {
         ArrayList<InformacionMensaje> listaMensajes = new ArrayList<>();
         Conversacion conversacion1 = null;       
         Conversacion conversacion2 =  new Conversacion(usuario1, profesional, listaMensajes);
-        conversacion2.equals(conversacion1);
+        boolean eq = conversacion2.equals(conversacion1);
     }
     
     @Test

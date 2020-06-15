@@ -109,7 +109,7 @@ public class AlimentoTest {
     public void testEqualsNull(){
         Alimento alimento1 = new Alimento("", "", null, null);
         Alimento alimento2 = null;
-        alimento1.equals(alimento2);
+        boolean eq = alimento1.equals(alimento2);
     }
     
 
