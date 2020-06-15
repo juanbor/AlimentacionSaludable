@@ -2,7 +2,6 @@ package interfaz;
 
 import dominio.ContraseniaUtils;
 import dominio.Sistema;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -13,12 +12,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import datechooser.events.SelectionChangedListener;
 import datechooser.events.SelectionChangedEvent;
 import javax.swing.JTextField;
@@ -38,6 +34,8 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
     private Calendar fecha;
     private String fechaHoy;
     private static String salt = ContraseniaUtils.generateSalt(512).get();
+    private Calendar fechaNac = new GregorianCalendar();
+    private Calendar fechaGrad = new GregorianCalendar();
 
     public VentanaRegistrarProfesional(Sistema unSistema) {
         initComponents();
@@ -48,9 +46,13 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         this.primeraVez = true;
         cargarListaPaisesGraduacion();
         this.fecha = new GregorianCalendar();
+        
         this.dateChooserFechaNacimiento.setMaxDate(this.fecha);
         this.dateChooserFechaGraduacion.setMaxDate(this.fecha);
-        this.fechaHoy = this.dateChooserFechaNacimiento.getText();
+
+        
+        dateChooserFechaGraduacion.updateUI();
+        dateChooserFechaNacimiento.updateUI();
         
         lblFechaNacError = new JLabel("<html><body>Debe elegir<br> una fecha</html></body>");
         lblFechaNacError.setFont(new java.awt.Font("Century Gothic", 0, 19)); // NOI18N
@@ -167,6 +169,12 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         lblNoCoincide.setVisible(false);
         panel2.add(lblNoCoincide);
         this.primeraVez = false;
+        
+        this.fechaHoy = this.dateChooserFechaNacimiento.getText();
+        fechaGrad.setTime(sistema.getLastPickedDateGrad());
+        this.dateChooserFechaGraduacion.setSelectedDate(fechaGrad);
+        fechaNac.setTime(sistema.getLastPickedDateBirth());
+        this.dateChooserFechaNacimiento.setSelectedDate(fechaNac);
         
         addWindowListener(new WindowAdapter() {
 
@@ -677,6 +685,8 @@ layout.setHorizontalGroup(
         String paisGraduacion = (String) this.listaPaisGraduacion.getSelectedItem();
         String fechaNacimiento = this.dateChooserFechaNacimiento.getText();
         String fechaGraduacion = this.dateChooserFechaGraduacion.getText();
+        sistema.setLastPickedDateGrad(dateChooserFechaGraduacion.getCurrent().getTime());
+        sistema.setLastPickedDateBirth(dateChooserFechaNacimiento.getCurrent().getTime());
         String mail = this.txtMail.getText();
         char[] passwordChar = this.passwordField_1.getPassword();
         String passwordString = String.valueOf(passwordChar);

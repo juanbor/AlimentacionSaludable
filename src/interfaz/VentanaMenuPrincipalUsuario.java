@@ -47,6 +47,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
     private boolean primeraIngesta;
     private String nombreDelPlan;
     private boolean listaIngestaEnable;
+    private Calendar fechaIngesta = new GregorianCalendar();
 
     public VentanaMenuPrincipalUsuario(Sistema unSistema) {
         initComponents();
@@ -65,6 +66,8 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         this.primeraIngesta = true;
         Calendar fecha = new GregorianCalendar();
         this.fechaIngestaUsuario.setMaxDate(fecha);
+        fechaIngesta.setTime(sistema.getLastPickedDateMeal());
+        this.fechaIngestaUsuario.setSelectedDate(fechaIngesta);
         this.panelVacio.setVisible(true);
         this.listaIngestaEnable = false;
         
@@ -1434,6 +1437,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         Usuario usuarioLogueado = this.sistema.getUsuarioPorNombre(nombreUsuarioLoguedo);
         List<Ingesta> listaIngestasDelUsuario = usuarioLogueado.getAlimentosIngeridos();
         String fechaIngesta = this.fechaIngestaUsuario.getText();
+        sistema.setLastPickedDateMeal(fechaIngestaUsuario.getCurrent().getTime());
         String nuevoAlimento = this.comboAlimentosEnSistema.getSelectedItem().toString();
         if (nuevoAlimento.equals("Seleccione...")) {
             this.lblDatosIncorrectos2.setVisible(true);
