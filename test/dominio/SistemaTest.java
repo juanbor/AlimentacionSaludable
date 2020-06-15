@@ -782,4 +782,55 @@ public class SistemaTest {
       assertEquals(3,success1);
       assertEquals(3,success2);
     }
+    
+    @Test
+    public void unicidadMailTrueProfesional() {
+      String salt = ContraseniaUtils.generateSalt(512).get();
+      Sistema sistemaATestear = new Sistema();  
+      String mail = "a@a.com";
+      sistemaATestear.crearProfesional("Juan", "Bordagorry", null, null, null, null, null, mail, ContraseniaUtils.hashPassword("hola", salt).get());
+
+      boolean existe = sistemaATestear.existeMailEnSistema(mail);
+      
+      assertEquals(existe, true);
+    }
+    
+    @Test
+    public void unicidadMailFalseProfesional() {
+      String salt = ContraseniaUtils.generateSalt(512).get();
+      Sistema sistemaATestear = new Sistema();  
+      String mail = "a@a.com";
+      String mail2 = "aa@a.com";
+      sistemaATestear.crearProfesional("Juan", "Bordagorry", null, null, null, null, null, mail, ContraseniaUtils.hashPassword("hola", salt).get());
+
+      boolean existe = sistemaATestear.existeMailEnSistema(mail2);
+      
+      assertEquals(existe, false);
+    }
+    
+    @Test
+    public void unicidadMailTrueUsuario() {
+      String salt = ContraseniaUtils.generateSalt(512).get();
+      Sistema sistemaATestear = new Sistema();  
+      String mail = "a@a.com";
+      sistemaATestear.crearUsuario("Juan", "Bordagorry", null, null, null, null, null, mail, ContraseniaUtils.hashPassword("hola", salt).get());
+
+      boolean existe = sistemaATestear.existeMailEnSistema(mail);
+      
+      assertEquals(existe, true);
+    }
+    
+    @Test
+    public void unicidadMailFalseUsuario() {
+      String salt = ContraseniaUtils.generateSalt(512).get();
+      Sistema sistemaATestear = new Sistema();  
+      String mail = "a@a.com";
+      String mail2 = "aa@a.com";
+      sistemaATestear.crearUsuario("Juan", "Bordagorry", null, null, null, null, null, mail, ContraseniaUtils.hashPassword("hola", salt).get());
+
+      boolean existe = sistemaATestear.existeMailEnSistema(mail2);
+      
+      assertEquals(existe, false);
+    }
+   
 }

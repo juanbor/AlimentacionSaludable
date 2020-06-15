@@ -79,6 +79,7 @@ public class ProfesionalTest {
         assertEquals(prof.toString(), toStringEperado);
     }
 
+    @Test
     public void testToStringDatosVacios() {
         String nombre = "";
         String apellido = "";
