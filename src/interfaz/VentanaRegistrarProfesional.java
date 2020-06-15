@@ -49,11 +49,7 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         
         this.dateChooserFechaNacimiento.setMaxDate(this.fecha);
         this.dateChooserFechaGraduacion.setMaxDate(this.fecha);
-        this.fechaHoy = this.dateChooserFechaNacimiento.getText();
-        fechaGrad.setTime(sistema.getLastPickedDateGrad());
-        this.dateChooserFechaGraduacion.setCurrent(fechaGrad);
-        fechaNac.setTime(sistema.getLastPickedDateBirth());
-        this.dateChooserFechaNacimiento.setCurrent(fechaNac);
+
         
         dateChooserFechaGraduacion.updateUI();
         dateChooserFechaNacimiento.updateUI();
@@ -173,6 +169,12 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         lblNoCoincide.setVisible(false);
         panel2.add(lblNoCoincide);
         this.primeraVez = false;
+        
+        this.fechaHoy = this.dateChooserFechaNacimiento.getText();
+        fechaGrad.setTime(sistema.getLastPickedDateGrad());
+        this.dateChooserFechaGraduacion.setSelectedDate(fechaGrad);
+        fechaNac.setTime(sistema.getLastPickedDateBirth());
+        this.dateChooserFechaNacimiento.setSelectedDate(fechaNac);
         
         addWindowListener(new WindowAdapter() {
 

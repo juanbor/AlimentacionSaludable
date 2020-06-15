@@ -51,9 +51,6 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         this.dateChooserFechaNacimiento.setMaxDate(fecha);
         this.fechaHoy = this.dateChooserFechaNacimiento.getText();
         
-        fechaNac.setTime(sistema.getLastPickedDateBirth());
-        dateChooserFechaNacimiento.setCurrent(fechaNac);
-        
         lblFechaNacErrorImg = new JLabel("");
         lblFechaNacErrorImg.setIcon(new ImageIcon(VentanaRegistrarUsuario.class.getResource("/Imagenes/iconoCampoIncorrecto.png")));
         lblFechaNacErrorImg.setBounds(533, 436, 32, 30);
@@ -142,6 +139,12 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         lblNewLabel_3.setVisible(false);
         panel2.add(lblNewLabel_3);
         this.primeraVez = false;
+        
+        
+        fechaNac.setTime(sistema.getLastPickedDateBirth());
+        dateChooserFechaNacimiento.setCurrent(fechaNac);
+        dateChooserFechaNacimiento.setSelectedDate(fechaNac);
+        
         
         addWindowListener(new WindowAdapter() {
 

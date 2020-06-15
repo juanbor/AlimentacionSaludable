@@ -67,8 +67,7 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         Calendar fecha = new GregorianCalendar();
         this.fechaIngestaUsuario.setMaxDate(fecha);
         fechaIngesta.setTime(sistema.getLastPickedDateMeal());
-        this.fechaIngestaUsuario.setCurrent(fechaIngesta);
-        fechaIngestaUsuario.updateUI();
+        this.fechaIngestaUsuario.setSelectedDate(fechaIngesta);
         this.panelVacio.setVisible(true);
         this.listaIngestaEnable = false;
         
