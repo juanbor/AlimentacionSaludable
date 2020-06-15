@@ -139,7 +139,7 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         lblDatoVaco.setText("Dato vacío");
         lblDatoVaco.setForeground(new java.awt.Color(240, 128, 128));
         lblDatoVaco.setFont(new Font("Dialog", Font.PLAIN, 19));
-        lblDatoVaco.setBounds(461, 229, 134, 38);
+        lblDatoVaco.setBounds(461, 229, 218, 38);
         lblDatoVaco.setVisible(false);
         panel2.add(lblDatoVaco);
         
@@ -466,7 +466,7 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         }
     });
     panel2.add(btnIngresarFotoPerfil);
-    btnIngresarFotoPerfil.setBounds(579, 163, 158, 102);
+    btnIngresarFotoPerfil.setBounds(607, 130, 158, 102);
 
     lblFechaGraduacion.setFont(new Font("Dialog", Font.PLAIN, 25)); // NOI18N
     lblFechaGraduacion.setForeground(new java.awt.Color(255, 255, 255));
@@ -720,6 +720,13 @@ layout.setHorizontalGroup(
     private boolean validoMail() {
       if (txtMail.getText().equals("")) {
         lblDatoVaco.setVisible(true);
+        lblDatoVaco.setText("Dato vacío");
+        label_1.setVisible(true);
+        label_1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoIncorrecto.png"))); // NOI18N
+        return false;
+      } else if(this.sistema.existeMailEnSistema(txtMail.getText())) {
+        lblDatoVaco.setVisible(true);
+        lblDatoVaco.setText("Mail ya registrado");
         label_1.setVisible(true);
         label_1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoIncorrecto.png"))); // NOI18N
         return false;

@@ -135,7 +135,7 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         lblNewLabel_3 = new JLabel("Dato vacío");
         lblNewLabel_3.setForeground(new java.awt.Color(240, 128, 128));
         lblNewLabel_3.setFont(new Font("Dialog", Font.PLAIN, 19));
-        lblNewLabel_3.setBounds(500, 251, 158, 30);
+        lblNewLabel_3.setBounds(500, 251, 195, 30);
         lblNewLabel_3.setVisible(false);
         panel2.add(lblNewLabel_3);
         this.primeraVez = false;
@@ -685,6 +685,13 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
     private boolean validoMail() {
       if (txtMail.getText().equals("")) {
         lblNewLabel_3.setVisible(true);
+        lblNewLabel_3.setText("Dato vacío");
+        lblNewLabel_2.setVisible(true);
+        lblNewLabel_2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoIncorrecto.png"))); // NOI18N
+        return false;
+      } else if(this.sistema.existeMailEnSistema(txtMail.getText())) {
+        lblNewLabel_3.setVisible(true);
+        lblNewLabel_3.setText("Mail ya registrado");
         lblNewLabel_2.setVisible(true);
         lblNewLabel_2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCampoIncorrecto.png"))); // NOI18N
         return false;

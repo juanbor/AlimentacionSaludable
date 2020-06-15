@@ -88,6 +88,28 @@ public final class Sistema implements Serializable {
       
       return 3;
     }
+    
+    public boolean existeMailEnSistema(String mail) {
+      boolean found = false;
+      
+      int i = 0;
+      
+      while ((i < this.listaProfesionales.size()) && (!found)) {
+        if (this.listaProfesionales.get(i).getMail().equals(mail)) {
+          found = true;
+        }
+        i++;
+      }
+      
+      while ((i < this.listaUsuarios.size()) && (!found)) {
+        if (this.listaUsuarios.get(i).getMail().equals(mail)) {
+          found = true;
+        }
+        i++;
+      }
+      
+      return found;
+    }
 
     public List<Conversacion> getListaConversaciones() {
         return this.listaConversaciones;
