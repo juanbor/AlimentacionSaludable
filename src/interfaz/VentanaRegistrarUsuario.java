@@ -650,7 +650,6 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         String apellido = this.txtApellido.getText();
         ArrayList<String> preferencias = new ArrayList<>();
         ArrayList<String> restricciones = new ArrayList<>();
-        ArrayList<Ingesta> alimentosIngeridosPorFecha = new ArrayList<>();
         String nacionalidad = (String) this.listaNacionalidad.getSelectedItem();
         String fechaNacimiento = this.dateChooserFechaNacimiento.getText();
         sistema.setLastPickedDateBirth(dateChooserFechaNacimiento.getCurrent().getTime());
@@ -670,8 +669,9 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
             this.lblDatosIncorrectos.setVisible(false);
             agregarPreferenciasUsuario(preferencias);
             agregarRestriccionesUsuario(restricciones);
-            boolean seAgregoUsuario = this.getSistema().crearUsuario(nombre, apellido, fechaNacimiento, nacionalidad, preferencias, restricciones, alimentosIngeridosPorFecha, mail, key.get());
-            getSistema().cambiarFotoUsuario(nombre, apellido, fotoDePerfilActual);
+            boolean seAgregoUsuario = this.getSistema().crearUsuario(nombre, apellido, fechaNacimiento, nacionalidad, mail, key.get());
+            getSistema().cambiarFotoUsuario(mail, fotoDePerfilActual);
+            getSistema().agregarListasUser(mail, preferencias, restricciones);
             if (seAgregoUsuario) {
                 this.txtNombre.setText("");
                 this.txtApellido.setText("");
