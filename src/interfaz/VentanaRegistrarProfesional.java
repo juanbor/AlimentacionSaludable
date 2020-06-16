@@ -321,7 +321,7 @@ public class VentanaRegistrarProfesional extends javax.swing.JDialog {
         lblNuevoProfesional.setForeground(new java.awt.Color(255, 255, 255));
         lblNuevoProfesional.setText("Nuevo Profesional");
         panel2.add(lblNuevoProfesional);
-        lblNuevoProfesional.setBounds(149, 27, 530, 91);
+        lblNuevoProfesional.setBounds(149, 27, 601, 91);
 
         lblIconoNuevoProfesional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fotoDeUsuarioStandard.png"))); // NOI18N
         panel2.add(lblIconoNuevoProfesional);

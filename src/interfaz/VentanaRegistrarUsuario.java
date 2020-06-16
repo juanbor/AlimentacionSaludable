@@ -57,8 +57,8 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         lblFechaNacErrorImg.setVisible(false);
         panel2.add(lblFechaNacErrorImg);
         
-        lblFechaNacError = new JLabel("Debe ingresar una fecha");
-        lblFechaNacError.setBounds(569, 436, 181, 26);
+        lblFechaNacError = new JLabel("<html>Debe ingresar <br>una fecha</html>");
+        lblFechaNacError.setBounds(569, 424, 181, 50);
         lblFechaNacError.setFont(new java.awt.Font("Century Gothic", 0, 19)); // NOI18N
         lblFechaNacError.setForeground(new java.awt.Color(240, 128, 128));
         lblFechaNacError.setVisible(false);
@@ -356,11 +356,11 @@ public class VentanaRegistrarUsuario extends javax.swing.JDialog {
         lblNuevoUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lblNuevoUsuario.setText("Nuevo Usuario");
         panel2.add(lblNuevoUsuario);
-        lblNuevoUsuario.setBounds(203, 36, 475, 91);
+        lblNuevoUsuario.setBounds(226, 36, 475, 91);
 
         lblIconoNuevoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fotoDeUsuarioStandard.png"))); // NOI18N
         panel2.add(lblIconoNuevoUsuario);
-        lblIconoNuevoUsuario.setBounds(85, 27, 100, 100);
+        lblIconoNuevoUsuario.setBounds(102, 27, 100, 100);
 
         lblNombre.setFont(new Font("Dialog", Font.PLAIN, 25)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(255, 255, 255));

@@ -347,9 +347,9 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         panelDerecho.add(panelConsultaConProfesional, "name_170800529246150");
         panelConversacion = new javax.swing.JPanel();
         lblFotoProfesional = new javax.swing.JLabel();
-        lblFotoProfesional.setBounds(18, 15, 92, 80);
+        lblFotoProfesional.setBounds(100, 15, 92, 80);
         lblNombreProfesional = new javax.swing.JLabel();
-        lblNombreProfesional.setBounds(122, 23, 185, 42);
+        lblNombreProfesional.setBounds(204, 29, 185, 42);
         btnEnviarMensaje = new javax.swing.JButton();
         btnEnviarMensaje.setBounds(385, 593, 68, 57);
         jScrollPane2 = new javax.swing.JScrollPane();

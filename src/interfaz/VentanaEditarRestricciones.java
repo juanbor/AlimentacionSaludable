@@ -82,7 +82,7 @@ public class VentanaEditarRestricciones extends javax.swing.JDialog {
         lblEditar.setForeground(new java.awt.Color(255, 255, 255));
         lblEditar.setText("Editar");
         panelEditarRestricciones.add(lblEditar);
-        lblEditar.setBounds(110, 20, 137, 71);
+        lblEditar.setBounds(110, 20, 303, 71);
 
         lblTxtRestricciones.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
         lblTxtRestricciones.setForeground(new java.awt.Color(255, 255, 255));
