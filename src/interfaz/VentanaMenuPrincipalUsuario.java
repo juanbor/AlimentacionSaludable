@@ -540,27 +540,28 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         lblNohayConsultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCaraTriste.png"))); // NOI18N
 
         javax.swing.GroupLayout panelNoHayAlimentosLayout = new javax.swing.GroupLayout(panelNoHayAlimentos);
-        panelNoHayAlimentos.setLayout(panelNoHayAlimentosLayout);
         panelNoHayAlimentosLayout.setHorizontalGroup(
-            panelNoHayAlimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNoHayAlimentosLayout.createSequentialGroup()
-                .addContainerGap(149, Short.MAX_VALUE)
-                .addGroup(panelNoHayAlimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNohayConsultasTexto)
-                    .addGroup(panelNoHayAlimentosLayout.createSequentialGroup()
-                        .addGap(210, 210, 210)
-                        .addComponent(lblNohayConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(85, 85, 85))
+          panelNoHayAlimentosLayout.createParallelGroup(Alignment.TRAILING)
+            .addGroup(panelNoHayAlimentosLayout.createSequentialGroup()
+              .addContainerGap(106, Short.MAX_VALUE)
+              .addGroup(panelNoHayAlimentosLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(panelNoHayAlimentosLayout.createSequentialGroup()
+                  .addComponent(lblNohayConsultasTexto)
+                  .addGap(85))
+                .addGroup(Alignment.TRAILING, panelNoHayAlimentosLayout.createSequentialGroup()
+                  .addComponent(lblNohayConsultas, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+                  .addGap(322))))
         );
         panelNoHayAlimentosLayout.setVerticalGroup(
-            panelNoHayAlimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelNoHayAlimentosLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(panelNoHayAlimentosLayout.createSequentialGroup()
-                .addGap(266, 266, 266)
-                .addComponent(lblNohayConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNohayConsultasTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(327, Short.MAX_VALUE))
+              .addGap(266)
+              .addComponent(lblNohayConsultas, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+              .addPreferredGap(ComponentPlacement.RELATED)
+              .addComponent(lblNohayConsultasTexto, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+              .addContainerGap(327, Short.MAX_VALUE))
         );
+        panelNoHayAlimentos.setLayout(panelNoHayAlimentosLayout);
 
         panelDerecho.add(panelNoHayAlimentos, "card2");
 
@@ -593,11 +594,11 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
         lblNohayConsultasTexto3.setForeground(new java.awt.Color(255, 255, 255));
         lblNohayConsultasTexto3.setText("No hay conversaciones creadas");
         panelNoHayConversacionesCreadas.add(lblNohayConsultasTexto3);
-        lblNohayConsultasTexto3.setBounds(80, 350, 634, 77);
+        lblNohayConsultasTexto3.setBounds(80, 350, 655, 77);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCaraTriste.png"))); // NOI18N
         panelNoHayConversacionesCreadas.add(jLabel2);
-        jLabel2.setBounds(330, 220, 110, 130);
+        jLabel2.setBounds(359, 220, 110, 130);
 
         lblNohayProfesionales.setBackground(new java.awt.Color(51, 51, 51));
         lblNohayProfesionales.setFont(new java.awt.Font("Century Gothic", 1, 40)); // NOI18N
@@ -783,13 +784,13 @@ public class VentanaMenuPrincipalUsuario extends javax.swing.JDialog {
 
         lblNohayConsultas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoOK.png"))); // NOI18N
         panelIngestaRegistradaCorrectamente.add(lblNohayConsultas1);
-        lblNohayConsultas1.setBounds(300, 200, 104, 104);
+        lblNohayConsultas1.setBounds(384, 215, 104, 104);
 
         lblNohayConsultasTexto1.setFont(new java.awt.Font("Century Gothic", 1, 40)); // NOI18N
         lblNohayConsultasTexto1.setForeground(new java.awt.Color(255, 255, 255));
         lblNohayConsultasTexto1.setText("Ingesta registrada");
         panelIngestaRegistradaCorrectamente.add(lblNohayConsultasTexto1);
-        lblNohayConsultasTexto1.setBounds(190, 340, 360, 50);
+        lblNohayConsultasTexto1.setBounds(242, 342, 415, 50);
 
         panelDerecho.add(panelIngestaRegistradaCorrectamente, "card10");
 
