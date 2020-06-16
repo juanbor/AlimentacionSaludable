@@ -18,6 +18,28 @@
 *.zip
 *.tar.gz
 *.rar
+Sistema.data
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+build/classes/.netbeans_automatic_build
+build/classes/.netbeans_update_resources
+nbproject/private/private.properties
+nbproject/private/private.xml
+/dist/
+build/built-jar.properties
+sonar-project.properties
+.scannerwork/.sonar_lock
+.scannerwork/report-task.txt
+.jacocoverage/
+build/test/results/TEST-dominio.UsuarioTest.xml
+build/test/results/TEST-dominio.PlanAlimentacionTest.xml
+build/test/results/TEST-dominio.InformacionMensajeTest.xml
+build/test/results/TEST-dominio.ComposicionAlimentoTest.xml
+build/test/classes/dominio/desktop.ini
+build/test/results/TEST-dominio.ProfesionalTest.xml
+build/test/results/TEST-dominio.IngestaTest.xml
+build/test/results/TEST-dominio.ConversacionTest.xml
+build/test/classes/desktop.ini
+build/test/results/TEST-dominio.SistemaTest.xml
+build/test/results/TEST-dominio.AlimentoTest.xml

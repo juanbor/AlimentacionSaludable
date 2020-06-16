@@ -1,6 +1,7 @@
 package dominio;
 
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import org.junit.Test;
@@ -96,5 +97,20 @@ public class AlimentoTest {
         boolean sonIguales = alimentoTest.equals(alimentoTest2);
         assertFalse(sonIguales);
     }
+    
+    @Test
+    public void testSetFotoNotNull(){
+        Alimento alimentoTest = new Alimento("Papa", "", null, null);
+        alimentoTest.setFotoDelAlimento(new ImageIcon(getClass().getResource("/Imagenes/fotoDelAlimentoEstandar.png")));
+        assertEquals(new ImageIcon(getClass().getResource("/Imagenes/fotoDelAlimentoEstandar.png")).getImage(), alimentoTest.getFotoDelAlimento().getImage());
+    }
+    
+    @Test (expected = NullPointerException.class)
+    public void testEqualsNull(){
+        Alimento alimento1 = new Alimento("", "", null, null);
+        Alimento alimento2 = null;
+        boolean eq = alimento1.equals(alimento2);
+    }
+    
 
 }

@@ -2,16 +2,17 @@ package dominio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 public final class Conversacion implements Serializable {
 
-    private ArrayList<InformacionMensaje> listaMensajes;
+    private List<InformacionMensaje> listaMensajes;
     public Persona usuario;
     public Persona profesional;
     private boolean fueAtendidaConsulta;
 
-    public Conversacion(Persona user, Persona pr, ArrayList<InformacionMensaje> lista) {
+    public Conversacion(Persona user, Persona pr, List<InformacionMensaje> lista) {
         setUsuario(user);
         setProfesional(pr);
         setListaMensajes(lista);
@@ -26,11 +27,11 @@ public final class Conversacion implements Serializable {
         this.fueAtendidaConsulta = fueAtendida;
     }
 
-    public ArrayList<InformacionMensaje> getListaMensajes() {
+    public List<InformacionMensaje> getListaMensajes() {
         return this.listaMensajes;
     }
 
-    public void setListaMensajes(ArrayList<InformacionMensaje> lista) {
+    public void setListaMensajes(List<InformacionMensaje> lista) {
         if (lista == null || lista.isEmpty()) {
             this.listaMensajes = new ArrayList<>();
         } else {
@@ -44,7 +45,7 @@ public final class Conversacion implements Serializable {
 
     public void setUsuario(Persona unUsuario) {
         if (unUsuario == null) {
-            this.usuario = new Usuario(null, null, null, null, null, null, null, null);
+            this.usuario = new Usuario(null, null, null, null);
         } else {
             this.usuario = unUsuario;
         }
@@ -68,13 +69,19 @@ public final class Conversacion implements Serializable {
             informacion.intercambiarRemitente();
         }
         listaMensajes.add(informacion);
-        boolean agregueMensaje = true;
-        return agregueMensaje;
+        return true;
     }
 
     @Override
     public boolean equals(Object obj) {
-        final Conversacion conversacionParametro = (Conversacion) obj;
+      Conversacion parcial;
+      
+      if (obj != null) {
+        parcial = (Conversacion) obj;
+      } else {
+        throw new NullPointerException("equals recibe Null");
+      }
+        final Conversacion conversacionParametro = parcial;
         return getProfesional().equals(conversacionParametro.getProfesional())
                 && getUsuario().equals(conversacionParametro.getUsuario());
     }
@@ -88,6 +95,11 @@ public final class Conversacion implements Serializable {
                     + info.getMensaje() + "\n").reduce(retorno, String::concat);
         }
         return retorno;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(listaMensajes, usuario, profesional, fueAtendidaConsulta);
     }
 
 }

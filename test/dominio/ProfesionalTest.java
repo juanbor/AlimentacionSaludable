@@ -6,8 +6,6 @@ import org.junit.Test;
 
 public class ProfesionalTest {
 
-    public ProfesionalTest() {
-    }
 
     @Test
     public void testGetsSetsDatosCorrectosGraduacion() {
@@ -81,6 +79,7 @@ public class ProfesionalTest {
         assertEquals(prof.toString(), toStringEperado);
     }
 
+    @Test
     public void testToStringDatosVacios() {
         String nombre = "";
         String apellido = "";

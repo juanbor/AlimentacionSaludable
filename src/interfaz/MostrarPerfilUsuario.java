@@ -5,6 +5,7 @@ import dominio.Ingesta;
 import dominio.Sistema;
 import dominio.Usuario;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MostrarPerfilUsuario extends javax.swing.JDialog {
 
@@ -21,11 +22,11 @@ public class MostrarPerfilUsuario extends javax.swing.JDialog {
         this.lblFechaNacimientoUsuario.setText(usuarioPerfil.getFechaNacimiento());
         this.lblFotoDeUsuario.setIcon(usuarioPerfil.getFotoDePerfil());
         if (usuarioPerfil.getArrayAlimentosIngeridos().length > 0) {
-            ArrayList <Ingesta> ingeridos = usuarioPerfil.getAlimentosIngeridos();
-            ArrayList <String> listaASetear = new ArrayList <>();
+            List <Ingesta> ingeridos = usuarioPerfil.getAlimentosIngeridos();
+            List <String> listaASetear = new ArrayList <>();
             for (int i = 0; i < ingeridos.size(); i++) {
                 Ingesta ingestaActual = ingeridos.get(i);
-                ArrayList <Alimento> alimentosActuales = ingestaActual.getListaAlimentosPorFecha();
+                List <Alimento> alimentosActuales = ingestaActual.getListaAlimentosPorFecha();
                 for (int j = 0; j < alimentosActuales.size(); j++) {
                     listaASetear.add(alimentosActuales.get(i).toString());
                 }

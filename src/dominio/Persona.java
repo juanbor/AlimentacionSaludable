@@ -1,7 +1,7 @@
 package dominio;
 
-import java.util.Objects;
 import java.io.Serializable;
+
 import javax.swing.ImageIcon;
 
 public abstract class Persona implements Serializable {
@@ -10,13 +10,21 @@ public abstract class Persona implements Serializable {
     private String apellido;
     private String fechaNacimiento;
     public ImageIcon fotoDePerfil;
+    private String passwordKey;
+    private String mail;
+
+    public static String surnameError = "Apellido no ingresado";
+    public static String nameError = "Nombre no ingresado";
 
     public String getNombre() {
         return this.nombre;
     }
 
     public void setNombre(String unNombre) {
-        this.nombre = unNombre;
+        if(unNombre != null && !unNombre.isEmpty())
+            this.nombre = unNombre;
+        else 
+            this.nombre = nameError;
     }
 
     public String getApellido() {
@@ -25,7 +33,7 @@ public abstract class Persona implements Serializable {
 
     public void setApellido(String unApellido) {
         if (unApellido == null || unApellido.isEmpty()) {
-            this.apellido = "Apellido no ingresado";
+            this.apellido = surnameError;
         } else {
             this.apellido = unApellido;
         }
@@ -57,16 +65,37 @@ public abstract class Persona implements Serializable {
 
     public String getNombreCompleto() {
         String retorno;
-        if (getNombre().equals("Nombre no ingresado") && getApellido().equals("Apellido no ingresado")) {
-            retorno = "Nombre no ingresado";
-        } else if (getNombre().equals("Nombre no ingresado")) {
-            retorno = getApellido();
-        } else if (getApellido().equals("Apellido no ingresado")) {
-            retorno = getNombre();
+        if (getNombre().equals(nameError) && getApellido().equals(surnameError)) {
+            retorno = nameError;
         } else {
-            retorno = getNombre() + " " + getApellido();
+            if (!getNombre().equals(nameError)) {
+                if (getApellido().equals(surnameError)) {
+                    retorno = getNombre();
+                } else {
+                    retorno = getNombre() + " " + getApellido();
+                }
+            } else {
+                retorno = getApellido();
+            }
         }
         return retorno;
+    }
+
+    public String getPasswordKey() {
+      return passwordKey;
+    }
+
+    public void setPasswordKey(String passwordKey) {
+      this.passwordKey = passwordKey;
+    }
+    
+
+    public String getMail() {
+      return mail;
+    }
+
+    public void setMail(String mail) {
+      this.mail = mail;
     }
 
     @Override
@@ -76,7 +105,14 @@ public abstract class Persona implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        Persona otraPersona = (Persona) obj;
+        Persona otraPersona;
+
+        if (obj != null) {
+            otraPersona = (Persona) obj;
+        } else {
+            throw new NullPointerException("equals recibe Null");
+        }
+
         return this.getNombreCompleto().equals(otraPersona.getNombreCompleto());
     }
 }

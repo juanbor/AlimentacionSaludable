@@ -6,11 +6,17 @@ import dominio.Ingesta;
 import dominio.Profesional;
 import dominio.Sistema;
 import dominio.Usuario;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
 
@@ -21,6 +27,8 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
     private String diaDeLaSemanaAnterior;
     private String diaDeLaSemanaActual;
     private final String[][] planAlimentacion;
+    
+    public static String STARTING_DAY = "Lunes";
 
     public VentanaMenuPrincipalProfesional(Sistema unSistema) {
         initComponents();
@@ -29,9 +37,9 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         ocultarPaneles();
         this.panelVacio.setVisible(true);
         this.nutrientesSeleccionados = new boolean[7];
-        this.diaDeLaSemanaAnterior = "Lunes";
+        this.diaDeLaSemanaAnterior = STARTING_DAY;
         this.planAlimentacion = new String[7][3];
-        this.diaDeLaSemanaActual = "Lunes";
+        this.diaDeLaSemanaActual = STARTING_DAY;
         this.fotoDeAlimentoActual = new ImageIcon(getClass().getResource("/Imagenes/fotoDelAlimentoEstandar.png"));
         lblValidarTipoAlimento.setVisible(false);
         lblValidarNombre.setVisible(false);
@@ -39,6 +47,16 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         lblDatosIncorrectos2.setVisible(false);
         ocultarPrincipalesNutrientes();
         this.panelVacio.setVisible(true);
+        
+        addWindowListener(new WindowAdapter() {
+
+            @Override
+
+            public void windowClosing(WindowEvent e) {
+                sistema.guardarDatosSistema();
+                System.exit(0);
+
+            }});
     }
 
     public Sistema getSistema() {
@@ -135,8 +153,10 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         panelPlanAlimentacion = new javax.swing.JPanel();
         panelIzquierdo = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
+        jScrollPane4.setBounds(31, 61, 183, 424);
         listaPlanesPendientes = new javax.swing.JList<>();
         lblElijaUnUsuario = new javax.swing.JLabel();
+        lblElijaUnUsuario.setBounds(41, 29, 219, 20);
         panelDatosUsuario = new javax.swing.JPanel();
         lblFotoUsuario = new javax.swing.JLabel();
         lblNombreUsuario1 = new javax.swing.JLabel();
@@ -204,7 +224,6 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1060, 800));
         setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-        setUndecorated(true);
         setResizable(false);
         setSize(new java.awt.Dimension(1060, 800));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -339,7 +358,7 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
                 .addComponent(lblIngresarAlimento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblIngresarAlimento2)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         panelDerecho.setBackground(new java.awt.Color(51, 51, 51));
@@ -393,27 +412,27 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         lblNohayPlanesTexto1.setForeground(new java.awt.Color(255, 255, 255));
         lblNohayPlanesTexto1.setText("No hay planes de");
         panelNoHayPlanesPendientes.add(lblNohayPlanesTexto1);
-        lblNohayPlanesTexto1.setBounds(200, 260, 344, 77);
+        lblNohayPlanesTexto1.setBounds(220, 257, 450, 77);
 
         lblNoHayAlimentosIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoCaraTriste.png"))); // NOI18N
         panelNoHayPlanesPendientes.add(lblNoHayAlimentosIcono);
-        lblNoHayAlimentosIcono.setBounds(300, 130, 137, 124);
+        lblNoHayAlimentosIcono.setBounds(367, 137, 137, 124);
 
         lblNohayConsultasTexto2.setFont(new java.awt.Font("Century Gothic", 1, 40)); // NOI18N
         lblNohayConsultasTexto2.setForeground(new java.awt.Color(255, 255, 255));
         lblNohayConsultasTexto2.setText("alimentación pendientes");
         panelNoHayPlanesPendientes.add(lblNohayConsultasTexto2);
-        lblNohayConsultasTexto2.setBounds(128, 336, 487, 77);
+        lblNohayConsultasTexto2.setBounds(156, 304, 553, 77);
 
         lblNoHayAlimentos.setFont(new java.awt.Font("Century Gothic", 1, 40)); // NOI18N
         lblNoHayAlimentos.setForeground(new java.awt.Color(255, 255, 255));
         lblNoHayAlimentos.setText("No hay alimentos registrados");
         panelNoHayPlanesPendientes.add(lblNoHayAlimentos);
-        lblNoHayAlimentos.setBounds(90, 300, 610, 77);
+        lblNoHayAlimentos.setBounds(113, 372, 610, 77);
 
         lblNohayPlanesIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoOK.png"))); // NOI18N
         panelNoHayPlanesPendientes.add(lblNohayPlanesIcono);
-        lblNohayPlanesIcono.setBounds(300, 110, 137, 124);
+        lblNohayPlanesIcono.setBounds(357, 121, 137, 124);
 
         panelDerecho.add(panelNoHayPlanesPendientes, "card3");
 
@@ -430,28 +449,28 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         lblNohayConsultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconoOK.png"))); // NOI18N
 
         javax.swing.GroupLayout panelNoHayConsultasPendientesLayout = new javax.swing.GroupLayout(panelNoHayConsultasPendientes);
-        panelNoHayConsultasPendientes.setLayout(panelNoHayConsultasPendientesLayout);
         panelNoHayConsultasPendientesLayout.setHorizontalGroup(
-            panelNoHayConsultasPendientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelNoHayConsultasPendientesLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(panelNoHayConsultasPendientesLayout.createSequentialGroup()
-                .addGroup(panelNoHayConsultasPendientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelNoHayConsultasPendientesLayout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(lblNohayConsultasTexto))
-                    .addGroup(panelNoHayConsultasPendientesLayout.createSequentialGroup()
-                        .addGap(305, 305, 305)
-                        .addComponent(lblNohayConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+              .addContainerGap(112, Short.MAX_VALUE)
+              .addGroup(panelNoHayConsultasPendientesLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(Alignment.TRAILING, panelNoHayConsultasPendientesLayout.createSequentialGroup()
+                  .addComponent(lblNohayConsultasTexto)
+                  .addGap(94))
+                .addGroup(Alignment.TRAILING, panelNoHayConsultasPendientesLayout.createSequentialGroup()
+                  .addComponent(lblNohayConsultas, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+                  .addGap(312))))
         );
         panelNoHayConsultasPendientesLayout.setVerticalGroup(
-            panelNoHayConsultasPendientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNoHayConsultasPendientesLayout.createSequentialGroup()
-                .addGap(134, 134, 134)
-                .addComponent(lblNohayConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(lblNohayConsultasTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+          panelNoHayConsultasPendientesLayout.createParallelGroup(Alignment.TRAILING)
+            .addGroup(Alignment.LEADING, panelNoHayConsultasPendientesLayout.createSequentialGroup()
+              .addGap(149)
+              .addComponent(lblNohayConsultas, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+              .addGap(18)
+              .addComponent(lblNohayConsultasTexto, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+              .addContainerGap(432, Short.MAX_VALUE))
         );
+        panelNoHayConsultasPendientes.setLayout(panelNoHayConsultasPendientesLayout);
 
         panelDerecho.add(panelNoHayConsultasPendientes, "card3");
 
@@ -552,45 +571,46 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         lblVerPerfilUsuario.setText("Ver perfil de usuario");
 
         javax.swing.GroupLayout panelConversacionLayout = new javax.swing.GroupLayout(panelConversacion);
-        panelConversacion.setLayout(panelConversacionLayout);
         panelConversacionLayout.setHorizontalGroup(
-            panelConversacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelConversacionLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(panelConversacionLayout.createSequentialGroup()
-                .addGroup(panelConversacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(panelConversacionLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(panelConversacionLayout.createSequentialGroup()
+                  .addContainerGap()
+                  .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 304, GroupLayout.PREFERRED_SIZE)
+                  .addGap(30)
+                  .addComponent(btnEnviarMensaje, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelConversacionLayout.createSequentialGroup()
+                  .addContainerGap()
+                  .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 372, GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelConversacionLayout.createSequentialGroup()
+                  .addGap(126)
+                  .addGroup(panelConversacionLayout.createParallelGroup(Alignment.LEADING)
+                    .addComponent(lblVerPerfilUsuario)
                     .addGroup(panelConversacionLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnEnviarMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelConversacionLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelConversacionLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(lblVerPerfilUsuario))
-                    .addGroup(panelConversacionLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(btnVerPerfilDeUsuario)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                      .addGap(16)
+                      .addComponent(btnVerPerfilDeUsuario)))))
+              .addContainerGap(37, Short.MAX_VALUE))
         );
         panelConversacionLayout.setVerticalGroup(
-            panelConversacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelConversacionLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(panelConversacionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnVerPerfilDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblVerPerfilUsuario)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelConversacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConversacionLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConversacionLayout.createSequentialGroup()
-                        .addComponent(btnEnviarMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))))
+              .addGap(12)
+              .addComponent(btnVerPerfilDeUsuario, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+              .addPreferredGap(ComponentPlacement.RELATED)
+              .addComponent(lblVerPerfilUsuario)
+              .addPreferredGap(ComponentPlacement.UNRELATED)
+              .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 322, GroupLayout.PREFERRED_SIZE)
+              .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addGroup(panelConversacionLayout.createParallelGroup(Alignment.TRAILING)
+                .addGroup(panelConversacionLayout.createSequentialGroup()
+                  .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+                  .addGap(23))
+                .addGroup(panelConversacionLayout.createSequentialGroup()
+                  .addComponent(btnEnviarMensaje, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+                  .addGap(59))))
         );
+        panelConversacion.setLayout(panelConversacionLayout);
 
         javax.swing.GroupLayout panelConversacionOkLayout = new javax.swing.GroupLayout(panelConversacionOk);
         panelConversacionOk.setLayout(panelConversacionOkLayout);
@@ -620,40 +640,41 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         );
 
         javax.swing.GroupLayout panelConsultaConProfesionalLayout = new javax.swing.GroupLayout(panelConsultaConProfesional);
-        panelConsultaConProfesional.setLayout(panelConsultaConProfesionalLayout);
         panelConsultaConProfesionalLayout.setHorizontalGroup(
-            panelConsultaConProfesionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelConsultaConProfesionalLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(panelConsultaConProfesionalLayout.createSequentialGroup()
-                .addGap(20, 20, Short.MAX_VALUE)
-                .addGroup(panelConsultaConProfesionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConsultaConProfesionalLayout.createSequentialGroup()
-                        .addComponent(lblFotoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(120, 120, 120))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConsultaConProfesionalLayout.createSequentialGroup()
-                        .addGroup(panelConsultaConProfesionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(panelConversacionOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+              .addContainerGap(20, Short.MAX_VALUE)
+              .addGroup(panelConsultaConProfesionalLayout.createParallelGroup(Alignment.TRAILING)
+                .addComponent(jScrollPane3, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE))
+              .addGap(18)
+              .addComponent(panelConversacionOk, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelConsultaConProfesionalLayout.createSequentialGroup()
+              .addGap(232)
+              .addComponent(lblFotoProfesional, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+              .addPreferredGap(ComponentPlacement.UNRELATED)
+              .addComponent(lblNombreUsuario, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
+              .addContainerGap(317, Short.MAX_VALUE))
         );
         panelConsultaConProfesionalLayout.setVerticalGroup(
-            panelConsultaConProfesionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelConsultaConProfesionalLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(panelConsultaConProfesionalLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(panelConsultaConProfesionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFotoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(panelConsultaConProfesionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelConsultaConProfesionalLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelConversacionOk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+              .addGap(18)
+              .addGroup(panelConsultaConProfesionalLayout.createParallelGroup(Alignment.LEADING)
+                .addComponent(lblFotoProfesional, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelConsultaConProfesionalLayout.createSequentialGroup()
+                  .addGap(20)
+                  .addComponent(lblNombreUsuario, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)))
+              .addGap(29)
+              .addGroup(panelConsultaConProfesionalLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(panelConsultaConProfesionalLayout.createSequentialGroup()
+                  .addComponent(jLabel1)
+                  .addPreferredGap(ComponentPlacement.RELATED)
+                  .addComponent(jScrollPane3, GroupLayout.PREFERRED_SIZE, 424, GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelConversacionOk, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+              .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        panelConsultaConProfesional.setLayout(panelConsultaConProfesionalLayout);
 
         panelDerecho.add(panelConsultaConProfesional, "card4");
 
@@ -666,7 +687,7 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         lblElaborarNuevoPlan.setForeground(new java.awt.Color(255, 255, 255));
         lblElaborarNuevoPlan.setText("Elaborar plan ");
         panelElaborarPlan.add(lblElaborarNuevoPlan);
-        lblElaborarNuevoPlan.setBounds(30, 11, 403, 91);
+        lblElaborarNuevoPlan.setBounds(195, 17, 439, 91);
 
         lblComida.setFont(new java.awt.Font("Century Gothic", 1, 25)); // NOI18N
         lblComida.setForeground(new java.awt.Color(255, 255, 255));
@@ -937,30 +958,6 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         lblElijaUnUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lblElijaUnUsuario.setText("Elija un usuario:");
 
-        javax.swing.GroupLayout panelIzquierdoLayout = new javax.swing.GroupLayout(panelIzquierdo);
-        panelIzquierdo.setLayout(panelIzquierdoLayout);
-        panelIzquierdoLayout.setHorizontalGroup(
-            panelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelIzquierdoLayout.createSequentialGroup()
-                .addGroup(panelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelIzquierdoLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(lblElijaUnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelIzquierdoLayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelIzquierdoLayout.setVerticalGroup(
-            panelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelIzquierdoLayout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(lblElijaUnUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
-
         panelDatosUsuario.setBackground(new java.awt.Color(51, 51, 51));
         panelDatosUsuario.setMaximumSize(new java.awt.Dimension(300, 130));
         panelDatosUsuario.setMinimumSize(new java.awt.Dimension(300, 130));
@@ -1120,39 +1117,39 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
                     .addGroup(panelPerfilDeUsuarioLayout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(lblElaborarPlan)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelPlanAlimentacionLayout = new javax.swing.GroupLayout(panelPlanAlimentacion);
-        panelPlanAlimentacion.setLayout(panelPlanAlimentacionLayout);
         panelPlanAlimentacionLayout.setHorizontalGroup(
-            panelPlanAlimentacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelPlanAlimentacionLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(panelPlanAlimentacionLayout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addComponent(panelIzquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(panelPlanAlimentacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPlanAlimentacionLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(panelDatosUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPlanAlimentacionLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelPerfilDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+              .addGroup(panelPlanAlimentacionLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(panelPlanAlimentacionLayout.createSequentialGroup()
+                  .addGap(2)
+                  .addComponent(panelIzquierdo, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(ComponentPlacement.RELATED)
+                  .addComponent(panelPerfilDeUsuario, GroupLayout.PREFERRED_SIZE, 561, GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelPlanAlimentacionLayout.createSequentialGroup()
+                  .addGap(146)
+                  .addComponent(panelDatosUsuario, GroupLayout.PREFERRED_SIZE, 487, GroupLayout.PREFERRED_SIZE)))
+              .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPlanAlimentacionLayout.setVerticalGroup(
-            panelPlanAlimentacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelPlanAlimentacionLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(panelPlanAlimentacionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelPlanAlimentacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelPlanAlimentacionLayout.createSequentialGroup()
-                        .addComponent(panelIzquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelPlanAlimentacionLayout.createSequentialGroup()
-                        .addComponent(panelDatosUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(panelPerfilDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE))))
+              .addGap(12)
+              .addComponent(panelDatosUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+              .addPreferredGap(ComponentPlacement.UNRELATED)
+              .addGroup(panelPlanAlimentacionLayout.createParallelGroup(Alignment.LEADING)
+                .addComponent(panelIzquierdo, GroupLayout.PREFERRED_SIZE, 539, GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelPerfilDeUsuario, GroupLayout.PREFERRED_SIZE, 641, GroupLayout.PREFERRED_SIZE))
+              .addContainerGap(5, Short.MAX_VALUE))
         );
+        panelIzquierdo.setLayout(null);
+        panelIzquierdo.add(lblElijaUnUsuario);
+        panelIzquierdo.add(jScrollPane4);
+        panelPlanAlimentacion.setLayout(panelPlanAlimentacionLayout);
 
         panelDerecho.add(panelPlanAlimentacion, "card4");
 
@@ -1174,28 +1171,28 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         lblNohayPlanesTexto2.setText("Alimento registrado");
 
         javax.swing.GroupLayout panelAlimentroRegistradoCorrectamenteLayout = new javax.swing.GroupLayout(panelAlimentroRegistradoCorrectamente);
-        panelAlimentroRegistradoCorrectamente.setLayout(panelAlimentroRegistradoCorrectamenteLayout);
         panelAlimentroRegistradoCorrectamenteLayout.setHorizontalGroup(
-            panelAlimentroRegistradoCorrectamenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelAlimentroRegistradoCorrectamenteLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(panelAlimentroRegistradoCorrectamenteLayout.createSequentialGroup()
-                .addGroup(panelAlimentroRegistradoCorrectamenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelAlimentroRegistradoCorrectamenteLayout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(lblNohayPlanesTexto2))
-                    .addGroup(panelAlimentroRegistradoCorrectamenteLayout.createSequentialGroup()
-                        .addGap(310, 310, 310)
-                        .addComponent(lblNoPlanes2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(237, Short.MAX_VALUE))
+              .addContainerGap(202, Short.MAX_VALUE)
+              .addGroup(panelAlimentroRegistradoCorrectamenteLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(Alignment.TRAILING, panelAlimentroRegistradoCorrectamenteLayout.createSequentialGroup()
+                  .addComponent(lblNohayPlanesTexto2)
+                  .addGap(186))
+                .addGroup(Alignment.TRAILING, panelAlimentroRegistradoCorrectamenteLayout.createSequentialGroup()
+                  .addComponent(lblNoPlanes2, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+                  .addGap(309))))
         );
         panelAlimentroRegistradoCorrectamenteLayout.setVerticalGroup(
-            panelAlimentroRegistradoCorrectamenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelAlimentroRegistradoCorrectamenteLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(panelAlimentroRegistradoCorrectamenteLayout.createSequentialGroup()
-                .addGap(137, 137, 137)
-                .addComponent(lblNoPlanes2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(lblNohayPlanesTexto2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(432, Short.MAX_VALUE))
+              .addGap(161)
+              .addComponent(lblNoPlanes2, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+              .addPreferredGap(ComponentPlacement.RELATED)
+              .addComponent(lblNohayPlanesTexto2, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+              .addContainerGap(432, Short.MAX_VALUE))
         );
+        panelAlimentroRegistradoCorrectamente.setLayout(panelAlimentroRegistradoCorrectamenteLayout);
 
         panelNuevoAlimento.add(panelAlimentroRegistradoCorrectamente);
         panelAlimentroRegistradoCorrectamente.setBounds(0, 0, 800, 800);
@@ -1993,11 +1990,11 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         lblFechaNacimiento.setText(usuarioPerfil.getFechaNacimiento());
         lblFotoDeUsuario.setIcon(usuarioPerfil.getFotoDePerfil());
         if (usuarioPerfil.getArrayAlimentosIngeridos().length > 0) {
-            ArrayList<Ingesta> ingeridos = usuarioPerfil.getAlimentosIngeridos();
-            ArrayList<String> listaASetear = new ArrayList<>();
+            List<Ingesta> ingeridos = usuarioPerfil.getAlimentosIngeridos();
+            List<String> listaASetear = new ArrayList<>();
             for (int i = 0; i < ingeridos.size(); i++) {
                 Ingesta ingestaActual = ingeridos.get(i);
-                ArrayList<Alimento> alimentosActuales = ingestaActual.getListaAlimentosPorFecha();
+                List<Alimento> alimentosActuales = ingestaActual.getListaAlimentosPorFecha();
                 for (int j = 0; j < alimentosActuales.size(); j++) {
                     listaASetear.add(alimentosActuales.get(i).toString());
                 }
@@ -2023,7 +2020,7 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
         cargarListaDiasDeLaSemana();
         cargarListaIngestasPorDia();
         this.listaAlimentosEnSistema.setListData(sistema.getListaAlimentos().toArray());
-        this.lblNombreDelDia.setText("Lunes");
+        this.lblNombreDelDia.setText(STARTING_DAY);
         this.panelElaborarPlan.setVisible(true);
         this.listaAlimentosEnSistema.setSelectedIndex(0);
     }//GEN-LAST:event_btnElaborarPlanActionPerformed
@@ -2557,7 +2554,7 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
 
     private void cargarListaDiasDeLaSemana() {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-        ArrayList<String> diasEnSistema = sistema.devolverListaDiasDeLaSemana();
+        List<String> diasEnSistema = sistema.devolverListaDiasDeLaSemana();
         this.listaDiasDeLaSemana.setModel(modelo);
         for (int i = 0; i < diasEnSistema.size(); i++) {
             this.listaDiasDeLaSemana.addItem(diasEnSistema.get(i));
@@ -2566,7 +2563,7 @@ public final class VentanaMenuPrincipalProfesional extends javax.swing.JDialog {
 
     private void cargarListaIngestasPorDia() {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-        ArrayList<String> ingestasEnSistema = sistema.devolverListaIngestasDeLaSemana();
+        List<String> ingestasEnSistema = sistema.devolverListaIngestasDeLaSemana();
         this.listaComidasPlan.setModel(modelo);
         for (int i = 0; i < ingestasEnSistema.size(); i++) {
             this.listaComidasPlan.addItem(ingestasEnSistema.get(i));

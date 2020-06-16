@@ -82,7 +82,7 @@ public class VentanaEditarRestricciones extends javax.swing.JDialog {
         lblEditar.setForeground(new java.awt.Color(255, 255, 255));
         lblEditar.setText("Editar");
         panelEditarRestricciones.add(lblEditar);
-        lblEditar.setBounds(110, 20, 137, 71);
+        lblEditar.setBounds(110, 20, 303, 71);
 
         lblTxtRestricciones.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
         lblTxtRestricciones.setForeground(new java.awt.Color(255, 255, 255));
@@ -217,10 +217,10 @@ public class VentanaEditarRestricciones extends javax.swing.JDialog {
 
     private void cargarListaRestricciones() {
         Sistema.Restricciones[] listaRestricciones = new Sistema.Restricciones[4];
-        listaRestricciones[0] = Sistema.Restricciones.Celiaquia;
-        listaRestricciones[1] = Sistema.Restricciones.Diabetes;
-        listaRestricciones[2] = Sistema.Restricciones.IntoleranciaLactosa;
-        listaRestricciones[3] = Sistema.Restricciones.Veganismo;
+        listaRestricciones[0] = Sistema.Restricciones.CELIAQUIA;
+        listaRestricciones[1] = Sistema.Restricciones.DIABETES;
+        listaRestricciones[2] = Sistema.Restricciones.INTOLERANCIALACTOSA;
+        listaRestricciones[3] = Sistema.Restricciones.VEGANISMO;
         for (int i = 0; i < listaRestricciones.length; i++) {
             if (i == 0) {
                 this.rdBtnCeliaco.setText("Celiaquía");
