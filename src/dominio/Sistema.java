@@ -71,6 +71,8 @@ public final class Sistema implements Serializable {
             }
             i++;
         }
+        
+        i = 0;
 
         while ((i < this.listaUsuarios.size())) {
             if (this.listaUsuarios.get(i).getMail().equals(mail) && ContraseniaUtils.verifyPassword(password, this.listaUsuarios.get(i).getPasswordKey(), salt)) {
@@ -94,6 +96,8 @@ public final class Sistema implements Serializable {
             }
             i++;
         }
+        
+        i = 0;
 
         while ((i < this.listaUsuarios.size()) && (!found)) {
             if (this.listaUsuarios.get(i).getMail().equals(mail)) {
