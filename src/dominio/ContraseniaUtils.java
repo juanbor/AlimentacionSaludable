@@ -1,10 +1,11 @@
 package dominio;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -13,17 +14,19 @@ public class ContraseniaUtils {
   private static final int ITERATIONS = 65536;
   private static final int KEY_LENGTH = 512;
   private static final String ALGORITHM = "PBKDF2WithHmacSHA512";
-  private static final SecureRandom RAND = new SecureRandom();
+  
+  private ContraseniaUtils(){
+      throw new IllegalStateException("Utility Class");
+  }
 
   public static Optional<String> generateSalt (final int length) {
 
     if (length < 1) {
-      System.err.println("error in generateSalt: length must be > 0");
+      Logger.getGlobal().log(Level.SEVERE, "Error generating salt");
       return Optional.empty();
     }
 
     byte[] salt = new byte[length];
-    //RAND.nextBytes(salt);
 
     return Optional.of(Base64.getEncoder().encodeToString(salt));
   }
@@ -45,7 +48,7 @@ public class ContraseniaUtils {
       return Optional.of(Base64.getEncoder().encodeToString(securePassword));
 
     } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
-      System.err.println("Exception encountered in hashPassword()");
+      Logger.getGlobal().log(Level.SEVERE, "Error hashing password "+ ex.toString());
       return Optional.empty();
 
     } finally {

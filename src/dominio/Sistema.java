@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -49,7 +48,7 @@ public final class Sistema implements Serializable {
         setListaConversaciones(new ArrayList<>());
         setListaPlanesAlimentacion(new ArrayList<>());
         setPersonaLogueada(new Usuario("Nombre", "Apellido", "",
-                                ""));
+                ""));
 
     }
 
@@ -61,54 +60,49 @@ public final class Sistema implements Serializable {
         this.personaLogueada = personaLogueada;
 
     }
-    
+
     public int setPersonaLogueadaConPassword(String mail, String password, String salt) {
-      boolean found = false;
-      int i = 0;
-      
-      while ((i < this.listaProfesionales.size()) && (!found)) {
-        if (this.listaProfesionales.get(i).getMail().equals(mail)) {
-          if (ContraseniaUtils.verifyPassword(password, this.listaProfesionales.get(i).getPasswordKey(), salt)) {
-            this.personaLogueada = (Persona)this.listaProfesionales.get(i);
-            return 1;
-          }
+        int i = 0;
+
+        while ((i < this.listaProfesionales.size())) {
+            if (this.listaProfesionales.get(i).getMail().equals(mail) && ContraseniaUtils.verifyPassword(password, this.listaProfesionales.get(i).getPasswordKey(), salt)) {
+                this.personaLogueada = (Persona) this.listaProfesionales.get(i);
+                return 1;
+            }
+            i++;
         }
-        i++;
-      }
-      
-      while ((i < this.listaUsuarios.size()) && (!found)) {
-        if (this.listaUsuarios.get(i).getMail().equals(mail)) {
-          if (ContraseniaUtils.verifyPassword(password, this.listaUsuarios.get(i).getPasswordKey(), salt)) {
-            this.personaLogueada = (Persona)this.listaUsuarios.get(i);
-            return 2;
-          }
+
+        while ((i < this.listaUsuarios.size())) {
+            if (this.listaUsuarios.get(i).getMail().equals(mail) && ContraseniaUtils.verifyPassword(password, this.listaUsuarios.get(i).getPasswordKey(), salt)) {
+                this.personaLogueada = (Persona) this.listaUsuarios.get(i);
+                return 2;
+            }
+            i++;
         }
-        i++;
-      }
-      
-      return 3;
+
+        return 3;
     }
-    
+
     public boolean existeMailEnSistema(String mail) {
-      boolean found = false;
-      
-      int i = 0;
-      
-      while ((i < this.listaProfesionales.size()) && (!found)) {
-        if (this.listaProfesionales.get(i).getMail().equals(mail)) {
-          found = true;
+        boolean found = false;
+
+        int i = 0;
+
+        while ((i < this.listaProfesionales.size()) && (!found)) {
+            if (this.listaProfesionales.get(i).getMail().equals(mail)) {
+                found = true;
+            }
+            i++;
         }
-        i++;
-      }
-      
-      while ((i < this.listaUsuarios.size()) && (!found)) {
-        if (this.listaUsuarios.get(i).getMail().equals(mail)) {
-          found = true;
+
+        while ((i < this.listaUsuarios.size()) && (!found)) {
+            if (this.listaUsuarios.get(i).getMail().equals(mail)) {
+                found = true;
+            }
+            i++;
         }
-        i++;
-      }
-      
-      return found;
+
+        return found;
     }
 
     public List<Conversacion> getListaConversaciones() {
@@ -224,29 +218,36 @@ public final class Sistema implements Serializable {
                 objetoASerializar.flush();
             }
         } catch (IOException e) {
-            Logger.getGlobal().log(Level.SEVERE,"Error guardando datos del sistema");
-            e.printStackTrace();
+            Logger.getGlobal().log(Level.SEVERE, "Error guardando datos del sistema");
         }
     }
 
     public boolean crearUsuario(String nombre, String apellido,
-            String fechaNacimiento, 
-            String nacionalidad, List<String> preferencias,
-            List<String> restricciones, List<Ingesta> alimentosIngeridos, String mail, String key) {
+            String fechaNacimiento,
+            String nacionalidad, String mail, String key) {
         Usuario usuarioNuevo;
         usuarioNuevo = new Usuario(nombre, apellido, fechaNacimiento,
                 nacionalidad);
-        usuarioNuevo.setPreferencias(preferencias);
-        usuarioNuevo.setRestricciones(restricciones);
-        usuarioNuevo.setAlimentosIngeridos(alimentosIngeridos);
+
         usuarioNuevo.setPasswordKey(key);
         usuarioNuevo.setMail(mail);
         return agregarUsuarioALaLista(usuarioNuevo);
     }
-    
-    public void cambiarFotoUsuario(String nombre, String apellido, ImageIcon foto){
-        Usuario user = listaUsuarios.stream().filter(u -> u.getApellido().equals(apellido) && u.getNombre().equals(nombre)).collect(Collectors.toList()).get(0);
+
+    public void cambiarFotoUsuario(String mail, ImageIcon foto) {
+        Usuario user = listaUsuarios.stream().filter(u -> u.getMail().equals(mail)).collect(Collectors.toList()).get(0);
         user.setFotoDePerfil(foto);
+    }
+    
+    public void agregarListasUser(String mail, List<String> preferencias, List<String> restricciones){
+        Usuario user = listaUsuarios.stream().filter(u -> u.getMail().equals(mail)).collect(Collectors.toList()).get(0);
+        user.setPreferencias(preferencias);
+        user.setRestricciones(restricciones);
+    }
+    
+    public void cambiarFotoProfesional(String mail, ImageIcon foto){
+        Profesional prof = listaProfesionales.stream().filter(p -> p.getMail().equals(mail)).collect(Collectors.toList()).get(0);
+        prof.setFotoDePerfil(foto);
     }
 
     public boolean agregarUsuarioALaLista(Usuario usuarioARegistrar) {
@@ -260,17 +261,22 @@ public final class Sistema implements Serializable {
     }
 
     public boolean crearProfesional(String nombre, String apellido,
-            String fechaNacimiento, ImageIcon fotoPerfil,
-            String tituloProfesional, String fechaGraduacion,
-            String paisGraduacion, String mail, String key) {
+            String fechaNacimiento, 
+            String tituloProfesional, String mail, String key) {
         Profesional profesionalNuevo = new Profesional(nombre, apellido,
-                fechaNacimiento, fotoPerfil, tituloProfesional,
-                fechaGraduacion, paisGraduacion);
+                fechaNacimiento, null, tituloProfesional,
+                "", "");
         profesionalNuevo.setPasswordKey(key);
         profesionalNuevo.setMail(mail);
         return agregarProfesionalALaLista(profesionalNuevo);
     }
 
+    public void setDataGraduacionProfesional(String mail, String fechaGraduacion, String paisGraduacion){
+        Profesional prof = listaProfesionales.stream().filter(p -> p.getMail().equals(mail)).collect(Collectors.toList()).get(0);
+        prof.setFechaGraduacion(fechaGraduacion);
+        prof.setPaisGraduacion(paisGraduacion);
+    }
+    
     public boolean agregarProfesionalALaLista(
             Profesional profesionalARegistrar) {
         if ((profesionalARegistrar != null)
@@ -344,9 +350,9 @@ public final class Sistema implements Serializable {
         for (int i = 0; i < getListaConversaciones().size(); i++) {
             String nombreCompleto = getListaConversaciones().get(i).getUsuario().getNombreCompleto();
             String nombreProfesional = getListaConversaciones().get(i).getProfesional().getNombreCompleto();
-            if (!nombresIngresados.contains(nombreCompleto) && 
-                    profesional.equals(nombreProfesional) && 
-                    !getListaConversaciones().get(i).getFueAtendidaConsulta()) {
+            if (!nombresIngresados.contains(nombreCompleto)
+                    && profesional.equals(nombreProfesional)
+                    && !getListaConversaciones().get(i).getFueAtendidaConsulta()) {
                 nombresIngresados.add(nombreCompleto);
             }
         }
@@ -558,28 +564,28 @@ public final class Sistema implements Serializable {
             return new String[0];
         }
     }
-    
-    public Date getLastPickedDateBirth(){
+
+    public Date getLastPickedDateBirth() {
         return lastPickedDateBirth;
     }
-    
-    public void setLastPickedDateBirth(Date pickedDate){
+
+    public void setLastPickedDateBirth(Date pickedDate) {
         lastPickedDateBirth = pickedDate;
     }
-    
-    public Date getLastPickedDateGrad(){
+
+    public Date getLastPickedDateGrad() {
         return lastPickedDateGrad;
     }
-    
-    public void setLastPickedDateGrad(Date pickedDate){
+
+    public void setLastPickedDateGrad(Date pickedDate) {
         lastPickedDateGrad = pickedDate;
     }
-    
-    public Date getLastPickedDateMeal(){
+
+    public Date getLastPickedDateMeal() {
         return lastPickedDateMeal;
     }
-    
-    public void setLastPickedDateMeal(Date pickedDate){
+
+    public void setLastPickedDateMeal(Date pickedDate) {
         lastPickedDateMeal = pickedDate;
     }
 }

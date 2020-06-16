@@ -706,8 +706,10 @@ layout.setHorizontalGroup(
           this.lblFechaGraduacionErrorImg.setVisible(true);
         } else {
             this.lblDatosIncorrectos.setVisible(false);
-            boolean seAgregoProfesional = this.getSistema().crearProfesional(nombre, apellido, fechaNacimiento, this.fotoDePerfilActual, tituloProfesional, fechaGraduacion, paisGraduacion, mail, key.get());
+            boolean seAgregoProfesional = this.getSistema().crearProfesional(nombre, apellido, fechaNacimiento, tituloProfesional, mail, key.get());
             if (seAgregoProfesional) {
+                getSistema().cambiarFotoProfesional(mail, fotoDePerfilActual);
+                getSistema().setDataGraduacionProfesional(mail, fechaGraduacion, paisGraduacion);
                 this.txtNombre.setText("");
                 this.txtApellido.setText("");
                 VentanaMenuPrincipal vPrincipal = new VentanaMenuPrincipal(sistema);
